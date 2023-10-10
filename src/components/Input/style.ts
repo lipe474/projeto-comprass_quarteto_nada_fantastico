@@ -5,7 +5,7 @@ import { Hoshi } from "react-native-textinput-effects";
 export const Container = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 `;
 
 export const InputContainer = styled(Hoshi).attrs(({ theme }) => ({
