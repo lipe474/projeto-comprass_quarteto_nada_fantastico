@@ -35,7 +35,7 @@ export const InputContainer = styled(Hoshi).attrs(({ theme }) => ({
 
   max-width: 100%;
 
-  border-radius: 6px;
+  border-radius: 12px;
 
   elevation: 1;
 `;
