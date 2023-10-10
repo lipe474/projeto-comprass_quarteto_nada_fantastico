@@ -22,8 +22,7 @@ export default {
     REGULAR: "OpenSans_400Regular",
     SEMI_BOLD: "OpenSans_600SemiBold",
     BOLD: "OpenSans_700Bold",
-    EXTRA_BOLD: "Roboto_700Bold",
-    BLACK: "OpenSans_800ExtraBold"
+    EXTRA_BOLD: "OpenSans_800ExtraBold"
   },
   FONT_SIZE: {
     XXS: 10,
