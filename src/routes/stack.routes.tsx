@@ -5,14 +5,14 @@ import {
 import { Login } from "@screens/Login";
 import { SignUp } from "@screens/SignUp";
 
-type AuthRoutes = {
+type StackRoutes = {
   login: undefined;
   signUp: undefined;
 };
 
-export type AuthProps = NativeStackNavigationProp<AuthRoutes>;
+export type StackProps = NativeStackNavigationProp<StackRoutes>;
 
-const Stack = createNativeStackNavigator<AuthRoutes>();
+const Stack = createNativeStackNavigator<StackRoutes>();
 
 export function StackRoutes() {
   return (

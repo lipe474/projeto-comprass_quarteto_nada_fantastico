@@ -16,3 +16,10 @@ export const ButtonContainer = styled.View`
   align-items: center;
   margin-top: 48px;
 `;
+
+export const ErrorText = styled.Text`
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
+  color: ${({ theme }) => theme.COLORS.RED_200};
+  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  top: -8px;
+`;
