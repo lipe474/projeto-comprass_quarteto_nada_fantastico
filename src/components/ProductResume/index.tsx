@@ -1,3 +1,4 @@
+import { ProductCount } from "@components/ProductCount";
 import { Container, ProductImage, ProductDetails, ProductName, ProductDescription, ProductPrice } from "./style";
 const Image = require("../../assets/images/productImage.png")
 
@@ -12,6 +13,7 @@ export function ProductResume() {
 
     return(
         <Container>
+            <ProductCount />
             <ProductImage source={Image}/>
             <ProductDetails>
                 <ProductName>Name</ProductName>

@@ -10,7 +10,6 @@ import { ThemeProvider } from "styled-components/native";
 
 import theme from "./src/theme";
 
-import BigBanner from "./src/components/BigBanner/index";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
