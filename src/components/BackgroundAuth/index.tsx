@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
 import { ImageBackgroundProps } from "react-native";
+import React, { ReactNode } from "react";
 import { ImageBackground } from "./style";
 
 interface BackgroundAuthProps extends ImageBackgroundProps {

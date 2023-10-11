@@ -1,4 +1,4 @@
-import { Check, X } from "phosphor-react-native";
+import { Check, X, Eye, EyeClosed } from "phosphor-react-native";
 import styled from "styled-components/native";
 import { Hoshi } from "react-native-textinput-effects";
 
@@ -10,28 +10,20 @@ export const Container = styled.View`
 
 export const InputContainer = styled(Hoshi).attrs(({ theme }) => ({
   borderHeight: 0,
-  inputPadding: 20,
-  maxWidth: "80%",
-  inputStyle: {
-    color: theme.COLORS.BLACK_900,
-    fontSize: theme.FONT_SIZE.SM,
-    fontFamily: theme.FONT_FAMILY.REGULAR,
-    bottom: 1
-  }
+  animationDuration: 700,
+  inputPadding: 16,
+  maxWidth: "80%"
 }))`
   flex: 1;
 
   min-height: 64px;
   max-height: 64px;
 
-  border-width: 1px;
+  border-width: 2px;
 
   border-color: ${({ theme }) => theme.COLORS.WHITE};
 
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-
-  text-align: left;
-  justify-content: flex-start;
 
   max-width: 100%;
 
@@ -39,6 +31,23 @@ export const InputContainer = styled(Hoshi).attrs(({ theme }) => ({
 
   elevation: 1;
 `;
+
+export const HidePasswordButton = styled.TouchableOpacity`
+  position: absolute;
+  right: 16px;
+`;
+
+export const HidePasswordIcon = styled(Eye).attrs(({ theme }) => ({
+  size: theme.FONT_SIZE.LG,
+  color: theme.COLORS.BLACK_900,
+  weight: "fill"
+}))``;
+
+export const ShowPasswordIcon = styled(EyeClosed).attrs(({ theme }) => ({
+  size: theme.FONT_SIZE.LG,
+  color: theme.COLORS.BLACK_900,
+  weight: "bold"
+}))``;
 
 export const SuccessIcon = styled(Check).attrs(({ theme }) => ({
   size: theme.FONT_SIZE.LG,
@@ -64,14 +73,4 @@ export const IconLoading = styled.ActivityIndicator.attrs(({ theme }) => ({
 }))`
   position: absolute;
   right: 20px;
-`;
-
-export const ErrorText = styled.Text`
-  color: ${({ theme }) => theme.COLORS.RED_200};
-  font-size: ${({ theme }) => theme.FONT_SIZE.XS}px;
-  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
-  margin-bottom: 2px;
-  margin-left: 3px;
-  bottom: 6px;
-  text-align: left;
 `;

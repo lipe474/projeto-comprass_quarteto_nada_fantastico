@@ -11,7 +11,17 @@ import LogoImage from "@assets/icons/logo.svg";
 import { CustomButton } from "@components/Button";
 import { TouchableText } from "@components/TouchableText";
 import { BackgroundAuth } from "@components/BackgroundAuth";
+
+import { useNavigation } from "@react-navigation/native";
+import { StackProps } from "@routes/stack.routes";
+
 export function Login() {
+  const navigation = useNavigation<StackProps>();
+
+  function handleNavigateToSignUp() {
+    navigation.navigate("signUp");
+  }
+
   return (
     <BackgroundAuth source={require("@assets/images/background.png")}>
       <Container>
@@ -30,7 +40,9 @@ export function Login() {
           </ButtonContainer>
 
           <ButtonTextContainer>
-            <TouchableText>Not have an account yet? Sign up</TouchableText>
+            <TouchableText onPress={() => handleNavigateToSignUp()}>
+              Not have an account yet? Sign up
+            </TouchableText>
             <TouchableText>I forgot my password</TouchableText>
             <TouchableText>I don't want to log in</TouchableText>
           </ButtonTextContainer>
