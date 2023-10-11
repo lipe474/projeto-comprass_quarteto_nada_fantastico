@@ -4,9 +4,10 @@ import { CaretLeft } from "phosphor-react-native";
 export const Container = styled.View`
   flex-direction: column;
   align-items: flex-start;
-  height: 104px;
-  margin-right: 16px;
-  margin-left: 16px;
+  height: auto;
+  width: 343px;
+  margin-right: auto;
+  margin-left: auto;
 `;
 
 export const Title = styled.Text`
