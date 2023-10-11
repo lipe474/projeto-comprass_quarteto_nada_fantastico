@@ -40,7 +40,8 @@ export function CustomInput({
 
   const labelStyle = {
     fontSize: isFocused || hasValue ? FONT_SIZE.XS : FONT_SIZE.SM,
-    top: isFocused || hasValue ? 10 : -2
+    top: isFocused || hasValue ? 10 : -2,
+    color: COLORS.GRAY_500
   };
 
   return (
