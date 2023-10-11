@@ -1,26 +1,8 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
-import { Dimensions } from "react-native";
-
-const windowHeight = Dimensions.get("window").height;
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${({ theme }) => theme.COLORS.BLACK_800};
-`;
-
-export const ImageBackground = styled.View`
-  width: 100%;
-  height: auto;
-  justify-content: center;
-  align-items: center;
-  z-index: -1;
-  position: absolute;
-  top: ${windowHeight / 2 - 375 / 2}px;
-`;
-
-export const Image = styled.Image`
-  width: 100%;
 `;
 
 export const ContentContainer = styled(SafeAreaView)`
