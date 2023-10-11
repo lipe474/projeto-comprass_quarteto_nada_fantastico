@@ -8,8 +8,8 @@ import {
 } from "@expo-google-fonts/open-sans";
 import { ThemeProvider } from "styled-components/native";
 
-import theme from "./src/theme";
 import { Routes } from "@routes/index";
+import theme from "./src/theme";
 
 export default function App() {
   const [fontsLoaded] = useFonts({

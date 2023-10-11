@@ -16,8 +16,11 @@
       "@hooks/*": [
         "./src/hooks/*"
       ],
-      "@requests/*": [
+      "@context/*": [
         "./src/context/*"
+      ],
+      "@requests/*": [
+        "./src/requests/*"
       ],
       "@routes/*": [
         "./src/routes/*"
