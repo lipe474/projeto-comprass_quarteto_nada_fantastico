@@ -5,19 +5,22 @@ import {
   OpenSans_400Regular,
   OpenSans_600SemiBold,
   OpenSans_700Bold,
-  OpenSans_800ExtraBold
+  OpenSans_800ExtraBold,
 } from "@expo-google-fonts/open-sans";
+
+import BigBanner from "./src/components/BigBanner/index";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
     OpenSans_400Regular,
     OpenSans_600SemiBold,
     OpenSans_700Bold,
-    OpenSans_800ExtraBold
+    OpenSans_800ExtraBold,
   });
 
   return (
     <View style={styles.container}>
+      <BigBanner showSearch />
       <Text>Open up App.tsx to start working on your app!</Text>
       <StatusBar style="auto" />
     </View>
@@ -29,6 +32,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });
