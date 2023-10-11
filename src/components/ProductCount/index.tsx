@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import { Container, ButtonMinus, ButtonPlus, PlusIcon, MinusIcon, CountIndicator } from './style';
 
 export function ProductCount() {
