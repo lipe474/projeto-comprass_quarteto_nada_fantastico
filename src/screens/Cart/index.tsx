@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { CustomButton } from "@components/Button";
 import axios from "axios";
 import { AppError } from "@utils/AppError";
+import { CartEmpty } from "@components/CartEmpty";
 
 interface Product {
   id: number;
@@ -29,7 +30,7 @@ export function Cart() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://api.escuelajs.co/api/v1/products?offset=10&limit=10"
+          "https://api.escuelajs.co/api/v1/products?offset=10&limit=3"
         );
 
         const products = response.data.map((product: Product) => ({
@@ -91,14 +92,23 @@ export function Cart() {
           />
         )}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          flexGrow: 1
+        }}
         style={{ height: "100%" }}
+        ListEmptyComponent={<CartEmpty />}
       />
       <FooterContainer>
         <FooterTextContainer>
           <FooterText>Total amount:</FooterText>
           <FooterTextPrice>{total.toFixed(2)} R$</FooterTextPrice>
         </FooterTextContainer>
-        <CustomButton title="BUY" width={343} height={48} />
+        <CustomButton
+          title="BUY"
+          width={343}
+          height={48}
+          isDisabled={products.length === 0}
+        />
       </FooterContainer>
     </ContentContainer>
   );
