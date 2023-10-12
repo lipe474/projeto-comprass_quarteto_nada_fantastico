@@ -3,6 +3,9 @@ import styled from "styled-components/native";
 export const Container = styled.TouchableOpacity`
     width: 150px;
     height: 260px;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 16px;
 `
 
 export const ProductImage = styled.Image`

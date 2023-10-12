@@ -1,24 +1,25 @@
 import { ProductCount } from "@components/ProductCount";
 import { Container, ProductImage, ProductDetails, ProductName, ProductDescription, ProductPrice } from "./style";
-const Image = require("../../assets/images/productImage.png")
 
-export function ProductResume() {
+interface Product {
+    id: number;
+    images: any;
+    title: string;
+    description: string;
+    price: number;
+}
 
-    const maxLenght: number = 32;
-    const longText: string = "Description pequena aqui e se ultrapassar o número de linhas vai limitar os caracteres";
+export function ProductResume({ product }: {product: Product}) {
 
-    const truncatedText: string = longText.length > maxLenght
-    ? longText.slice(0, maxLenght - 3) + "..."
-    : longText;
 
     return(
         <Container>
             <ProductCount />
-            <ProductImage source={Image}/>
+            <ProductImage source={{ uri: product.images[0] }}/>
             <ProductDetails>
-                <ProductName>Name</ProductName>
-                <ProductDescription numberOfLines={1}>{truncatedText}</ProductDescription>
-                <ProductPrice>30,00 R$</ProductPrice>
+                <ProductName numberOfLines={1}>{product.title}</ProductName>
+                <ProductDescription numberOfLines={1}>{product.description}</ProductDescription>
+                <ProductPrice>{product.price} R$</ProductPrice>
             </ProductDetails>
         </Container>
     )
