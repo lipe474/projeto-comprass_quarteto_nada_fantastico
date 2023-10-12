@@ -1,4 +1,4 @@
-import { Check, X, Eye, EyeClosed } from "phosphor-react-native";
+import { Check, X } from "phosphor-react-native";
 import styled from "styled-components/native";
 import { Hoshi } from "react-native-textinput-effects";
 

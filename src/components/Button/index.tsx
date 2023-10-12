@@ -26,14 +26,13 @@ export function CustomButton({
         style={{
           height: height,
           width: width,
-          backgroundColor: isDisabled ? COLORS.GRAY_900 : COLORS.RED_500,
-          opacity: isLoading ? 0.5 : 1
+          backgroundColor: isDisabled ? COLORS.GRAY_900 : COLORS.RED_500
         }}
         disabled={isLoading || isDisabled}
         {...rest}
       >
         {isLoading ? (
-          <ActivityIndicator size="small" color={COLORS.GRAY_900} />
+          <ActivityIndicator size="large" color={COLORS.WHITE} />
         ) : (
           <Title>{title}</Title>
         )}
