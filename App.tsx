@@ -1,4 +1,4 @@
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { Button, StatusBar, StyleSheet, Text, View } from "react-native";
 import {
   useFonts,
   OpenSans_400Regular,
@@ -23,6 +23,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar backgroundColor="transparent" translucent />
+      <BigBanner showSearch />
       <View style={styles.container}>
         <Text>Open up App.tsx to start working on your app!</Text>
       </View>
