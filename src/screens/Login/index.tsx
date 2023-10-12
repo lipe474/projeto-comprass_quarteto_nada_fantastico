@@ -76,6 +76,10 @@ export function Login() {
     navigation.navigate("signUp");
   }
 
+  function handleNavigateToForgotPassword() {
+    navigation.navigate("forgotPassword");
+  }
+
   return (
     <BackgroundAuth source={require("@assets/images/background.png")}>
       <Container>
@@ -126,14 +130,17 @@ export function Login() {
               width={343}
               height={48}
               onPress={handleSubmit(handleLogin)}
+              isLoading={isLoading}
             />
           </ButtonContainer>
 
           <ButtonTextContainer>
-            <TouchableText onPress={() => handleNavigateToSignUp()}>
+            <TouchableText onPress={handleNavigateToSignUp}>
               Not have an account yet? Sign up
             </TouchableText>
-            <TouchableText>I forgot my password</TouchableText>
+            <TouchableText onPress={handleNavigateToForgotPassword}>
+              I forgot my password
+            </TouchableText>
             <TouchableText>I don't want to log in</TouchableText>
           </ButtonTextContainer>
         </ContentContainer>
