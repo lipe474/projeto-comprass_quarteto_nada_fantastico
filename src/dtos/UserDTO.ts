@@ -7,3 +7,4 @@ export type UserDTO = {
 };
 
 export type CreateUserDTO = Omit<UserDTO, "id" | "avatar">;
+export type LoginUserDTO = Omit<UserDTO, "id" | "name" | "avatar">;

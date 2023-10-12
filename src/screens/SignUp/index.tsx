@@ -5,6 +5,7 @@ import {
   ContentContainer,
   ErrorText
 } from "./style";
+import { ScrollView } from "react-native";
 import Toast from "react-native-root-toast";
 import { HeaderAuth } from "@components/HeaderAuth";
 import { CustomInput } from "@components/Input";
@@ -51,8 +52,8 @@ export function SignUp() {
       navigation.navigate("login");
 
       setIsLoading(false);
-    } catch (error) {
-      let message = "Unable to create account, try later";
+    } catch (error: any) {
+      let message = error.message ?? "Unable to create account, try later";
 
       setError("root", {
         type: "manual",
@@ -72,92 +73,98 @@ export function SignUp() {
   return (
     <BackgroundAuth source={require("@assets/images/background.png")}>
       <Container>
-        <HeaderAuth
-          showBackButton
-          title="Sign Up"
-          onPress={() => handleNavigateToLogin()}
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
         >
-          Choose a really cool name that only contains spaces as special
-          characters. Oh, and your password must have more than 4 digits! :)
-        </HeaderAuth>
+          <HeaderAuth
+            showBackButton
+            title="Sign Up"
+            onPress={() => handleNavigateToLogin()}
+          >
+            Choose a really cool name that only contains spaces as special
+            characters. Oh, and your password must have more than 6 digits! :)
+          </HeaderAuth>
 
-        <ContentContainer>
-          <Controller
-            control={control}
-            name="name"
-            render={({ field: { onChange, value } }) => (
-              <CustomInput
-                label="Name"
-                keyboardType="default"
-                autoCapitalize="words"
-                onChangeText={onChange}
-                value={value}
-                errorMessage={errors.name?.message}
-              />
-            )}
-          />
+          <ContentContainer>
+            <Controller
+              control={control}
+              name="name"
+              render={({ field: { onChange, value } }) => (
+                <CustomInput
+                  label="Name"
+                  keyboardType="default"
+                  autoCapitalize="words"
+                  onChangeText={onChange}
+                  value={value}
+                  errorMessage={errors.name?.message}
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            name="email"
-            render={({ field: { onChange, value } }) => (
-              <CustomInput
-                label="Email"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                onChangeText={onChange}
-                value={value}
-                errorMessage={errors.email?.message}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="password"
-            render={({ field: { onChange, value } }) => (
-              <CustomInput
-                label="Password"
-                isPasswordField
-                onChangeText={onChange}
-                value={value}
-                errorMessage={errors.password?.message}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              name="email"
+              render={({ field: { onChange, value } }) => (
+                <CustomInput
+                  label="Email"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  onChangeText={onChange}
+                  value={value}
+                  errorMessage={errors.email?.message}
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            name="password_confirm"
-            render={({ field: { onChange, value } }) => (
-              <CustomInput
-                label="Confirm password"
-                isPasswordField
-                onChangeText={onChange}
-                value={value}
-                returnKeyType="none"
-                errorMessage={errors.password_confirm?.message}
-              />
-            )}
-          />
-        </ContentContainer>
-        {
-          <ErrorText>
-            {errors.name?.message ??
-              errors.email?.message ??
-              errors.password?.message ??
-              errors.password_confirm?.message}
-          </ErrorText>
-        }
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange, value } }) => (
+                <CustomInput
+                  label="Password"
+                  isPasswordField
+                  onChangeText={onChange}
+                  value={value}
+                  errorMessage={errors.password?.message}
+                />
+              )}
+            />
 
-        <ButtonContainer>
-          <CustomButton
-            title="SIGN UP"
-            width={343}
-            height={48}
-            onPress={handleSubmit(handleSignUp)}
-            isLoading={isLoading}
-          />
-        </ButtonContainer>
+            <Controller
+              control={control}
+              name="password_confirm"
+              render={({ field: { onChange, value } }) => (
+                <CustomInput
+                  label="Confirm password"
+                  isPasswordField
+                  onChangeText={onChange}
+                  value={value}
+                  returnKeyType="send"
+                  errorMessage={errors.password_confirm?.message}
+                />
+              )}
+            />
+          </ContentContainer>
+          {
+            <ErrorText>
+              {errors.name?.message ??
+                errors.email?.message ??
+                errors.password?.message ??
+                errors.password_confirm?.message}
+            </ErrorText>
+          }
+
+          <ButtonContainer>
+            <CustomButton
+              title="SIGN UP"
+              width={343}
+              height={48}
+              onPress={handleSubmit(handleSignUp)}
+              isLoading={isLoading}
+            />
+          </ButtonContainer>
+        </ScrollView>
       </Container>
     </BackgroundAuth>
   );
