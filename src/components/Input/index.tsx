@@ -10,9 +10,7 @@ import {
   InputContainer,
   ErrorIcon,
   IconLoading,
-  HidePasswordButton,
-  HidePasswordIcon,
-  ShowPasswordIcon
+  HidePasswordButton
 } from "./style";
 
 import EyeSVG from "@assets/icons/eye.svg";
@@ -63,7 +61,7 @@ export function CustomInput({
     color: COLORS.BLACK_900,
     fontSize: FONT_SIZE.SM,
     fontFamily: FONT_FAMILY.REGULAR,
-    fontWeight: "600",
+    fontWeight: "400",
     bottom: -2
   };
 

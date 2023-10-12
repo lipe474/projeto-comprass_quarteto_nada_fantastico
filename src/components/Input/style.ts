@@ -37,18 +37,6 @@ export const HidePasswordButton = styled.TouchableOpacity`
   right: 16px;
 `;
 
-export const HidePasswordIcon = styled(Eye).attrs(({ theme }) => ({
-  size: theme.FONT_SIZE.LG,
-  color: theme.COLORS.BLACK_900,
-  weight: "fill"
-}))``;
-
-export const ShowPasswordIcon = styled(EyeClosed).attrs(({ theme }) => ({
-  size: theme.FONT_SIZE.LG,
-  color: theme.COLORS.BLACK_900,
-  weight: "bold"
-}))``;
-
 export const SuccessIcon = styled(Check).attrs(({ theme }) => ({
   size: theme.FONT_SIZE.LG,
   color: theme.COLORS.GREEN,
