@@ -136,7 +136,7 @@ export function SignUp() {
               name="password_confirm"
               render={({ field: { onChange, value } }) => (
                 <CustomInput
-                  label="Confirm password"
+                  label="Confirm Password"
                   isPasswordField
                   onChangeText={onChange}
                   value={value}

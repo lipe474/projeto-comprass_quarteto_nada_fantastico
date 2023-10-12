@@ -25,6 +25,7 @@ type Props = TextInputProps &
     isSearch?: boolean;
     isEmailField?: boolean;
     isPasswordField?: boolean;
+    isDisabled?: boolean;
   };
 
 export function CustomInput({
@@ -37,6 +38,7 @@ export function CustomInput({
   isSearch,
   isEmailField,
   isPasswordField,
+  isDisabled,
   ...rest
 }: Props) {
   const [isFocused, setIsFocused] = useState(false);
@@ -74,12 +76,20 @@ export function CustomInput({
           inputStyle={inputStyle}
           labelStyle={labelStyle}
           style={{
-            borderColor: errorMessage ? COLORS.RED_200 : undefined
+            borderColor: errorMessage
+              ? COLORS.RED_200
+              : isDisabled
+              ? COLORS.GRAY_100
+              : formSubmitted && !errorMessage && hasValue && isEmailField
+              ? COLORS.GREEN
+              : undefined,
+            backgroundColor: isDisabled ? COLORS.GRAY_100 : COLORS.WHITE
           }}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onChangeText={onChangeText}
           value={value}
+          editable={!isDisabled}
           {...rest}
         />
         {isSearch && isEmailField ? (
@@ -93,7 +103,7 @@ export function CustomInput({
           (errorMessage && showIcon && isEmailField && <ErrorIcon />)
         )}
 
-        {isPasswordField && (
+        {isPasswordField && !isDisabled && (
           <HidePasswordButton onPress={togglePasswordVisibility}>
             {isPasswordVisible ? (
               <EyeOffSVG width={25} />
