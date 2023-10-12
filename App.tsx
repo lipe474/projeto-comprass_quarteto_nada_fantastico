@@ -10,8 +10,6 @@ import { ThemeProvider } from "styled-components/native";
 
 import { Routes } from "@routes/index";
 import theme from "./src/theme";
-import { ProductList } from "@components/ProductList";
-
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -23,7 +21,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <ProductList />
+      <Routes />
     </ThemeProvider>
   );
 }

@@ -11,7 +11,6 @@ interface Product {
 
 export function ProductResume({ product }: {product: Product}) {
 
-
     return(
         <Container>
             <ProductCount />
