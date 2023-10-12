@@ -31,6 +31,7 @@ export default {
     MD: 16,
     XMD: 18,
     LG: 24,
-    XL: 32
+    XL: 32,
+    XXL: 34
   }
 };

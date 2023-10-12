@@ -15,30 +15,37 @@ import DecreaseSVG from "@assets/icons/decrease.svg";
 import TrashSVG from "@assets/icons/trash.svg";
 
 import { useState } from "react";
-import { ImageSourcePropType } from "react-native";
+import { ImageSourcePropType, StyleSheet } from "react-native";
 
 type CartItemProps = {
   title: string;
   price: number;
   image: ImageSourcePropType;
+  quantity: number;
+  onQuantityChange: (newQuantity: number) => void;
   removeItem?: () => void;
 };
 
-export function CartItem({ title, price, image, removeItem }: CartItemProps) {
-  const [quantity, setQuantity] = useState(0);
-
+export function CartItem({
+  title,
+  price,
+  image,
+  quantity,
+  onQuantityChange,
+  removeItem
+}: CartItemProps) {
   function incrementQuantity() {
-    setQuantity(quantity + 1);
+    onQuantityChange(quantity + 1);
   }
 
   function decrementQuantity() {
     if (quantity > 0) {
-      setQuantity(quantity - 1);
+      onQuantityChange(quantity - 1);
     }
   }
 
   return (
-    <Container>
+    <Container style={style.shadow}>
       <Image source={image} resizeMode="contain" />
 
       <ContentContainer>
@@ -63,3 +70,16 @@ export function CartItem({ title, price, image, removeItem }: CartItemProps) {
     </Container>
   );
 }
+
+const style = StyleSheet.create({
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4
+  }
+});

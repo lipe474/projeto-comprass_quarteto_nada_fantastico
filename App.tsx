@@ -1,10 +1,9 @@
-import { Button, StatusBar, StyleSheet, Text, View } from "react-native";
 import {
   useFonts,
   OpenSans_400Regular,
   OpenSans_600SemiBold,
   OpenSans_700Bold,
-  OpenSans_800ExtraBold,
+  OpenSans_800ExtraBold
 } from "@expo-google-fonts/open-sans";
 import { ThemeProvider } from "styled-components/native";
 
@@ -17,16 +16,12 @@ export default function App() {
     OpenSans_400Regular,
     OpenSans_600SemiBold,
     OpenSans_700Bold,
-    OpenSans_800ExtraBold,
+    OpenSans_800ExtraBold
   });
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar backgroundColor="transparent" translucent />
-      <BigBanner showSearch />
-      <View style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-      </View>
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   );
 }

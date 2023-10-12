@@ -6,11 +6,14 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
   border-radius: 8px;
   flex-direction: row;
+  margin-bottom: 16px;
 `;
 
 export const Image = styled.Image`
   width: 104px;
   height: 104px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
 `;
 
 export const ContentContainer = styled.View`
