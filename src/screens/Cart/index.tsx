@@ -82,12 +82,12 @@ export function Cart() {
             key={item.id}
             title={item.title}
             price={item.price}
-            quantity={item.quantity} // Adicione a propriedade 'quantity' ao componente CartItem
-            image={{ uri: item.images[0] }} // Acesse a primeira imagem do array de imagens
+            quantity={item.quantity}
+            image={{ uri: item.images[0] }}
             removeItem={() => handleRemoveItem(item.id)}
             onQuantityChange={(newQuantity) =>
               handleQuantityChange(item.id, newQuantity)
-            } // Passa a função de retorno para o CartItem
+            }
           />
         )}
         showsVerticalScrollIndicator={false}

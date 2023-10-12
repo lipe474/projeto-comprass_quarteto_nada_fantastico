@@ -4,7 +4,8 @@ import {
   ButtonContainer,
   Container,
   ContentContainer,
-  ErrorText
+  ErrorText,
+  ImageBackground
 } from "./style";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/native";
@@ -117,100 +118,101 @@ export function ForgotPassword() {
   }
 
   return (
-    <BackgroundAuth source={require("@assets/images/background.png")}>
-      <Container>
-        <HeaderAuth
-          showBackButton
-          title="Forgot Password"
-          onPress={handleNavigateToLogin}
-        >
-          Enter your email and let us see if it exists for you to change your
-          password :)
-        </HeaderAuth>
+    <Container>
+      <ImageBackground>
+        <BackgroundAuth source={require("@assets/images/background.png")} />
+      </ImageBackground>
+      <HeaderAuth
+        showBackButton
+        title="Forgot Password"
+        onPress={handleNavigateToLogin}
+      >
+        Enter your email and let us see if it exists for you to change your
+        password :)
+      </HeaderAuth>
 
-        <ContentContainer>
-          <Controller
-            control={formEmail.control}
-            name="email"
-            render={({ field: { onChange, value } }) => (
-              <CustomInput
-                label="Email"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                isSearch={isLoadingEmail}
-                isEmailField
-                formSubmitted={formEmail.formState.isSubmitted}
-                showIcon
-                onChangeText={(text) => {
-                  onChange(text);
-                  setCheckEmailValue(!text);
-                }}
-                value={value}
-                errorMessage={formEmail.formState.errors.email?.message}
-              />
-            )}
-          />
+      <ContentContainer>
+        <Controller
+          control={formEmail.control}
+          name="email"
+          render={({ field: { onChange, value } }) => (
+            <CustomInput
+              label="Email"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              isSearch={isLoadingEmail}
+              isEmailField
+              formSubmitted={formEmail.formState.isSubmitted}
+              showIcon
+              onChangeText={(text) => {
+                onChange(text);
+                setCheckEmailValue(!text);
+              }}
+              value={value}
+              errorMessage={formEmail.formState.errors.email?.message}
+            />
+          )}
+        />
 
-          <Controller
-            control={formPasswords.control}
-            name="password"
-            render={({ field: { onChange, value } }) => (
-              <CustomInput
-                label="New Password"
-                isPasswordField
-                isDisabled={!formEmail.formState.isSubmitSuccessful}
-                onChangeText={onChange}
-                value={value}
-                errorMessage={formPasswords.formState.errors.password?.message}
-              />
-            )}
-          />
+        <Controller
+          control={formPasswords.control}
+          name="password"
+          render={({ field: { onChange, value } }) => (
+            <CustomInput
+              label="New Password"
+              isPasswordField
+              isDisabled={!formEmail.formState.isSubmitSuccessful}
+              onChangeText={onChange}
+              value={value}
+              errorMessage={formPasswords.formState.errors.password?.message}
+            />
+          )}
+        />
 
-          <Controller
-            control={formPasswords.control}
-            name="password_confirm"
-            render={({ field: { onChange, value } }) => (
-              <CustomInput
-                label="Confirm New Password"
-                isPasswordField
-                isDisabled={!formEmail.formState.isSubmitSuccessful}
-                onChangeText={onChange}
-                value={value}
-                returnKeyType="send"
-                errorMessage={
-                  formPasswords.formState.errors.password_confirm?.message
-                }
-              />
-            )}
-          />
-          {
-            <ErrorText>
-              {formEmail.formState.errors.email?.message ??
-                formPasswords.formState.errors.password?.message ??
-                formPasswords.formState.errors.password_confirm?.message}
-            </ErrorText>
-          }
-        </ContentContainer>
+        <Controller
+          control={formPasswords.control}
+          name="password_confirm"
+          render={({ field: { onChange, value } }) => (
+            <CustomInput
+              label="Confirm New Password"
+              isPasswordField
+              isDisabled={!formEmail.formState.isSubmitSuccessful}
+              onChangeText={onChange}
+              value={value}
+              returnKeyType="send"
+              errorMessage={
+                formPasswords.formState.errors.password_confirm?.message
+              }
+            />
+          )}
+        />
+        {
+          <ErrorText>
+            {formEmail.formState.errors.email?.message ??
+              formPasswords.formState.errors.password?.message ??
+              formPasswords.formState.errors.password_confirm?.message}
+          </ErrorText>
+        }
+      </ContentContainer>
 
-        <ButtonContainer>
-          <CustomButton
-            title="SEARCH"
-            width={343}
-            height={48}
-            onPress={formEmail.handleSubmit(handleCheckEmail)}
-            isDisabled={checkEmailValue || isLoadingEmail}
-          />
+      <ButtonContainer>
+        <CustomButton
+          title="SEARCH"
+          width={343}
+          height={48}
+          onPress={formEmail.handleSubmit(handleCheckEmail)}
+          isDisabled={checkEmailValue || isLoadingEmail}
+        />
 
-          <CustomButton
-            title="CONFIRM"
-            width={343}
-            height={48}
-            onPress={formPasswords.handleSubmit(handleForgotPassword)}
-            isLoading={isLoading}
-            isDisabled={!formEmail.formState.isSubmitSuccessful}
-          />
-        </ButtonContainer>
-      </Container>
-    </BackgroundAuth>
+        <CustomButton
+          title="CONFIRM"
+          width={343}
+          height={48}
+          onPress={formPasswords.handleSubmit(handleForgotPassword)}
+          isLoading={isLoading}
+          isDisabled={!formEmail.formState.isSubmitSuccessful}
+        />
+      </ButtonContainer>
+    </Container>
   );
 }

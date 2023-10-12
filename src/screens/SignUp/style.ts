@@ -3,6 +3,15 @@ import styled from "styled-components/native";
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
+  background-color: ${({ theme }) => theme.COLORS.BLACK_800};
+`;
+
+export const ImageBackground = styled.View`
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
 `;
 
 export const ContentContainer = styled.View`

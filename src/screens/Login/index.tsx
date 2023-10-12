@@ -5,7 +5,9 @@ import {
   ButtonContainer,
   ButtonTextContainer,
   ContentContainer,
-  ErrorText
+  ErrorText,
+  Container,
+  ImageBackground
 } from "./style";
 import { useState } from "react";
 
@@ -80,7 +82,10 @@ export function Login() {
   }
 
   return (
-    <BackgroundAuth source={require("@assets/images/background.png")}>
+    <Container>
+      <ImageBackground>
+        <BackgroundAuth source={require("@assets/images/background.png")} />
+      </ImageBackground>
       <ContentContainer>
         <LogoContainer>
           <LogoImage width={263} />
@@ -142,6 +147,6 @@ export function Login() {
           <TouchableText>I don't want to log in</TouchableText>
         </ButtonTextContainer>
       </ContentContainer>
-    </BackgroundAuth>
+    </Container>
   );
 }

@@ -7,11 +7,7 @@ export function Routes() {
   const { COLORS } = useTheme();
   return (
     <NavigationContainer>
-      <StatusBar
-        backgroundColor={COLORS.BLACK_800}
-        barStyle="light-content"
-        translucent
-      />
+      <StatusBar backgroundColor={COLORS.BLACK_800} barStyle="light-content" />
       <StackRoutes />
     </NavigationContainer>
   );
