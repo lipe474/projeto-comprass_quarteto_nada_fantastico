@@ -48,3 +48,13 @@ export async function UpdatePassword(id: number, password: string) {
     throw new AppError(error.message);
   }
 }
+
+export async function SearchZipCode(cep: string) {
+  try {
+    const response = await api.get(`https://viacep.com.br/ws/${cep}/json/`);
+
+    return response.data;
+  } catch (error: any) {
+    throw new AppError(error.message);
+  }
+}

@@ -4,6 +4,7 @@ import { StatusBar } from "react-native";
 import { useTheme } from "styled-components/native";
 import { Cart } from "@screens/Cart";
 import { TabRoutes } from "./tab.routes";
+import { ShippingAddress } from "@screens/ShippingAddress";
 
 export function Routes() {
   const { COLORS } = useTheme();
