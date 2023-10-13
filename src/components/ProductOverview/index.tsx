@@ -1,7 +1,15 @@
 import { Container, ProductImage, ProductInformationsContainer, NameAndCategoryContainer, Name, Category, Price, DescriptionContainer, Description } from "./style";
 import { DetailsMenu } from "@components/DetailsMenu";
 
-export function ProductOverview() {
+interface Product {
+    id: number;
+    images: any;
+    title: string;
+    description: string;
+    price: number;
+}
+
+export function ProductOverview({ product }: {product: Product}) {
     const image = require("../../assets/images/productImage.png")
 
     return(
@@ -9,13 +17,13 @@ export function ProductOverview() {
             <ProductImage source={image}/>
             <ProductInformationsContainer>
                 <NameAndCategoryContainer>
-                    <Name>Name</Name>
+                    <Name>{product.title}</Name>
                     <Category>Category</Category>
                 </NameAndCategoryContainer>
-                <Price>19.99 R$</Price>
+                <Price>{product.price}</Price>
             </ProductInformationsContainer>
             <DescriptionContainer>
-                <Description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nibh nisi, euismod non vulputate eu, scelerisque id neque. Nullam sed lacus velit. Nullam pretium orci et lectus suscipit hendrerit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nibh nisi, euismod non vulputate eu, scelerisque id neque. Nullam sed lacus velit. Nullam pretium orci et lectus suscipit hendrerit.</Description>
+                <Description>{product.description}</Description>
             </DescriptionContainer>
             <DetailsMenu title="Shipping Info"></DetailsMenu>
         </Container>
