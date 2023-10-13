@@ -1,4 +1,3 @@
-import { ProductCount } from "@components/ProductCount";
 import { Container, ProductImage, ProductDetails, ProductName, ProductDescription, ProductPrice } from "./style";
 
 interface Product {
@@ -11,10 +10,8 @@ interface Product {
 
 export function ProductResume({ product }: {product: Product}) {
 
-
     return(
         <Container>
-            <ProductCount />
             <ProductImage source={{ uri: product.images[0] }}/>
             <ProductDetails>
                 <ProductName numberOfLines={1}>{product.title}</ProductName>
