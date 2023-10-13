@@ -1,12 +1,13 @@
 import { CustomInput } from "@components/Input";
 import {
-  Container,
   LogoContainer,
   InputContainer,
   ButtonContainer,
   ButtonTextContainer,
   ContentContainer,
-  ErrorText
+  ErrorText,
+  Container,
+  ImageBackground
 } from "./style";
 import { useState } from "react";
 
@@ -81,70 +82,71 @@ export function Login() {
   }
 
   return (
-    <BackgroundAuth source={require("@assets/images/background.png")}>
-      <Container>
-        <ContentContainer>
-          <LogoContainer>
-            <LogoImage width={263} />
-          </LogoContainer>
+    <Container>
+      <ImageBackground>
+        <BackgroundAuth source={require("@assets/images/background.png")} />
+      </ImageBackground>
+      <ContentContainer>
+        <LogoContainer>
+          <LogoImage width={263} />
+        </LogoContainer>
 
-          <InputContainer>
-            <Controller
-              control={control}
-              name="email"
-              render={({ field: { onChange, value } }) => (
-                <CustomInput
-                  label="Email"
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  onChangeText={onChange}
-                  value={value}
-                  errorMessage={errors.email?.message}
-                />
-              )}
-            />
+        <InputContainer>
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { onChange, value } }) => (
+              <CustomInput
+                label="Email"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                onChangeText={onChange}
+                value={value}
+                errorMessage={errors.email?.message}
+              />
+            )}
+          />
 
-            <Controller
-              control={control}
-              name="password"
-              render={({ field: { onChange, value } }) => (
-                <CustomInput
-                  label="Password"
-                  isPasswordField
-                  onChangeText={onChange}
-                  value={value}
-                  errorMessage={errors.password?.message}
-                />
-              )}
-            />
-          </InputContainer>
-          {
-            <ErrorText>
-              {errors.email?.message ?? errors.password?.message}
-            </ErrorText>
-          }
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, value } }) => (
+              <CustomInput
+                label="Password"
+                isPasswordField
+                onChangeText={onChange}
+                value={value}
+                errorMessage={errors.password?.message}
+              />
+            )}
+          />
+        </InputContainer>
+        {
+          <ErrorText>
+            {errors.email?.message ?? errors.password?.message}
+          </ErrorText>
+        }
 
-          <ButtonContainer>
-            <CustomButton
-              title="LOGIN"
-              width={343}
-              height={48}
-              onPress={handleSubmit(handleLogin)}
-              isLoading={isLoading}
-            />
-          </ButtonContainer>
+        <ButtonContainer>
+          <CustomButton
+            title="LOGIN"
+            width={343}
+            height={48}
+            onPress={handleSubmit(handleLogin)}
+            isLoading={isLoading}
+          />
+        </ButtonContainer>
 
-          <ButtonTextContainer>
-            <TouchableText onPress={handleNavigateToSignUp}>
-              Not have an account yet? Sign up
-            </TouchableText>
-            <TouchableText onPress={handleNavigateToForgotPassword}>
-              I forgot my password
-            </TouchableText>
-            <TouchableText>I don't want to log in</TouchableText>
-          </ButtonTextContainer>
-        </ContentContainer>
-      </Container>
-    </BackgroundAuth>
+        <ButtonTextContainer>
+          <TouchableText onPress={handleNavigateToSignUp}>
+            Not have an account yet? Sign up
+          </TouchableText>
+          <TouchableText onPress={handleNavigateToForgotPassword}>
+            I forgot my password
+          </TouchableText>
+          <TouchableText>I don't want to log in</TouchableText>
+        </ButtonTextContainer>
+      </ContentContainer>
+    </Container>
   );
 }

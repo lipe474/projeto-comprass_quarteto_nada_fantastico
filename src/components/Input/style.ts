@@ -19,8 +19,6 @@ export const InputContainer = styled(Hoshi).attrs(({ theme }) => ({
   min-height: 64px;
   max-height: 64px;
 
-  border-width: 2px;
-
   border-color: ${({ theme }) => theme.COLORS.WHITE};
 
   background-color: ${({ theme }) => theme.COLORS.WHITE};

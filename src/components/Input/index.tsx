@@ -23,9 +23,9 @@ type Props = TextInputProps &
     errorMessage?: string | null;
     formSubmitted?: boolean;
     isSearch?: boolean;
-    isEmailField?: boolean;
     isPasswordField?: boolean;
     isDisabled?: boolean;
+    border?: boolean;
   };
 
 export function CustomInput({
@@ -36,9 +36,9 @@ export function CustomInput({
   errorMessage,
   formSubmitted,
   isSearch,
-  isEmailField,
   isPasswordField,
   isDisabled,
+  border,
   ...rest
 }: Props) {
   const [isFocused, setIsFocused] = useState(false);
@@ -71,7 +71,7 @@ export function CustomInput({
     <>
       <Container>
         <InputContainer
-          secureTextEntry={isPasswordVisible}
+          secureTextEntry={isPasswordField ? isPasswordVisible : false}
           label={label}
           inputStyle={inputStyle}
           labelStyle={labelStyle}
@@ -80,10 +80,18 @@ export function CustomInput({
               ? COLORS.RED_200
               : isDisabled
               ? COLORS.GRAY_100
-              : formSubmitted && !errorMessage && hasValue && isEmailField
+              : formSubmitted &&
+                !errorMessage &&
+                hasValue &&
+                showIcon &&
+                !isSearch
               ? COLORS.GREEN
+              : border
+              ? COLORS.GRAY_100
               : undefined,
-            backgroundColor: isDisabled ? COLORS.GRAY_100 : COLORS.WHITE
+            backgroundColor: isDisabled ? COLORS.GRAY_100 : COLORS.WHITE,
+            borderWidth: border ? 1 : 2,
+            borderBottomWidth: border ? 1 : 2
           }}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
@@ -92,15 +100,13 @@ export function CustomInput({
           editable={!isDisabled}
           {...rest}
         />
-        {isSearch && isEmailField ? (
+        {isSearch && showIcon ? (
           <IconLoading />
         ) : (
-          (formSubmitted &&
-            !errorMessage &&
-            hasValue &&
-            showIcon &&
-            isEmailField && <SuccessIcon />) ||
-          (errorMessage && showIcon && isEmailField && <ErrorIcon />)
+          (formSubmitted && !errorMessage && hasValue && showIcon && (
+            <SuccessIcon />
+          )) ||
+          (errorMessage && showIcon && <ErrorIcon />)
         )}
 
         {isPasswordField && !isDisabled && (

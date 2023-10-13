@@ -12,34 +12,39 @@ import {
 } from "./style";
 import ActionModal from "@components/ActionModal";
 
-import Research from "@assets/lupa.svg";
+import Research from "@assets/icons/lupa.svg";
 interface BigBannerProps {
   showSearch: boolean;
+  showModal: boolean;
 }
 
-function BigBanner({ showSearch }: BigBannerProps) {
-  const [visibleModal, setVisibleModal] = useState(true);
+function BigBanner({ showSearch, showModal }: BigBannerProps) {
+  const [visibleModal, setVisibleModal] = useState(false);
 
   return (
     <Container>
-      <ImageBG resizeMode="contain" source={require("../../assets/banner.png")}>
+      <ImageBG
+        resizeMode="contain"
+        source={require("../../assets/images/banner.png")}
+      >
         {showSearch ? (
           <SubmitButton onPress={() => setVisibleModal(true)}>
             <Research width={41} height={41} />
           </SubmitButton>
         ) : null}
 
-        <ModalContainer
-          visible={visibleModal}
-          transparent={true}
-          onRequestClose={() => setVisibleModal(false)}
-        >
-          <ActionModal
-            showResearchInput
-            showSearch
-            handleClose={() => setVisibleModal(false)}
-          />
-        </ModalContainer>
+        {showModal ? (
+          <ModalContainer
+            visible={visibleModal}
+            transparent={true}
+            onRequestClose={() => setVisibleModal(true)}
+          >
+            <ActionModal
+              showResearchInput
+              handleClose={() => setVisibleModal(false)}
+            />
+          </ModalContainer>
+        ) : null}
 
         <ImageLogo width={263} height={56} />
 

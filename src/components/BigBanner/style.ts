@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
-import ImageLogoSvg from "@assets/Comprass-logo.svg";
-import CartSvg from "@assets/cart.svg";
+import ImageLogoSvg from "@assets/icons/logo.svg";
+import CartSvg from "@assets/icons/cart.svg";
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -31,8 +31,7 @@ export const ImageBG = styled.ImageBackground`
 export const ImageLogo = styled(ImageLogoSvg)`
   flex: 1;
   align-self: center;
-  align-items: center;
-  position: relative;
+  padding-top: 140px;
 `;
 
 export const SecondContainer = styled.View`
@@ -45,9 +44,9 @@ export const Title = styled.Text`
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
   color: ${({ theme }) => theme.COLORS.WHITE};
-  left: 16px;
+  left: 20px;
 `;
 
 export const ImageDetail = styled(CartSvg)`
-  left: 16px;
+  left: 20px;
 `;
