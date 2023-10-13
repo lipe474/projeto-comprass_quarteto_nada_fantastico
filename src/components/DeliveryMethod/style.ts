@@ -1,14 +1,16 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-  padding: 20px;
   align-itens: center;
   justify-content: center;
 `;
 
+export const Content = styled.View``;
+
 export const TitleText = styled.Text`
-  text-align: left;
+  left: 32px;
   margin-top: 6px;
+  margin-bottom: 16px;
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
   color: ${({ theme }) => theme.COLORS.BLACK_900};
