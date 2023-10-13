@@ -6,6 +6,7 @@ import ProfileSvg from "@assets/icons/profile.svg";
 
 import { useTheme } from "styled-components/native";
 import { Cart } from "@screens/Cart";
+import { Home } from "@screens/Home";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +40,7 @@ export function TabRoutes() {
     >
       <Tab.Screen
         name="home"
-        component={Cart}
+        component={Home}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, focused }) => (
