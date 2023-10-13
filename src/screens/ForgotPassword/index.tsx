@@ -141,7 +141,6 @@ export function ForgotPassword() {
               keyboardType="email-address"
               autoCapitalize="none"
               isSearch={isLoadingEmail}
-              isEmailField
               formSubmitted={formEmail.formState.isSubmitted}
               showIcon
               onChangeText={(text) => {
