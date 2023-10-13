@@ -19,10 +19,8 @@ import {
   Money,
   PriceSecondContainer,
 } from "./style";
-import { Text } from "react-native";
 
 interface ActionModalProps {
-  showSearch: boolean;
   handleClose: () => void;
   showResearchInput: boolean;
 }
@@ -39,9 +37,7 @@ function ActionModal({ handleClose, showResearchInput }: ActionModalProps) {
         const response = await axios.get(
           `https://api.escuelajs.co/api/v1/products/?title=${searchTerm}`
         );
-        console.log(response.data);
         setSearchResult(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error(error);
       } finally {

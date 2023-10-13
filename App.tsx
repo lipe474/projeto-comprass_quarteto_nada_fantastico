@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import { StatusBar, StyleSheet, Text, View } from "react-native";
+>>>>>>> feat/componentMethod-componentAddress
 import {
   useFonts,
   OpenSans_400Regular,
@@ -21,7 +25,10 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {fontsLoaded ? <Routes /> : <Loading />}
+      <StatusBar backgroundColor="transparent" translucent />
+      <View>
+        <Text>Open up App.tsx to start working on your app!</Text>
+      </View>
     </ThemeProvider>
   );
 }
