@@ -7,6 +7,7 @@ const windowWidth = Dimensions.get('window').width;
 export const Container = styled.View`
     flex: 1;
     width: ${windowWidth}px;
+    margin-top: 62px;
 `
 
 export const TitleContainer = styled.TouchableOpacity`

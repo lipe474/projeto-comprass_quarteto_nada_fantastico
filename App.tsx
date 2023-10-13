@@ -23,10 +23,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar backgroundColor="transparent" translucent />
-      <BigBanner showSearch />
-      <View style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-      </View>
+      <Routes />
     </ThemeProvider>
   );
 }

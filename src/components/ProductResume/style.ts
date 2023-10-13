@@ -1,11 +1,16 @@
 import styled from "styled-components/native";
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled.View`
     width: 150px;
     height: 260px;
     margin-left: 16px;
     margin-right: 16px;
     margin-top: 16px;
+`
+
+export const ProductInformations = styled.TouchableOpacity`
+    height: 260px;
+    width: 150px;
 `
 
 export const ProductImage = styled.Image`
