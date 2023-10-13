@@ -16,6 +16,7 @@ export default {
 
     GRAY_900: "#565656",
     GRAY_500: "#9B9B9B",
+    GRAY_TAB_BAR: "#DADADA",
     GRAY_100: "#B6B6B6"
   },
   FONT_FAMILY: {
