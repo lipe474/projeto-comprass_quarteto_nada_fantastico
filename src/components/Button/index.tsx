@@ -26,7 +26,7 @@ export function CustomButton({
         style={{
           height: height,
           width: width,
-          backgroundColor: isDisabled ? COLORS.GRAY_900 : COLORS.RED_500
+          backgroundColor: isDisabled ? COLORS.GRAY_900 : COLORS.RED_500,
         }}
         disabled={isLoading || isDisabled}
         {...rest}

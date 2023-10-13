@@ -1,7 +1,7 @@
 import React from "react";
-import { FlatList, View, ScrollView } from "react-native";
+import { FlatList, View, ScrollView, Text } from "react-native";
 import Svg from "react-native-svg";
-import { Container, Title, TitleText, ScrollBar } from "./style";
+import { Container, Title, TitleText, Content, ScrollBar } from "./style";
 
 import DhlSvg from "@assets/icons/dhl.svg";
 import Uspsvg from "@assets/icons/usps.svg";
@@ -54,7 +54,7 @@ function DeliveryMethod() {
   return (
     <Container>
       <TitleText>Delivery method</TitleText>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+      <Content>
         <FlatList
           data={data}
           keyExtractor={(item) => item.id.toString()}
@@ -70,6 +70,14 @@ function DeliveryMethod() {
                     backgroundColor: item.backgroundColor,
                     alignItems: "center",
                     justifyContent: "center",
+                    shadowColor: "rgba(0,0,0,0.5)",
+                    shadowOffset: {
+                      width: 0,
+                      height: 2,
+                    },
+                    elevation: 5,
+                    shadowOpacity: 0.28,
+                    shadowRadius: 4,
                   }}
                 >
                   <Svg width={item.svgWidth} height={item.svgHeight}>
@@ -84,7 +92,7 @@ function DeliveryMethod() {
           ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
           showsHorizontalScrollIndicator={false}
         />
-      </ScrollView>
+      </Content>
     </Container>
   );
 }

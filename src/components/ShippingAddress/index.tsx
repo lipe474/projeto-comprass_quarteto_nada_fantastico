@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { StyleProp, ViewStyle } from "react-native";
 
 import {
   Container,
@@ -12,13 +13,21 @@ interface ShippingAddressProps {
   children: ReactNode;
   title: string;
   change: string;
+  onModal?: () => void;
+  customStyle?: StyleProp<ViewStyle>;
 }
 
-function ShippingAddress({ children, title, change }: ShippingAddressProps) {
+function ShippingAddress({
+  children,
+  title,
+  change,
+  onModal,
+  customStyle,
+}: ShippingAddressProps) {
   return (
     <Container>
       <Title>{children}</Title>
-      <ButtonAddress>
+      <ButtonAddress style={customStyle} onPress={onModal}>
         <TitleChange>{change}</TitleChange>
         <TitleButton>{title}</TitleButton>
       </ButtonAddress>
