@@ -13,6 +13,7 @@ export function TabRoutes() {
   const { COLORS, FONT_FAMILY, FONT_SIZE } = useTheme();
 
   const iconSize = 30;
+  const showBadge = true;
 
   return (
     <Tab.Navigator
@@ -57,6 +58,14 @@ export function TabRoutes() {
         component={Cart}
         options={{
           tabBarLabel: "Cart",
+          tabBarBadge: "10",
+          tabBarBadgeStyle: {
+            start: 5,
+            top: -20,
+            width: 10,
+            height: 18,
+            fontSize: 8
+          },
           tabBarIcon: ({ color, focused }) => (
             <ShopSvg
               color={color}
