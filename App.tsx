@@ -12,6 +12,8 @@ import { Routes } from "@routes/index";
 import theme from "./src/theme";
 import { Loading } from "@components/Loading";
 import Checkout from "@screens/Checkout";
+import { StackRoutes } from "@routes/stack.routes";
+import { Home } from "@screens/Home";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,7 +26,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar backgroundColor="transparent" translucent />
-      <Checkout />
+      <Home />
     </ThemeProvider>
   );
 }

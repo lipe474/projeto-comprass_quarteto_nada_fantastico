@@ -1,3 +1,4 @@
+import { Product } from "@components/ActionModal/style";
 import { useState } from "react";
 import {
   Container,
@@ -14,6 +15,7 @@ import {
   CountIndicator
 } from "./style";
 import { View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 interface Product {
   id: number;
