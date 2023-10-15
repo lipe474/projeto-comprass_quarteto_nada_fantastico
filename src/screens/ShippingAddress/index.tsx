@@ -22,12 +22,17 @@ import { AppError } from "@utils/AppError";
 
 type FormData = {
   cep?: string;
+  logradouro?: string;
+  localidade?: string;
+  uf?: string;
+  name?: string;
 };
 
 type AddressData = {
   logradouro: string;
   localidade: string;
   uf: string;
+  name: string;
 };
 
 export function ShippingAddress() {
@@ -37,10 +42,9 @@ export function ShippingAddress() {
   const [addressData, setAddressData] = useState<AddressData>({
     logradouro: "",
     localidade: "",
-    uf: ""
+    uf: "",
+    name: ""
   });
-
-  // const navigation = useNavigation<StackProps>();
 
   const formCep = useForm<FormData>({
     resolver: yupResolver(cepSchema)
@@ -67,7 +71,8 @@ export function ShippingAddress() {
         setAddressData({
           logradouro: "",
           localidade: "",
-          uf: ""
+          uf: "",
+          name: ""
         });
       } else {
         setIsCepValid(true);
@@ -77,7 +82,8 @@ export function ShippingAddress() {
               ? `${response.logradouro}, ${response.bairro}`
               : response.logradouro || "",
           localidade: response.localidade,
-          uf: response.uf
+          uf: response.uf,
+          name: ""
         });
       }
     } catch (error: any) {
@@ -85,6 +91,13 @@ export function ShippingAddress() {
     } finally {
       setIsLoading(false);
     }
+  }
+
+  function handleChange(name: string, value: string) {
+    setAddressData((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
   }
 
   useEffect(() => {
@@ -99,7 +112,8 @@ export function ShippingAddress() {
       setAddressData({
         logradouro: "",
         localidade: "",
-        uf: ""
+        uf: "",
+        name: ""
       });
     }
   }, [formCep.getValues("cep"), formCep.formState.errors.cep]);
@@ -137,7 +151,8 @@ export function ShippingAddress() {
                   setAddressData({
                     logradouro: "",
                     localidade: "",
-                    uf: ""
+                    uf: "",
+                    name: ""
                   });
                 }}
                 value={value}
@@ -147,28 +162,72 @@ export function ShippingAddress() {
             )}
           />
 
-          <CustomInput
-            label="Address"
-            border
-            isDisabled={!isCepValid || isLoading}
-            value={addressData.logradouro}
+          <Controller
+            control={formCep.control}
+            name="logradouro"
+            render={({ field: { onChange, value } }) => (
+              <CustomInput
+                label="Address"
+                border
+                isDisabled={!isCepValid || isLoading}
+                value={addressData.logradouro}
+                onChangeText={(text) => {
+                  onChange(text);
+                  handleChange("logradouro", text);
+                }}
+              />
+            )}
           />
-          <CustomInput
-            label="City"
-            border
-            isDisabled={!isCepValid || isLoading}
-            value={addressData.localidade}
+
+          <Controller
+            control={formCep.control}
+            name="localidade"
+            render={({ field: { onChange, value } }) => (
+              <CustomInput
+                label="City"
+                border
+                isDisabled={!isCepValid || isLoading}
+                value={addressData.localidade}
+                onChangeText={(text) => {
+                  onChange(text);
+                  handleChange("localidade", text);
+                }}
+              />
+            )}
           />
-          <CustomInput
-            label="State/Province/Region"
-            border
-            isDisabled={!isCepValid || isLoading}
-            value={addressData.uf}
+
+          <Controller
+            control={formCep.control}
+            name="uf"
+            render={({ field: { onChange, value } }) => (
+              <CustomInput
+                label="State/Province/Region"
+                border
+                isDisabled={!isCepValid || isLoading}
+                value={addressData.uf}
+                onChangeText={(text) => {
+                  onChange(text);
+                  handleChange("uf", text);
+                }}
+              />
+            )}
           />
-          <CustomInput
-            label="Full name"
-            border
-            isDisabled={!isCepValid || isLoading}
+
+          <Controller
+            control={formCep.control}
+            name="name"
+            render={({ field: { onChange, value } }) => (
+              <CustomInput
+                label="Full name"
+                border
+                isDisabled={!isCepValid || isLoading}
+                value={addressData.name}
+                onChangeText={(text) => {
+                  onChange(text);
+                  handleChange("name", text);
+                }}
+              />
+            )}
           />
 
           {<ErrorText>{formCep.formState.errors.cep?.message}</ErrorText>}

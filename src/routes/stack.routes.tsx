@@ -5,11 +5,15 @@ import {
 import { ForgotPassword } from "@screens/ForgotPassword";
 import { Login } from "@screens/Login";
 import { SignUp } from "@screens/SignUp";
+import { TabRoutes } from "./tab.routes";
+import Checkout from "@screens/Checkout";
 
 type StackRoutes = {
   login: undefined;
   signUp: undefined;
   forgotPassword: undefined;
+  checkout: undefined;
+  tabRoutes: undefined;
 };
 
 export type StackProps = NativeStackNavigationProp<StackRoutes>;
@@ -22,6 +26,8 @@ export function StackRoutes() {
       <Stack.Screen name="login" component={Login} />
       <Stack.Screen name="signUp" component={SignUp} />
       <Stack.Screen name="forgotPassword" component={ForgotPassword} />
+      <Stack.Screen name="checkout" component={Checkout} />
+      <Stack.Screen name="tabRoutes" component={TabRoutes} />
     </Stack.Navigator>
   );
 }

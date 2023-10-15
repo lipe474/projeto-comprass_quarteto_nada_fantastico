@@ -81,6 +81,10 @@ export function Login() {
     navigation.navigate("forgotPassword");
   }
 
+  function handleNavigateToHomePage() {
+    navigation.navigate("tabRoutes");
+  }
+
   return (
     <Container>
       <ImageBackground>
@@ -144,7 +148,9 @@ export function Login() {
           <TouchableText onPress={handleNavigateToForgotPassword}>
             I forgot my password
           </TouchableText>
-          <TouchableText>I don't want to log in</TouchableText>
+          <TouchableText onPress={handleNavigateToHomePage}>
+            I don't want to log in
+          </TouchableText>
         </ButtonTextContainer>
       </ContentContainer>
     </Container>

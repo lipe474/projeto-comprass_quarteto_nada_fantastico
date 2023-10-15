@@ -8,7 +8,7 @@ import {
   Close,
   ContentAdd,
   Detail,
-  MaskInput,
+  MaskInput
 } from "./style";
 
 import SvgVisa from "@assets/icons/visa-logo.svg";
@@ -17,13 +17,25 @@ import SvgMastercard from "@assets/icons/mastercard-logo.svg";
 import SvgAmerican from "@assets/icons/american-log.svg";
 
 import { CustomButton } from "@components/Button";
+import { CustomInput } from "@components/Input";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { cardSchema } from "@utils/validation/shcemaCard";
 
 interface CardModalProps {
   handleClose: () => void;
   showCard: boolean;
 }
 
+type FormData = {
+  cardNumber?: string;
+};
+
 function CardModal({ handleClose, showCard }: CardModalProps) {
+  const formCard = useForm<FormData>({
+    resolver: yupResolver(cardSchema)
+  });
+
   return (
     <Container>
       <Close onPress={handleClose}></Close>
@@ -51,8 +63,7 @@ function CardModal({ handleClose, showCard }: CardModalProps) {
           </View>
         ) : null}
 
-        <View>
-          <TextInput
+        {/* <TextInput
             placeholder="Card number"
             onChangeText={(text) => {
               const formattedText = text.replace(/\D/g, "").substring(0, 16);
@@ -62,26 +73,45 @@ function CardModal({ handleClose, showCard }: CardModalProps) {
                 .trim();
               onChange(formattedNumber);
             }}
-          />
-        </View>
+
+            
+          /> */}
+        {/* <Controller
+          control={formCard.control}
+          name="cep"
+          render={({ field: { onChange, value } }) => (
+            <CustomInput
+              label="Card number"
+              onChangeText={(text) => {
+                const formattedText = text.replace(/\D/g, "").substring(0, 16);
+                const regex = /(\d{1,4})/g;
+                const formattedNumber = formattedText
+                  .replace(regex, "$1 ")
+                  .trim();
+                text = formattedNumber;
+              }}
+            />
+          )}
+        /> */}
 
         <View>
-          <TextInput
+          {/* <TextInput
             onChangeText={(text) => {
               const formattedText = text.replace(/\D/g, "").substring(0, 4);
               if (formattedText.length >= 2) {
                 const formattedDate =
                   formattedText.slice(0, 2) + "/" + formattedText.slice(2);
-                onChange(formattedDate);
+                onchange(formattedDate);
               } else {
                 onChange(formattedText);
               }
             }}
-          />
+          /> */}
+          <CustomInput label="Expire Date" />
         </View>
 
         <View>
-          <TextInput
+          {/* <TextInput
             placeholder="CVV"
             onChangeText={(text) => {
               const formattedText = text.replace(/\D/g, "").substring(0, 3);
@@ -90,7 +120,8 @@ function CardModal({ handleClose, showCard }: CardModalProps) {
                 .trim();
               onChange(formattedCVV);
             }}
-          />
+          /> */}
+          <CustomInput label="CVV" />
         </View>
 
         <ContentAdd>

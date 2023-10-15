@@ -10,7 +10,7 @@ import {
   ContentTitle,
   ContentPrice,
   Title,
-  Summary,
+  Summary
 } from "./style";
 
 import Header from "@components/Header";
@@ -35,11 +35,11 @@ function Checkout() {
           shadowColor: "rgba(0,0,0,0.5)",
           shadowOffset: {
             width: 0,
-            height: 2,
+            height: 2
           },
           elevation: 5,
           shadowOpacity: 0.28,
-          shadowRadius: 4,
+          shadowRadius: 4
         }}
         children="Shipping address"
         title="Click to add an address"
@@ -52,7 +52,7 @@ function Checkout() {
         onModal={() => setVisibleModal(true)}
       />
 
-      <DeliveryMethod />
+      {/* <DeliveryMethod /> */}
 
       <Content>
         <ContentTitle>

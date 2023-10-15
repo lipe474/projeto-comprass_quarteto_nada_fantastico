@@ -7,6 +7,7 @@ import ProfileSvg from "@assets/icons/profile.svg";
 import { useTheme } from "styled-components/native";
 import { Cart } from "@screens/Cart";
 import { Home } from "@screens/Home";
+import { StackRoutes } from "./stack.routes";
 
 const Tab = createBottomTabNavigator();
 

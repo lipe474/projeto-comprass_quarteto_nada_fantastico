@@ -13,6 +13,8 @@ import { CustomButton } from "@components/Button";
 import axios from "axios";
 import { AppError } from "@utils/AppError";
 import { CartEmpty } from "@components/CartEmpty";
+import { useNavigation } from "@react-navigation/native";
+import { StackProps } from "@routes/stack.routes";
 
 interface Product {
   id: number;
@@ -25,6 +27,8 @@ interface Product {
 export function Cart() {
   const [products, setProducts] = useState<Product[]>([]);
   const [total, setTotal] = useState<number>(0);
+
+  const navigation = useNavigation<StackProps>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,6 +76,11 @@ export function Cart() {
     const newProducts = products.filter((item) => item.id !== itemId);
     setProducts(newProducts);
   };
+
+  function handleNavigateCheckout() {
+    navigation.navigate("checkout");
+  }
+
   return (
     <ContentContainer>
       <Title>Cart</Title>
@@ -108,6 +117,7 @@ export function Cart() {
           width={343}
           height={48}
           isDisabled={products.length === 0}
+          onPress={handleNavigateCheckout}
         />
       </FooterContainer>
     </ContentContainer>

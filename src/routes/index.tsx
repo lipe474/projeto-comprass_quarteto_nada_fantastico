@@ -3,6 +3,7 @@ import { StatusBar } from "react-native";
 import { useTheme } from "styled-components/native";
 import { StackRoutes } from "./stack.routes";
 import { TabRoutes } from "./tab.routes";
+import { ShippingAddress } from "@screens/ShippingAddress";
 
 export function Routes() {
   const { COLORS } = useTheme();
