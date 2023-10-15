@@ -9,7 +9,7 @@ import {
   Payment,
   Title,
   Close,
-  Detail,
+  Detail
 } from "./style";
 import { ButtonAddress } from "@components/ShippingAddress/style";
 import { Modal, Text } from "react-native";

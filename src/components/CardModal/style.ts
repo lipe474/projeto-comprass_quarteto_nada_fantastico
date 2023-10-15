@@ -20,7 +20,13 @@ export const Content = styled.View`
 export const ContentAdd = styled.View`
   justify-content: center;
   align-self: center;
-  margin-top: 32px;
+  margin-top: 16px;
+`;
+
+export const ContentInput = styled.View`
+  justify-content: center;
+  align-self: center;
+  width: 343px;
 `;
 
 export const Close = styled.TouchableOpacity`
@@ -58,4 +64,11 @@ export const MaskInput = styled(TextInputMask)`
   border-radius: 4px;
   border-color: ${({ theme }) => theme.COLORS.GRAY_100};
   color: ${({ theme }) => theme.COLORS.BLACK_900};
+`;
+
+export const ErrorText = styled.Text`
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
+  color: ${({ theme }) => theme.COLORS.RED_200};
+  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  top: -8px;
 `;
