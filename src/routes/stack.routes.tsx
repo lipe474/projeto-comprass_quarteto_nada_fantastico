@@ -2,7 +2,9 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp
 } from "@react-navigation/native-stack";
+import { Details } from "@screens/Details";
 import { ForgotPassword } from "@screens/ForgotPassword";
+import { Home } from "@screens/Home";
 import { Login } from "@screens/Login";
 import { SignUp } from "@screens/SignUp";
 import { TabRoutes } from "./tab.routes";
@@ -12,8 +14,8 @@ type StackRoutes = {
   login: undefined;
   signUp: undefined;
   forgotPassword: undefined;
-  checkout: undefined;
-  tabRoutes: undefined;
+  details: undefined;
+  home: undefined;
 };
 
 export type StackProps = NativeStackNavigationProp<StackRoutes>;
@@ -26,8 +28,8 @@ export function StackRoutes() {
       <Stack.Screen name="login" component={Login} />
       <Stack.Screen name="signUp" component={SignUp} />
       <Stack.Screen name="forgotPassword" component={ForgotPassword} />
-      <Stack.Screen name="checkout" component={Checkout} />
-      <Stack.Screen name="tabRoutes" component={TabRoutes} />
+      <Stack.Screen name="details" component={Details} />
+      <Stack.Screen name="home" component={Home} />
     </Stack.Navigator>
   );
 }
