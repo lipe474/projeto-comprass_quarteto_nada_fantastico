@@ -15,7 +15,7 @@ export const ContentTitle = styled.View`
 `;
 
 export const ContentPrice = styled.View`
-  text-align: flex-end;
+  justify-content: flex-end;
   align-self: flex-end;
 `;
 

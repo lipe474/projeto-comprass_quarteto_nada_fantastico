@@ -12,8 +12,14 @@ import {
   Title,
   Summary,
 } from "./style";
+
 import Header from "@components/Header";
 import AddressModal from "@components/AddressModal";
+import CardModal from "@components/CardModal";
+
+interface CheckoutProps {
+  showOnCheck: boolean;
+}
 
 function Checkout() {
   const [visibleModal, setVisibleModal] = useState(false);
@@ -73,17 +79,5 @@ function Checkout() {
     </Container>
   );
 }
-
-/*
-
-      <Modal
-        visible={isvisibleModal}
-        transparent={true}
-        onRequestClose={() => setIsVisibleModal(false)}
-      >
-        <Text>TESTE Modal</Text>
-      </Modal>
-
-      */
 
 export default Checkout;

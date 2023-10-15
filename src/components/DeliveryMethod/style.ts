@@ -5,7 +5,14 @@ export const Container = styled.View`
   justify-content: center;
 `;
 
-export const Content = styled.View``;
+export const Content = styled.View`
+  width: 110px;
+  height: 80px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.COLORS.WHITE};
+`;
 
 export const TitleText = styled.Text`
   left: 32px;

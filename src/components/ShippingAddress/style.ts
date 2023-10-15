@@ -6,6 +6,10 @@ export const Container = styled.SafeAreaView`
   align-self: center;
 `;
 
+export const PagMethod = styled.View`
+  background-color: ${({ theme }) => theme.COLORS.WHITE};
+`;
+
 export const Title = styled.Text`
   text-align: left;
   margin-top: 32px;

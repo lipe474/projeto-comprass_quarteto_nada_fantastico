@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { StyleProp, ViewStyle } from "react-native";
+import { StyleProp, ViewStyle, View, Text } from "react-native";
 
 import {
   Container,
@@ -7,14 +7,16 @@ import {
   ButtonAddress,
   TitleButton,
   TitleChange,
+  PagMethod,
 } from "./style";
 
 interface ShippingAddressProps {
-  children: ReactNode;
-  title: string;
-  change: string;
+  children?: ReactNode;
+  title?: string;
+  change?: string;
   onModal?: () => void;
   customStyle?: StyleProp<ViewStyle>;
+  data?: string;
 }
 
 function ShippingAddress({
@@ -23,6 +25,7 @@ function ShippingAddress({
   change,
   onModal,
   customStyle,
+  data,
 }: ShippingAddressProps) {
   return (
     <Container>

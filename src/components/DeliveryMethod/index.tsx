@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, View, ScrollView, Text } from "react-native";
+import { FlatList, View, Pressable } from "react-native";
 import Svg from "react-native-svg";
 import { Container, Title, TitleText, Content, ScrollBar } from "./style";
 
@@ -8,16 +8,24 @@ import Uspsvg from "@assets/icons/usps.svg";
 import FedexSvg from "@assets/icons/fedex.svg";
 import DhllSvg from "@assets/icons/dhl.svg";
 
+import SvgCheck from "@assets/icons/check.svg";
+
 interface SvgData {
   [key: number]: React.FC;
 }
 
-function DeliveryMethod() {
+interface DeliveryMethodProps {
+  showOnCheck: boolean;
+}
+
+function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
   const svgData: SvgData = {
     1: DhlSvg,
     2: Uspsvg,
     3: FedexSvg,
     4: DhllSvg,
+    5: Uspsvg,
+    6: FedexSvg,
   };
 
   const data = [
@@ -49,50 +57,71 @@ function DeliveryMethod() {
       svgWidth: 71,
       svgHeight: 16,
     },
+    {
+      id: 5,
+      backgroundColor: "#FFF",
+      label: "6-7 days",
+      svgWidth: 82,
+      svgHeight: 11,
+    },
+    {
+      id: 6,
+      backgroundColor: "#FFF",
+      label: "7-8 days",
+      svgWidth: 61,
+      svgHeight: 17,
+    },
   ];
 
   return (
     <Container>
       <TitleText>Delivery method</TitleText>
-      <Content>
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => {
-            const SvgComponent = svgData[item.id];
-            return (
-              <View style={{ alignItems: "center" }}>
-                <View
-                  style={{
-                    width: 120,
-                    height: 100,
-                    borderRadius: 8,
-                    backgroundColor: item.backgroundColor,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    shadowColor: "rgba(0,0,0,0.5)",
-                    shadowOffset: {
-                      width: 0,
-                      height: 2,
-                    },
-                    elevation: 5,
-                    shadowOpacity: 0.28,
-                    shadowRadius: 4,
-                  }}
-                >
-                  <Svg width={item.svgWidth} height={item.svgHeight}>
-                    <SvgComponent />
-                    <Title>{item.label}</Title>
-                  </Svg>
-                </View>
-              </View>
-            );
-          }}
-          horizontal={true}
-          ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
-          showsHorizontalScrollIndicator={false}
-        />
-      </Content>
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => {
+          const SvgComponent = svgData[item.id];
+          return (
+            <Pressable
+              style={{
+                padding: 12,
+                alignItems: "center",
+              }}
+            >
+              <Content
+                style={{
+                  shadowColor: "rgba(0,0,0,0.5)",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  elevation: 5,
+                  shadowOpacity: 0.28,
+                  shadowRadius: 4,
+                }}
+              >
+                {showOnCheck ? (
+                  <View
+                    style={{
+                      alignSelf: "flex-end",
+                      justifyContent: "flex-start",
+                    }}
+                  >
+                    <SvgCheck />
+                  </View>
+                ) : null}
+
+                <Svg width={item.svgWidth} height={item.svgHeight}>
+                  <SvgComponent />
+                  <Title>{item.label}</Title>
+                </Svg>
+              </Content>
+            </Pressable>
+          );
+        }}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+      />
     </Container>
   );
 }
