@@ -1,4 +1,6 @@
+import { Product } from "@components/ActionModal/style";
 import { Container, ProductImage, ProductDetails, ProductName, ProductDescription, ProductPrice } from "./style";
+import { useNavigation } from "@react-navigation/native";
 
 interface Product {
     id: number;
@@ -10,8 +12,10 @@ interface Product {
 
 export function ProductResume({ product }: {product: Product}) {
 
+    const navigation = useNavigation();
+
     return(
-        <Container>
+        <Container onPress={() => navigation.navigate('details', {product: Product})}>
             <ProductImage source={{ uri: product.images[0] }}/>
             <ProductDetails>
                 <ProductName numberOfLines={1}>{product.title}</ProductName>

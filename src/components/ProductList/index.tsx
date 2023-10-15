@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import axios from 'axios';
 import { CategoryComponent } from '@components/CategoryComponent';
+import { useProductStore } from 'src/contexts/ProductContext';
 
 interface Category {
     id: number;
@@ -18,7 +19,7 @@ export function ProductList() {
       });
   }, []);
 
-  const displayedCategories = categories.slice(0,5);
+  const displayedCategories = categories.slice(0, 5);
 
   return (
     <FlatList

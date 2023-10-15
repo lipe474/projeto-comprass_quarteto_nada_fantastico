@@ -1,5 +1,7 @@
 import { Container, ProductImage, ProductInformationsContainer, NameAndCategoryContainer, Name, Category, Price, DescriptionContainer, Description } from "./style";
 import { DetailsMenu } from "@components/DetailsMenu";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 interface Product {
     id: number;
