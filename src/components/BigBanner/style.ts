@@ -3,11 +3,10 @@ import styled from "styled-components/native";
 import ImageLogoSvg from "@assets/icons/logo.svg";
 import CartSvg from "@assets/icons/cart.svg";
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   flex: 1;
   width: 100%;
-  position: relative;
-  margin-top: 28px;
+  height: 400px;
 `;
 
 export const ModalContainer = styled.Modal`
@@ -17,15 +16,14 @@ export const ModalContainer = styled.Modal`
 
 export const SubmitButton = styled.TouchableOpacity`
   align-self: flex-end;
-  padding-top: 26px;
-  right: 26px;
+  padding-top: 16px;
+  padding-right: 16px;
 `;
 
 export const ImageBG = styled.ImageBackground`
-  width: 420px;
-  height: 420px;
   align-items: flex-start;
-  position: absolute;
+  width: 100%;
+  height: 100%;
 `;
 
 export const ImageLogo = styled(ImageLogoSvg)`
@@ -36,17 +34,16 @@ export const ImageLogo = styled(ImageLogoSvg)`
 
 export const SecondContainer = styled.View`
   flex: 1;
+  margin-left: 16px;
   flex-direction: row;
   align-items: center;
+  gap: 16px;
 `;
 
 export const Title = styled.Text`
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
   color: ${({ theme }) => theme.COLORS.WHITE};
-  left: 20px;
 `;
 
-export const ImageDetail = styled(CartSvg)`
-  left: 20px;
-`;
+export const ImageDetail = styled(CartSvg)``;

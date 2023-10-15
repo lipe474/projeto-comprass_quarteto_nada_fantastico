@@ -8,7 +8,7 @@ import {
   SecondContainer,
   ImageDetail,
   ImageLogo,
-  SubmitButton,
+  SubmitButton
 } from "./style";
 import ActionModal from "@components/ActionModal";
 
@@ -24,7 +24,7 @@ function BigBanner({ showSearch, showModal }: BigBannerProps) {
   return (
     <Container>
       <ImageBG
-        resizeMode="contain"
+        resizeMode="cover"
         source={require("../../assets/images/banner.png")}
       >
         {showSearch ? (
