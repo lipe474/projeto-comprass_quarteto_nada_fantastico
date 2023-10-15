@@ -39,6 +39,7 @@ export function CategoryComponent({ category }: { category: Category }) {
         data={products}
         keyExtractor={(item) => item.id.toString()}
         horizontal
+        initialNumToRender={10}
         renderItem={({ item }) => <ProductOnHomeScreen product={item} />}
       />
     </Container>

@@ -23,6 +23,7 @@ export function ProductList() {
     <FlatList
       data={displayedCategories}
       keyExtractor={(item) => item.id.toString()}
+      initialNumToRender={10}
       renderItem={({ item }) => <CategoryComponent category={item} />}
     />
   );
