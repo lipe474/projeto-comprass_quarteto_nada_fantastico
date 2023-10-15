@@ -18,7 +18,6 @@ export function ProductList() {
   }, []);
 
   const displayedCategories = categories.slice(0, 5);
-  const displayedCategories = categories.slice(0, 5);
 
   return (
     <FlatList
