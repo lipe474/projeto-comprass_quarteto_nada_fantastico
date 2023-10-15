@@ -2,6 +2,14 @@ import styled from "styled-components/native";
 
 import { Plus, Minus } from "phosphor-react-native";
 
+export const ContainerAll = styled.View`
+  width: 150px;
+  height: 276px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 16px;
+`;
+
 export const Container = styled.TouchableOpacity`
   width: 150px;
   height: auto;

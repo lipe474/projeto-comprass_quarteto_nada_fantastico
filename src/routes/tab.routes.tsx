@@ -1,4 +1,7 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+  BottomTabNavigationProp,
+  createBottomTabNavigator
+} from "@react-navigation/bottom-tabs";
 
 import HomeSvg from "@assets/icons/home.svg";
 import ShopSvg from "@assets/icons/cart-shop.svg";
@@ -8,8 +11,25 @@ import { useTheme } from "styled-components/native";
 import { Cart } from "@screens/Cart";
 import { Home } from "@screens/Home";
 import { StackRoutes } from "./stack.routes";
+import { Details } from "@screens/Details";
 
-const Tab = createBottomTabNavigator();
+type BottomTabRoutes = {
+  home: undefined;
+  cart: undefined;
+  profile: undefined;
+  details: {
+    id: number;
+    title: string;
+    price: number;
+    description: string;
+    images: any;
+    category: any;
+  };
+};
+
+export type AppNavigatorRoutesProps = BottomTabNavigationProp<BottomTabRoutes>;
+
+const Tab = createBottomTabNavigator<BottomTabRoutes>();
 
 export function TabRoutes() {
   const { COLORS, FONT_FAMILY, FONT_SIZE } = useTheme();
@@ -91,6 +111,14 @@ export function TabRoutes() {
               height={iconSize}
             />
           )
+        }}
+      />
+
+      <Tab.Screen
+        name="details"
+        component={Details}
+        options={{
+          tabBarButton: () => null
         }}
       />
     </Tab.Navigator>

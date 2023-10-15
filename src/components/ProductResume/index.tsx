@@ -12,20 +12,19 @@ import {
   ButtonPlus,
   PlusIcon,
   MinusIcon,
-  CountIndicator
+  CountIndicator,
+  ContainerAll
 } from "./style";
-import { View } from "react-native";
+import { TouchableOpacityProps, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { AppNavigatorRoutesProps } from "@routes/tab.routes";
+import { ProductDTO } from "@dtos/ProductDTO";
 
-interface Product {
-  id: number;
-  images: any;
-  title: string;
-  description: string;
-  price: number;
-}
+type Props = TouchableOpacityProps & {
+  data: ProductDTO;
+};
 
-export function ProductResume({ product }: { product: Product }) {
+export function ProductResume({ data, ...rest }: Props) {
   const [count, setCount] = useState(0);
 
   const decrement = () => {
@@ -39,7 +38,7 @@ export function ProductResume({ product }: { product: Product }) {
   };
 
   return (
-    <View>
+    <ContainerAll>
       <ContainerCount>
         <ButtonMinus onPress={decrement}>
           <MinusIcon />
@@ -50,16 +49,16 @@ export function ProductResume({ product }: { product: Product }) {
         </ButtonPlus>
       </ContainerCount>
 
-      <Container>
-        <ProductImage source={{ uri: product.images[0] }} />
+      <Container {...rest}>
+        <ProductImage source={{ uri: data.images[0] }} />
         <ProductDetails>
-          <ProductName numberOfLines={1}>{product.title}</ProductName>
+          <ProductName numberOfLines={1}>{data.title}</ProductName>
           <ProductDescription numberOfLines={1}>
-            {product.description}
+            {data.description}
           </ProductDescription>
-          <ProductPrice>{product.price} R$</ProductPrice>
+          <ProductPrice>{data.price} R$</ProductPrice>
         </ProductDetails>
       </Container>
-    </View>
+    </ContainerAll>
   );
 }

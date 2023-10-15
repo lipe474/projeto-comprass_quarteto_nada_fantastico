@@ -1,30 +1,44 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { FlatList, ScrollView } from "react-native";
-import { ProductOnHomeScreen } from "@components/ProductOnHomeScreen";
+import { FlatList } from "react-native";
 import { CategoryTitle, Container, ContainerRow, ViewAll } from "./style";
+import { ProductResume } from "@components/ProductResume";
+import { ProductDTO } from "@dtos/ProductDTO";
+import { useNavigation } from "@react-navigation/native";
+import { AppNavigatorRoutesProps } from "@routes/tab.routes";
 
 interface Category {
   id: number;
   name: string;
 }
 
-interface Product {
-  category: any;
-  id: number;
-  images: any;
-  title: string;
-  description: string;
-  price: number;
-}
-
 export function CategoryComponent({ category }: { category: Category }) {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductDTO[]>([]);
+
+  const navigation = useNavigation<AppNavigatorRoutesProps>();
+
+  function handleOpenDetails(
+    id: number,
+    title: string,
+    price: number,
+    description: string,
+    images: any,
+    category: any
+  ) {
+    navigation.navigate("details", {
+      id,
+      title,
+      price,
+      description,
+      images,
+      category
+    });
+  }
 
   useEffect(() => {
     axios.get(`https://api.escuelajs.co/api/v1/products`).then((response) => {
       const productsInCategory = response.data.filter(
-        (product: Product) => product.category.id === category.id
+        (product: ProductDTO) => product.category.id === category.id
       );
       setProducts(productsInCategory);
     });
@@ -40,7 +54,21 @@ export function CategoryComponent({ category }: { category: Category }) {
         keyExtractor={(item) => item.id.toString()}
         horizontal
         initialNumToRender={10}
-        renderItem={({ item }) => <ProductOnHomeScreen product={item} />}
+        renderItem={({ item }) => (
+          <ProductResume
+            data={item}
+            onPress={() =>
+              handleOpenDetails(
+                item.id,
+                item.title,
+                item.price,
+                item.description,
+                item.images,
+                item.category
+              )
+            }
+          />
+        )}
       />
     </Container>
   );
