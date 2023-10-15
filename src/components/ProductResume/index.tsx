@@ -15,27 +15,33 @@ import {
   CountIndicator
 } from "./style";
 import { View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useCartStore } from "src/contexts/CartStore";
 
 interface Product {
-  id: number;
-  images: any;
-  title: string;
-  description: string;
-  price: number;
+    id: number;
+    images: any;
+    title: string;
+    description: string;
+    price: number;
+    count: number;
+  }
+
+interface ProductResumeProps {
+    product: Product;
 }
 
-export function ProductResume({ product }: { product: Product }) {
-  const [count, setCount] = useState(0);
+export function ProductResume({ product }: ProductResumeProps) {
+const cartStore = useCartStore();
+  const count = cartStore.cart.find((p) => p.id === product.id)?.count || 0;
 
   const decrement = () => {
     if (count > 0) {
-      setCount((prevCount) => prevCount - 1);
-    }
+        cartStore.removeFromCart(product.id);
+      }
   };
 
   const increment = () => {
-    setCount((prevCount) => prevCount + 1);
+    cartStore.addToCart(product);
   };
 
   return (
