@@ -1,13 +1,14 @@
 import styled from "styled-components/native";
 
 export const Container = styled.SafeAreaView`
-  flex: 1;
   justify-content: center;
-  background-color: ${({ theme }) => theme.COLORS.GRAY_100};
+  align-itens: center;
+  align-self: center;
 `;
 
 export const Title = styled.Text`
   text-align: left;
+  margin-top: 32px;
   margin-bottom: 16px;
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
