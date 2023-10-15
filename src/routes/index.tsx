@@ -11,7 +11,7 @@ export function Routes() {
   return (
     <NavigationContainer>
       <StatusBar backgroundColor={COLORS.BLACK_800} barStyle="light-content" />
-      <Checkout />
+      <StackRoutes />
     </NavigationContainer>
   );
 }
