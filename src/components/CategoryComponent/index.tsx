@@ -22,7 +22,7 @@ export function CategoryComponent({ category }: { category: Category }) {
     title: string,
     price: number,
     description: string,
-    images: any,
+    images: Array<string>,
     category: any
   ) {
     navigation.navigate("details", {

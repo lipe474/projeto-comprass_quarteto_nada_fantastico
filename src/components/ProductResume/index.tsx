@@ -19,22 +19,24 @@ import { TouchableOpacityProps, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AppNavigatorRoutesProps } from "@routes/tab.routes";
 import { ProductDTO } from "@dtos/ProductDTO";
+import { useCartStore } from "../../contexts/CartStore";
 
 type Props = TouchableOpacityProps & {
   data: ProductDTO;
 };
 
 export function ProductResume({ data, ...rest }: Props) {
-  const [count, setCount] = useState(0);
+    const cartStore = useCartStore();
+    const count = cartStore.cart.find((p) => p.id === data.id)?.count || 0;
 
   const decrement = () => {
     if (count > 0) {
-        cartStore.removeFromCart(product.id);
+        cartStore.removeFromCart(data.id);
       }
   };
 
   const increment = () => {
-    cartStore.addToCart(product);
+    cartStore.addToCart(data);
   };
 
   return (

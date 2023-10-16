@@ -1,17 +1,9 @@
 import { create } from "zustand";
-
-interface Product {
-  id: number;
-  images: any;
-  title: string;
-  description: string;
-  price: number;
-  count: number;
-}
+import { ProductDTO } from "@dtos/ProductDTO";
 
 type CartStore = {
-  cart: Product[];
-  addToCart: (product: Product) => void;
+  cart: ProductDTO[];
+  addToCart: (product: ProductDTO) => void;
   removeFromCart: (id: number) => void;
 };
 
