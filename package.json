@@ -37,7 +37,8 @@
     "react-native-textinput-effects": "^0.6.3",
     "styled-components": "^6.0.7",
     "yup": "^1.2.0",
-    "zustand": "^4.4.3"
+    "zustand": "^4.4.3",
+    "@react-native-picker/picker": "2.4.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
