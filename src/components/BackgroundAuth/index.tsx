@@ -7,7 +7,7 @@ interface BackgroundAuthProps extends ImageBackgroundProps {
   children?: ReactNode;
 }
 
-export function BackgroundAuth({ ...props }: BackgroundAuthProps) {
+export function BackgroundAuth({ testID, ...props }: BackgroundAuthProps) {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -17,6 +17,7 @@ export function BackgroundAuth({ ...props }: BackgroundAuthProps) {
       <ImageBackground
         source={require("@assets/images/background.png")}
         resizeMode="contain"
+        testID="image-background"
       />
     </KeyboardAvoidingView>
   );
