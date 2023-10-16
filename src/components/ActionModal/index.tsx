@@ -15,6 +15,7 @@ import {
   ItensSecondContainer,
   InputContainer,
   Money,
+  ActionButton,
 } from "./style";
 import {
   View,
@@ -64,82 +65,59 @@ function ActionModal() {
   }, [searchTerm]);
 
   return (
-    <ActionContainer>
-      <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity
-          style={{ marginLeft: "auto", marginRight: 12 }}
-          onPress={() => setInputFocused(!inputFocused)}
-        >
-          <Research width={41} height={41} />
-        </TouchableOpacity>
-      </View>
-      {inputFocused ? (
-        <InputContainer>
-          <InputResearch
-            onFocus={handleInputFocus}
-            value={searchTerm}
-            onChangeText={(text) => setSearchTerm(text)}
-            placeholder="Enter the product name"
-          />
-        </InputContainer>
-      ) : null}
-
-      {isModalVisible && (
-        <View style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.0)" }}>
-          <FilterContainer>
-            {loading ? <FilterTitle>Loading...</FilterTitle> : null}
-            <FlatList
-              data={searchResult}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => (
-                <ItensContainer>
-                  <ImageProduct source={{ uri: item.images[0] }} />
-                  <ItensSecondContainer>
-                    <Product>{item.title}</Product>
-                    <Description numberOfLines={1}>
-                      {item.description}
-                    </Description>
-                  </ItensSecondContainer>
-
-                  <Price>{item.price}</Price>
-                  <Money>R$</Money>
-                </ItensContainer>
-              )}
-            />
-          </FilterContainer>
+    <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+      <ActionContainer>
+        <View>
+          <TouchableOpacity onPress={() => setInputFocused(!inputFocused)}>
+            <Research width={41} height={41} />
+          </TouchableOpacity>
         </View>
-      )}
-    </ActionContainer>
+
+        <View style={{ alignContent: "center" }}>
+          <InputContainer>
+            {inputFocused ? (
+              <InputResearch
+                onFocus={handleInputFocus}
+                value={searchTerm}
+                onChangeText={(text) => setSearchTerm(text)}
+                placeholder="Enter the product name"
+              />
+            ) : null}
+          </InputContainer>
+
+          {isModalVisible ? (
+            <FilterContainer>
+              {loading ? <FilterTitle>Loading...</FilterTitle> : null}
+              <FlatList
+                data={searchResult}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => (
+                  <TouchableOpacity>
+                    <ItensContainer>
+                      <ImageProduct source={{ uri: item.images[0] }} />
+                      <ItensSecondContainer>
+                        <Product>{item.title}</Product>
+                        <Description numberOfLines={1}>
+                          {item.description}
+                        </Description>
+                      </ItensSecondContainer>
+
+                      <Price>{item.price}</Price>
+                      <Money>R$</Money>
+                    </ItensContainer>
+                  </TouchableOpacity>
+                )}
+              />
+            </FilterContainer>
+          ) : null}
+        </View>
+        <ActionButton
+          style={{ flex: 1, backgroundColor: "FFF" }}
+          onPress={() => setModalVisible(false)}
+        />
+      </ActionContainer>
+    </TouchableWithoutFeedback>
   );
 }
 
 export default ActionModal;
-
-/*
-
-      {isModalVisible && (
-        <View style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.0)" }}>
-          <FilterContainer>
-            {loading ? <FilterTitle>Loading...</FilterTitle> : null}
-            <FlatList
-              data={searchResult}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => (
-                <ItensContainer>
-                  <ImageProduct source={{ uri: item.images[0] }} />
-                  <ItensSecondContainer>
-                    <Product>{item.title}</Product>
-                    <Description numberOfLines={1}>
-                      {item.description}
-                    </Description>
-                  </ItensSecondContainer>
-
-                  <Price>{item.price}</Price>
-                  <Money>R$</Money>
-                </ItensContainer>
-              )}
-            />
-          </FilterContainer>
-        </View>
-      )}
-      */
