@@ -10,11 +10,9 @@ import ProfileSvg from "@assets/icons/profile.svg";
 import { useTheme } from "styled-components/native";
 import { Cart } from "@screens/Cart";
 import { Home } from "@screens/Home";
-import { StackRoutes } from "./stack.routes";
 import { Details } from "@screens/Details";
 import { useCartStore } from "../contexts/CartStore";
 import { useState, useEffect } from "react";
-
 
 type BottomTabRoutes = {
   home: undefined;
@@ -49,7 +47,6 @@ export function TabRoutes() {
   }, [cartStore.cart]);
 
   const iconSize = 30;
-  const showBadge = true;
 
   return (
     <Tab.Navigator
@@ -94,7 +91,8 @@ export function TabRoutes() {
         component={Cart}
         options={{
           tabBarLabel: "Cart",
-          tabBarBadge: totalNumberOfItems,
+          tabBarBadge:
+            totalNumberOfItems === "0" ? undefined : totalNumberOfItems,
           tabBarBadgeStyle: {
             start: 5,
             top: -20,
@@ -132,6 +130,7 @@ export function TabRoutes() {
         name="details"
         component={Details}
         options={{
+          tabBarStyle: { display: "none" },
           tabBarButton: () => null
         }}
       />

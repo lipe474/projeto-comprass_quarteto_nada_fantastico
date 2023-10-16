@@ -16,7 +16,7 @@ export const ImageBG = styled.ImageBackground`
 export const ImageLogo = styled(ImageLogoSvg)`
   align-self: center;
   position: absolute;
-  top: 50%;
+  top: 42%;
 `;
 
 export const SecondContainer = styled.View`

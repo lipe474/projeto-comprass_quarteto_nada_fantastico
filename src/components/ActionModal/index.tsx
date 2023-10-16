@@ -118,14 +118,18 @@ function ActionModal({ onCloseModal }: ActionModalProps) {
                 data={searchResult}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                  <TouchableOpacity onPress={() => handleOpenDetails(
-                    item.id,
-                    item.title,
-                    item.price,
-                    item.description,
-                    item.images,
-                    item.category
-                  )}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      handleOpenDetails(
+                        item.id,
+                        item.title,
+                        item.price,
+                        item.description,
+                        item.images,
+                        item.category
+                      )
+                    }
+                  >
                     <ItensContainer>
                       <ImageProduct source={{ uri: item.images[0] }} />
                       <ItensSecondContainer>

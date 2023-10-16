@@ -12,8 +12,6 @@ function BigBanner() {
         resizeMode="cover"
         source={require("../../assets/images/banner.png")}
       >
-        <ActionModal />
-
         <ImageLogo width={263} height={56} />
 
         <SecondContainer>

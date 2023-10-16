@@ -17,11 +17,9 @@ export function ProductList() {
     });
   }, []);
 
-  const displayedCategories = categories.slice(0, 5);
-
   return (
     <FlatList
-      data={displayedCategories}
+      data={categories}
       keyExtractor={(item) => item.id.toString()}
       initialNumToRender={10}
       renderItem={({ item }) => <CategoryComponent category={item} />}
