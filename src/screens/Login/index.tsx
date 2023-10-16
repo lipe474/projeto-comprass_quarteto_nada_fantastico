@@ -38,6 +38,8 @@ export function Login() {
     control,
     handleSubmit,
     setError,
+    setValue,
+    resetField,
     formState: { errors }
   } = useForm<FormLoginDTO>({
     resolver: yupResolver(loginSchema)
@@ -65,6 +67,8 @@ export function Login() {
         message = "Your email or password is incorrect";
 
         SetErrorInputs("manual", message, setError, ["email", "password"]);
+        setValue("email", "");
+        setValue("password", "");
       }
 
       setIsLoading(false);
@@ -75,14 +79,18 @@ export function Login() {
 
   function handleNavigateToSignUp() {
     navigation.navigate("signUp");
+    resetField("email");
+    resetField("password");
   }
 
   function handleNavigateToForgotPassword() {
     navigation.navigate("forgotPassword");
+    resetField("email");
+    resetField("password");
   }
 
   function handleNavigateToHomePage() {
-    navigation.navigate("tabRoutes");
+    navigation.navigate("home");
   }
 
   return (
@@ -136,7 +144,14 @@ export function Login() {
             title="LOGIN"
             width={343}
             height={48}
-            onPress={handleSubmit(handleLogin)}
+            onPress={() => {
+              if (errors.email?.message ?? errors.password?.message) {
+                setValue("email", "");
+                setValue("password", "");
+              } else {
+                handleSubmit(handleLogin)();
+              }
+            }}
             isLoading={isLoading}
           />
         </ButtonContainer>

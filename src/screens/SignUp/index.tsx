@@ -17,7 +17,7 @@ import { Controller, useForm } from "react-hook-form";
 import { StackProps } from "@routes/stack.routes";
 import { FormCreateUserDTO } from "@dtos/FormCreateUserDTO";
 import { signUpSchema } from "@utils/validation/schemaCreateUser";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CreateUser } from "@requests/index";
 import { CreateUserDTO } from "@dtos/UserDTO";
 import { useTheme } from "styled-components/native";
@@ -32,10 +32,21 @@ export function SignUp() {
     control,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors }
   } = useForm<FormCreateUserDTO>({
     resolver: yupResolver(signUpSchema)
   });
+
+  if (
+    errors.name?.message ??
+    errors.email?.message ??
+    errors.password?.message ??
+    errors.password_confirm?.message
+  ) {
+    setValue("password", "");
+    setValue("password_confirm", "");
+  }
 
   async function handleSignUp({ name, email, password }: CreateUserDTO) {
     try {
@@ -148,15 +159,15 @@ export function SignUp() {
               />
             )}
           />
+          {
+            <ErrorText>
+              {errors.name?.message ??
+                errors.email?.message ??
+                errors.password?.message ??
+                errors.password_confirm?.message}
+            </ErrorText>
+          }
         </ContentContainer>
-        {
-          <ErrorText>
-            {errors.name?.message ??
-              errors.email?.message ??
-              errors.password?.message ??
-              errors.password_confirm?.message}
-          </ErrorText>
-        }
 
         <ButtonContainer>
           <CustomButton

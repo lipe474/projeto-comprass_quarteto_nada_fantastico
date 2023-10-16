@@ -11,12 +11,12 @@ import {
   Close,
   Detail,
 } from "./style";
-import { ButtonAddress } from "@components/ShippingAddress/style";
-import { Modal, Text } from "react-native";
+
+import { Modal } from "react-native";
 import CardModal from "@components/CardModal";
 
 interface AddressModalProps {
-  handleClose: () => void;
+  handleClose?: () => void;
 }
 
 function AddressModal({ handleClose }: AddressModalProps) {

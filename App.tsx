@@ -1,4 +1,4 @@
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { StatusBar } from "react-native";
 import {
   useFonts,
   OpenSans_400Regular,
@@ -6,13 +6,12 @@ import {
   OpenSans_700Bold,
   OpenSans_800ExtraBold
 } from "@expo-google-fonts/open-sans";
-import { ThemeProvider } from "styled-components/native";
+
+import theme from "./src/theme";
 
 import { Routes } from "@routes/index";
-import theme from "./src/theme";
 import { Loading } from "@components/Loading";
-import Checkout from "@screens/Checkout";
-import { SignUp } from "@screens/SignUp";
+import { ThemeProvider } from "styled-components/native";
 
 export default function App() {
   const [fontsLoaded] = useFonts({

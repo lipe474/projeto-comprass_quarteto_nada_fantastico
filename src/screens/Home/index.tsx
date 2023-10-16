@@ -11,8 +11,12 @@ export function Home() {
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
       >
-        <BigBanner showSearch showModal />
+        <BigBanner />
         <ProductList />
+        {/* <ActionButton
+          style={{ flex: 1, backgroundColor: "FFF" }}
+          onPress={() => setModalVisible(false)}
+        /> */}
       </ScrollView>
     </Container>
   );

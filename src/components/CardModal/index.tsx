@@ -8,7 +8,8 @@ import {
   Close,
   ContentAdd,
   Detail,
-  MaskInput
+  ContentInput,
+  ErrorText,
 } from "./style";
 
 import SvgVisa from "@assets/icons/visa-logo.svg";
@@ -23,113 +24,181 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { cardSchema } from "@utils/validation/shcemaCard";
 
 interface CardModalProps {
-  handleClose: () => void;
-  showCard: boolean;
+  handleClose?: () => void;
+  showCard?: boolean;
 }
 
 type FormData = {
+  nameOnCard?: string;
   cardNumber?: string;
+  expireDate?: string;
+  cvv?: string;
 };
 
 function CardModal({ handleClose, showCard }: CardModalProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const formCard = useForm<FormData>({
-    resolver: yupResolver(cardSchema)
+    resolver: yupResolver(cardSchema),
   });
 
-  return (
-    <Container>
-      <Close onPress={handleClose}></Close>
+  const [selectedCard, setSelectedCard] = useState("");
 
-      <Content>
-        <Method>Add new card</Method>
+  const handleCardChange = (form: any) => {
+    const { values } = form;
+    const cardNumber = values.number;
 
-        {showCard ? (
-          <View>
-            <Detail>
-              <SvgVisa width={48} height={29} />
-            </Detail>
+    if (cardNumber.starWith("4")) {
+      setSelectedCard("visa");
+      console.log(cardNumber);
+    } else if (cardNumber.starWith("5")) {
+      setSelectedCard("mastercard");
+    } else if (cardNumber.starWith("6")) {
+      setSelectedCard("elo");
+    } else if (cardNumber.starWith("3")) {
+      setSelectedCard("american");
+    } else {
+      setSelectedCard("");
+    }
 
-            <Detail>
-              <SvgElo width={51} height={18} />
-            </Detail>
+    return (
+      <Container>
+        <Close onPress={handleClose}></Close>
 
-            <Detail>
-              <SvgMastercard width={32} height={25} />
-            </Detail>
+        <Content>
+          <Method>Add new card</Method>
 
-            <Detail>
-              <SvgAmerican width={37} height={27} />
-            </Detail>
-          </View>
-        ) : null}
-
-        {/* <TextInput
-            placeholder="Card number"
-            onChangeText={(text) => {
-              const formattedText = text.replace(/\D/g, "").substring(0, 16);
-              const regex = /(\d{1,4})/g;
-              const formattedNumber = formattedText
-                .replace(regex, "$1 ")
-                .trim();
-              onChange(formattedNumber);
-            }}
-
-            
-          /> */}
-        {/* <Controller
-          control={formCard.control}
-          name="cep"
-          render={({ field: { onChange, value } }) => (
-            <CustomInput
-              label="Card number"
-              onChangeText={(text) => {
-                const formattedText = text.replace(/\D/g, "").substring(0, 16);
-                const regex = /(\d{1,4})/g;
-                const formattedNumber = formattedText
-                  .replace(regex, "$1 ")
-                  .trim();
-                text = formattedNumber;
-              }}
-            />
+          {selectedCard && (
+            <View>
+              {selectedCard === "visa" && (
+                <Detail>
+                  <SvgVisa width={48} height={29} />
+                </Detail>
+              )}
+              {selectedCard === "mastercard" && (
+                <Detail>
+                  <SvgMastercard width={32} height={25} />
+                </Detail>
+              )}
+              {selectedCard === "elo" && (
+                <Detail>
+                  <SvgElo width={51} height={18} />
+                </Detail>
+              )}
+              {selectedCard === "american" && (
+                <Detail>
+                  <SvgAmerican width={37} height={27} />
+                </Detail>
+              )}
+            </View>
           )}
-        /> */}
 
-        <View>
-          {/* <TextInput
-            onChangeText={(text) => {
-              const formattedText = text.replace(/\D/g, "").substring(0, 4);
-              if (formattedText.length >= 2) {
-                const formattedDate =
-                  formattedText.slice(0, 2) + "/" + formattedText.slice(2);
-                onchange(formattedDate);
-              } else {
-                onChange(formattedText);
-              }
-            }}
-          /> */}
-          <CustomInput label="Expire Date" />
-        </View>
+          <ContentInput>
+            <Controller
+              control={formCard.control}
+              name="nameOnCard"
+              render={({ field: { onChange, value } }) => (
+                <CustomInput
+                  label="Name on card"
+                  border
+                  value={value}
+                  onChangeText={onChange}
+                  errorMessage={formCard.formState.errors.nameOnCard?.message}
+                />
+              )}
+            />
 
-        <View>
-          {/* <TextInput
-            placeholder="CVV"
-            onChangeText={(text) => {
-              const formattedText = text.replace(/\D/g, "").substring(0, 3);
-              const formattedCVV = formattedText
-                .replace(/(\d{1,3})/g, "$1 ")
-                .trim();
-              onChange(formattedCVV);
-            }}
-          /> */}
-          <CustomInput label="CVV" />
-        </View>
+            <Controller
+              control={formCard.control}
+              name="cardNumber"
+              render={({ field: { onChange, value } }) => (
+                <CustomInput
+                  label="Card number"
+                  keyboardType="numeric"
+                  border
+                  value={value}
+                  onChangeText={(text) => {
+                    const formattedText = text
+                      .replace(/\D/g, "")
+                      .substring(0, 16);
+                    const regex = /(\d{1,4})/g;
+                    const formattedNumber = formattedText
+                      .replace(regex, "$1 ")
+                      .trim();
+                    onChange(formattedNumber);
+                  }}
+                  errorMessage={formCard.formState.errors.cardNumber?.message}
+                />
+              )}
+            />
 
-        <ContentAdd>
-          <CustomButton height={48} width={343} title="ADD CARD" />
-        </ContentAdd>
-      </Content>
-    </Container>
-  );
+            <Controller
+              control={formCard.control}
+              name="expireDate"
+              render={({ field: { onChange, value } }) => (
+                <CustomInput
+                  label="Expire Date"
+                  keyboardType="numeric"
+                  border
+                  value={value}
+                  onChangeText={(text) => {
+                    const formattedText = text
+                      .replace(/\D/g, "")
+                      .substring(0, 4);
+                    const regex = /(\d{1,2})(\d{1,2})/g;
+                    const formattedNumber = formattedText.replace(
+                      regex,
+                      "$1/$2"
+                    );
+                    onChange(formattedNumber);
+                  }}
+                  errorMessage={formCard.formState.errors.expireDate?.message}
+                />
+              )}
+            />
+
+            <Controller
+              control={formCard.control}
+              name="cvv"
+              render={({ field: { onChange, value } }) => (
+                <CustomInput
+                  label="CVV"
+                  keyboardType="numeric"
+                  border
+                  value={value}
+                  onChangeText={(text) => {
+                    const formattedText = text
+                      .replace(/\D/g, "")
+                      .substring(0, 3);
+
+                    onChange(formattedText);
+                  }}
+                  errorMessage={formCard.formState.errors.cvv?.message}
+                />
+              )}
+            />
+            {
+              <ErrorText>
+                {formCard.formState.errors.nameOnCard?.message ??
+                  formCard.formState.errors.cardNumber?.message ??
+                  formCard.formState.errors.expireDate?.message ??
+                  formCard.formState.errors.cvv?.message}
+              </ErrorText>
+            }
+          </ContentInput>
+
+          <ContentAdd>
+            <CustomButton
+              height={48}
+              width={343}
+              title="ADD CARD"
+              isDisabled={isLoading}
+              onPress={formCard.handleSubmit(() => {})}
+            />
+          </ContentAdd>
+        </Content>
+      </Container>
+    );
+  };
 }
 
 export default CardModal;

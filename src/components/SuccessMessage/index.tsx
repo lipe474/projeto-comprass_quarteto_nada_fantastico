@@ -14,7 +14,15 @@ export function SuccessMessage({
 }: SuccessMessageProps) {
   return (
     <Container>
-      {hasImage ? <Image source={source!} resizeMode="contain" /> : <Spacer />}
+      {hasImage ? (
+        <Image
+          source={source!}
+          resizeMode="contain"
+          accessibilityHint="image-success"
+        />
+      ) : (
+        <Spacer />
+      )}
       <Title>Success!</Title>
       <SubTitle>{children}</SubTitle>
     </Container>

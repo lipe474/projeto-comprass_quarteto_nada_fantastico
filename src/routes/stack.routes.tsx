@@ -14,7 +14,6 @@ type StackRoutes = {
   login: undefined;
   signUp: undefined;
   forgotPassword: undefined;
-  // details: undefined;
   home: undefined;
 };
 
@@ -28,8 +27,7 @@ export function StackRoutes() {
       <Stack.Screen name="login" component={Login} />
       <Stack.Screen name="signUp" component={SignUp} />
       <Stack.Screen name="forgotPassword" component={ForgotPassword} />
-      {/* <Stack.Screen name="details" component={Details} /> */}
-      <Stack.Screen name="home" component={Home} />
+      <Stack.Screen name="home" component={TabRoutes} />
     </Stack.Navigator>
   );
 }
