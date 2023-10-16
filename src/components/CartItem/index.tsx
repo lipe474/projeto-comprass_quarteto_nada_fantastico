@@ -16,52 +16,51 @@ import TrashSVG from "@assets/icons/trash.svg";
 
 import { useState } from "react";
 import { ImageSourcePropType, StyleSheet } from "react-native";
+import { useCartStore } from "../../contexts/CartStore";
+import { ProductDTO } from "@dtos/ProductDTO";
 
 type CartItemProps = {
-  title: string;
-  price: number;
-  image: ImageSourcePropType;
-  quantity: number;
-  onQuantityChange: (newQuantity: number) => void;
-  removeItem?: () => void;
+  product: ProductDTO
 };
 
 export function CartItem({
-  title,
-  price,
-  image,
-  quantity,
-  onQuantityChange,
-  removeItem
+  product,
 }: CartItemProps) {
+  const cartStore = useCartStore();
+  const count = cartStore.cart.find((p) => p.id === product.id)?.count || 0;
+
   function incrementQuantity() {
-    onQuantityChange(quantity + 1);
+    cartStore.addToCart(product);
   }
 
   function decrementQuantity() {
-    if (quantity > 0) {
-      onQuantityChange(quantity - 1);
+    if (count > 0) {
+      cartStore.removeFromCart(product.id);
     }
+  }
+
+  function removeItem() {
+    cartStore.deleteFromCart(product.id);
   }
 
   return (
     <Container style={style.shadow}>
-      <Image source={image} resizeMode="contain" />
+      <Image source={{uri: product.images[0]}} resizeMode="contain" />
 
       <ContentContainer>
-        <Title>{title}</Title>
+        <Title>{product.title}</Title>
 
         <CounterContainer>
           <CounterButtonsContainer>
             <CounterButton onPress={decrementQuantity}>
               <DecreaseSVG />
             </CounterButton>
-            <Text>{quantity}</Text>
+            <Text>{product.count}</Text>
             <CounterButton onPress={incrementQuantity}>
               <IncreaseSVG />
             </CounterButton>
           </CounterButtonsContainer>
-          <Text>{quantity * price} R$</Text>
+          <Text>{product.count * product.price} R$</Text>
         </CounterContainer>
       </ContentContainer>
       <RemoveButton onPress={removeItem}>
