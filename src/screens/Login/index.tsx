@@ -27,12 +27,14 @@ import { LoginUser } from "@requests/index";
 import { useTheme } from "styled-components/native";
 import Toast from "react-native-root-toast";
 import { SetErrorInputs } from "@utils/ErrorInAllInputs";
+import { TabProps } from "@routes/tab.routes";
 
 export function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
   const { COLORS } = useTheme();
-  const navigation = useNavigation<StackProps>();
+  const stackNavigation = useNavigation<StackProps>();
+  const tabNavigation = useNavigation<TabProps>();
 
   const {
     control,
@@ -57,7 +59,7 @@ export function Login() {
         textColor: COLORS.WHITE
       });
 
-      // navigation.navigate("home");
+      tabNavigation.navigate("home");
 
       setIsLoading(false);
     } catch (error: any) {
@@ -78,19 +80,19 @@ export function Login() {
   }
 
   function handleNavigateToSignUp() {
-    navigation.navigate("signUp");
+    stackNavigation.navigate("signUp");
     resetField("email");
     resetField("password");
   }
 
   function handleNavigateToForgotPassword() {
-    navigation.navigate("forgotPassword");
+    stackNavigation.navigate("forgotPassword");
     resetField("email");
     resetField("password");
   }
 
   function handleNavigateToHomePage() {
-    navigation.navigate("home");
+    tabNavigation.navigate("home");
   }
 
   return (

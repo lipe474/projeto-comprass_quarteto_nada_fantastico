@@ -21,7 +21,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Loading } from "@components/Loading";
 import { useCartStore } from "../../contexts/CartStore";
-import { TabRoutes } from "@routes/tab.routes";
+import { TabProps } from "@routes/tab.routes";
 
 type RouteParamsProps = {
   id: number;
@@ -37,7 +37,7 @@ export function Details() {
   const { id } = route.params as RouteParamsProps;
   const [actualProduct, setActualProduct] = useState<ProductDTO>();
 
-  const navigation = useNavigation<TabRoutes>();
+  const navigation = useNavigation<TabProps>();
 
   const cartStore = useCartStore();
   const count = cartStore.cart.find((p) => p.id === id)?.count || 0;

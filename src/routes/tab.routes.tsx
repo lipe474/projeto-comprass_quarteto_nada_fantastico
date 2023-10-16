@@ -13,6 +13,8 @@ import { Home } from "@screens/Home";
 import { Details } from "@screens/Details";
 import { useCartStore } from "../contexts/CartStore";
 import { useState, useEffect } from "react";
+import { StackRoutes } from "./stack.routes";
+import { Profile } from "@screens/Profile";
 
 type BottomTabRoutes = {
   home: undefined;
@@ -26,9 +28,10 @@ type BottomTabRoutes = {
     images: any;
     category: any;
   };
+  stackRoutes: undefined;
 };
 
-export type TabRoutes = BottomTabNavigationProp<BottomTabRoutes>;
+export type TabProps = BottomTabNavigationProp<BottomTabRoutes>;
 
 const Tab = createBottomTabNavigator<BottomTabRoutes>();
 
@@ -112,7 +115,7 @@ export function TabRoutes() {
       />
       <Tab.Screen
         name="profile"
-        component={Cart}
+        component={Profile}
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ color, focused }) => (
@@ -129,6 +132,15 @@ export function TabRoutes() {
       <Tab.Screen
         name="details"
         component={Details}
+        options={{
+          tabBarStyle: { display: "none" },
+          tabBarButton: () => null
+        }}
+      />
+
+      <Tab.Screen
+        name="stackRoutes"
+        component={StackRoutes}
         options={{
           tabBarStyle: { display: "none" },
           tabBarButton: () => null
