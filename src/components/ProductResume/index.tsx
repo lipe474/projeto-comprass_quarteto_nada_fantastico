@@ -31,7 +31,7 @@ export function ProductResume({ data, ...rest }: Props) {
 
   const decrement = () => {
     if (count > 0) {
-        cartStore.removeFromCart(data.id);
+        cartStore.removeFromCartOnHomeScreen(data.id);
       }
   };
 

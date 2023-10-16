@@ -15,6 +15,8 @@ import { AppError } from "@utils/AppError";
 import { CartEmpty } from "@components/CartEmpty";
 import { useNavigation } from "@react-navigation/native";
 import { StackProps } from "@routes/stack.routes";
+import { useCartStore } from "src/contexts/CartStore";
+import { ProductDTO } from "@dtos/ProductDTO";
 
 interface Product {
   id: number;
@@ -27,55 +29,9 @@ interface Product {
 export function Cart() {
   const [products, setProducts] = useState<Product[]>([]);
   const [total, setTotal] = useState<number>(0);
+  const cartStore = useCartStore();
 
   const navigation = useNavigation<StackProps>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.escuelajs.co/api/v1/products?offset=10&limit=3"
-        );
-
-        const products = response.data.map((product: Product) => ({
-          ...product,
-          quantity: 1
-        }));
-
-        setProducts(products);
-      } catch (error: any) {
-        throw new AppError(error.message);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const calculatedTotal = products.reduce(
-      (acc, product) => acc + product.price * product.quantity,
-      0
-    );
-    setTotal(calculatedTotal);
-  }, [products]);
-
-  const handleQuantityChange = (itemId: number, newQuantity: number) => {
-    const updatedProducts = products.map((product) => {
-      if (product.id === itemId) {
-        return {
-          ...product,
-          quantity: newQuantity
-        };
-      }
-      return product;
-    });
-    setProducts(updatedProducts);
-  };
-
-  const handleRemoveItem = (itemId: number) => {
-    const newProducts = products.filter((item) => item.id !== itemId);
-    setProducts(newProducts);
-  };
 
   function handleNavigateCheckout() {
     navigation.navigate("checkout");
@@ -85,19 +41,12 @@ export function Cart() {
     <ContentContainer>
       <Title>Cart</Title>
       <FlatList
-        data={products}
+        data={cartStore.cart}
         keyExtractor={(item) => String(item.id)}
         renderItem={({ item }) => (
           <CartItem
             key={item.id}
-            title={item.title}
-            price={item.price}
-            quantity={item.quantity}
-            image={{ uri: item.images[0] }}
-            removeItem={() => handleRemoveItem(item.id)}
-            onQuantityChange={(newQuantity) =>
-              handleQuantityChange(item.id, newQuantity)
-            }
+            product={item}
           />
         )}
         showsVerticalScrollIndicator={false}
