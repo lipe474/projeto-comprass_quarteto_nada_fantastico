@@ -1,16 +1,14 @@
 import { DetailsMenu } from "@components/DetailsMenu";
 import { ProductOverview } from "@components/ProductOverview";
 import { ProductResume } from "@components/ProductResume";
-import { View, FlatList, Text } from "react-native";
+import { View, FlatList, Text, ScrollView } from "react-native";
 import {
-  Container,
-  ContainerCategoryProducts,
-  ItemsNumber,
-  Title,
-  TitleAndNumberItemsContainer
+  Container
 } from "./style";
 import { useRoute } from "@react-navigation/native";
 import { ProductDTO } from "@dtos/ProductDTO";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 type RouteParamsProps = {
   id: number;
@@ -23,25 +21,34 @@ type RouteParamsProps = {
 
 export function Details() {
   const route = useRoute();
-  const { id, title, price, description, images, category } =
-    route.params as RouteParamsProps;
-  console.log(id, "product");
+  const { id } = route.params as RouteParamsProps;
+
+  const [actualProduct, setActualProduct] = useState<ProductDTO>();
+
+  useEffect(() => {
+    if (id) {
+      axios.get(`https://api.escuelajs.co/api/v1/products/${id}`)
+        .then((response) => {
+          setActualProduct(response.data);
+        })
+        .catch((error) => {
+          console.error('Erro na requisição:', error);
+        });
+    }
+  }, [id]);
+
   return (
     <Container>
-      {id ? (
-        // <ProductOverview product={product} />
-        <Text>Carregado</Text>
+        <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
+      {actualProduct ? (
+        <ProductOverview data={actualProduct} />
       ) : (
         <Text>Carregando</Text>
       )}
-      <DetailsMenu title="Shipping Info" />
-      <DetailsMenu title="Alguma coisa" />
-      <ContainerCategoryProducts>
-        <TitleAndNumberItemsContainer>
-          <Title>You can also like this</Title>
-          <ItemsNumber>12 items</ItemsNumber>
-        </TitleAndNumberItemsContainer>
-      </ContainerCategoryProducts>
+      </ScrollView>
     </Container>
   );
 }
