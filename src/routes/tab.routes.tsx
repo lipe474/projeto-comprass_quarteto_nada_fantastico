@@ -28,7 +28,7 @@ type BottomTabRoutes = {
   };
 };
 
-export type AppNavigatorRoutesProps = BottomTabNavigationProp<BottomTabRoutes>;
+export type TabRoutes = BottomTabNavigationProp<BottomTabRoutes>;
 
 const Tab = createBottomTabNavigator<BottomTabRoutes>();
 

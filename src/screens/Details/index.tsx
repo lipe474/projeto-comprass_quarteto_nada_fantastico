@@ -9,14 +9,19 @@ import {
   PlusIcon,
   CountIndicator,
   ButtonPlus,
-  MinusIcon
+  MinusIcon,
+  HeaderContainer,
+  HeaderTitle,
+  BackButton,
+  BackIcon
 } from "./style";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { ProductDTO } from "@dtos/ProductDTO";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Loading } from "@components/Loading";
 import { useCartStore } from "../../contexts/CartStore";
+import { TabRoutes } from "@routes/tab.routes";
 
 type RouteParamsProps = {
   id: number;
@@ -30,8 +35,10 @@ type RouteParamsProps = {
 export function Details() {
   const route = useRoute();
   const { id } = route.params as RouteParamsProps;
-
   const [actualProduct, setActualProduct] = useState<ProductDTO>();
+
+  const navigation = useNavigation<TabRoutes>();
+
   const cartStore = useCartStore();
   const count = cartStore.cart.find((p) => p.id === id)?.count || 0;
 
@@ -60,6 +67,12 @@ export function Details() {
 
   return (
     <Container>
+      <HeaderContainer>
+        <HeaderTitle>Details</HeaderTitle>
+        <BackButton onPress={() => navigation.navigate("home")}>
+          <BackIcon />
+        </BackButton>
+      </HeaderContainer>
       <ContainerCount>
         <ButtonMinus onPress={decrement}>
           <MinusIcon />

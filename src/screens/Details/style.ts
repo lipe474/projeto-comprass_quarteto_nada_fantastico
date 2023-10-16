@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Dimensions } from "react-native";
-import { Plus, Minus } from "phosphor-react-native";
+import { Plus, Minus, CaretLeft } from "phosphor-react-native";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -11,6 +11,32 @@ export const Container = styled(SafeAreaView)`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
   align-items: center;
   justify-content: center;
+`;
+
+export const HeaderContainer = styled.View`
+  width: 100%;
+  height: 44px;
+  justify-content: center;
+  align-items: center;
+  border-bottom-width: 1px;
+  border-bottom-color: ${({ theme }) => theme.COLORS.GRAY_BORDER};
+`;
+
+export const HeaderTitle = styled.Text`
+  font-size: ${({ theme }) => theme.FONT_SIZE.XMD}px;
+  color: ${({ theme }) => theme.COLORS.BLACK_900};
+  font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
+  text-align: center;
+`;
+
+export const BackButton = styled.TouchableOpacity`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 export const ContainerCount = styled.View`
@@ -72,3 +98,12 @@ export const MinusIcon = styled(Minus).attrs(({ theme }) => ({
   color: theme.COLORS.WHITE,
   weight: "bold"
 }))``;
+
+export const BackIcon = styled(CaretLeft).attrs(({ theme }) => ({
+  size: theme.FONT_SIZE.LG,
+  color: theme.COLORS.BLACK_900,
+  weight: "bold"
+}))`
+  left: -6px;
+  bottom: -3px;
+`;
