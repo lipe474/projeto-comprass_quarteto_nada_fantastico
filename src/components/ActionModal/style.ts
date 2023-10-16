@@ -27,17 +27,14 @@ export const InputResearch = styled.TextInput`
   border-style: solid;
   border-color: red;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
-  margin-top: 20px;
-  position: absolute;
+  margin-top: 12px;
 `;
 
 export const InputContainer = styled.View`
   align-self: center;
   justify-content: center;
-  padding-top: 60px;
 `;
 
-// LISTA DE ITEM AQUIIII PORAAA
 export const FilterContainer = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
   justify-content: center;
