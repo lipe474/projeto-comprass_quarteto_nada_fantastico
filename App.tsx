@@ -16,6 +16,7 @@ import { Loading } from "@components/Loading";
 import { Home } from "@screens/Home";
 import CardModal from "@components/CardModal";
 import Checkout from "@screens/Checkout";
+import { ProductList } from "@components/ProductList";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
