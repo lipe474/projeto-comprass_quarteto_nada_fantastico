@@ -85,7 +85,7 @@ export function Login() {
   }
 
   function handleNavigateToHomePage() {
-    // navigation.navigate("");
+    navigation.navigate("home");
   }
 
   return (
