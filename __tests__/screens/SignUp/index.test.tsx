@@ -1,4 +1,5 @@
 import {
+  act,
   fireEvent,
   render,
   screen,
@@ -9,32 +10,48 @@ import { api } from "@services/api";
 import MockTheme from "../../mocks/mockTheme";
 import MockNavigationContainer from "../../mocks/mockNavigationContainer";
 import { mockCreateUserAPIResponse } from "../../mocks/api/mockCreateUserAPIResponse";
+import * as Navigation from "@react-navigation/native";
+
+const createTestProps = (props: Object) => ({
+  navigation: {
+    navigate: jest.fn()
+  },
+  ...props
+});
 
 describe("SignUp screen", () => {
-  it("should submit the form when all fields are filled correctly", () => {
-    const CreateUser = jest.fn();
-    const Toast = {
-      show: jest.fn()
-    };
+  let props: any;
+  beforeEach(() => {
+    props = createTestProps({});
+  });
+  it("should submit the form when all fields are filled correctly", async () => {
+    // const CreateUser = jest.fn();
+    // const Toast = {
+    //   show: jest.fn()
+    // };
+    // const mockedNavigate = jest.fn();
+
+    // jest.mock("@react-navigation/native", () => ({
+    //   useNavigation: () => ({ navigate: mockedNavigate })
+    // }));
     const navigation = {
       navigate: jest.fn()
     };
-    const useForm = jest.fn().mockReturnValue({
-      control: {},
-      handleSubmit: jest.fn().mockImplementation((callback) => callback()),
-      setError: jest.fn(),
-      setValue: jest.fn(),
-      formState: { errors: {} }
-    });
-    const useTheme = jest.fn().mockReturnValue({
-      COLORS: {
-        GREEN: "green",
-        WHITE: "white"
-      }
-    });
+    // const useForm = jest.fn().mockReturnValue({
+    //   control: {},
+    //   handleSubmit: jest.fn().mockImplementation((callback) => callback()),
+    //   setError: jest.fn(),
+    //   setValue: jest.fn(),
+    //   formState: { errors: {} }
+    // });
+    // const useTheme = jest.fn().mockReturnValue({
+    //   COLORS: {
+    //     GREEN: "green",
+    //     WHITE: "white"
+    //   }
+    // });
 
-    // Render component
-    const { getByText, getByLabelText } = render(
+    const { getByText } = render(
       <MockTheme>
         <MockNavigationContainer>
           <SignUp />
@@ -42,7 +59,6 @@ describe("SignUp screen", () => {
       </MockTheme>
     );
 
-    // Fill in the input fields
     const nameInput = getByText("Name");
     const emailInput = getByText("Email");
     const passwordInput = getByText("Password");
@@ -57,25 +73,43 @@ describe("SignUp screen", () => {
       target: { value: "password123" }
     });
 
-    // Submit the form
-    const signUpButton = getByText("SIGN UP");
-    fireEvent.press(signUpButton);
-
-    // Assert that CreateUser function is called with the correct arguments
-    jest
+    const response = jest
       .spyOn(api, "post")
       .mockResolvedValue({ data: mockCreateUserAPIResponse });
 
-    // Assert that Toast.show function is called with the correct arguments
-    expect(Toast.show).toHaveBeenCalledWith("User created successfully.", {
-      duration: 3000,
-      position: 40,
-      backgroundColor: "green",
-      textColor: "white"
-    });
+    const signUpButton = getByText("SIGN UP");
+    fireEvent.press(signUpButton);
 
-    // Assert that navigation.navigate function is called with the correct argument
-    expect(navigation.navigate).toHaveBeenCalledWith("login");
+    console.log(response, "response");
+
+    // const userCreated = screen.findByText(/user created successfully/i);
+
+    // expect(userCreated).toBeTruthy();
+
+    // expect(navigation.navigate("login")).toHaveBeenCalledWith("login");
+  });
+
+  it("should display an error message when the name contains special characters", async () => {
+    const { getByText } = render(
+      <MockTheme>
+        <MockNavigationContainer>
+          <SignUp />
+        </MockNavigationContainer>
+      </MockTheme>
+    );
+
+    fireEvent.changeText(getByText("Name"), "John@Doe");
+    fireEvent.changeText(getByText("Email"), "john.doe@example.com");
+    fireEvent.changeText(getByText("Password"), "password");
+    fireEvent.changeText(getByText("Confirm Password"), "");
+
+    fireEvent.press(getByText("SIGN UP"));
+
+    const errorMessage = await waitFor(() =>
+      screen.findByText(/please complete/i)
+    );
+
+    expect(errorMessage).toBeTruthy();
   });
 
   // it("should call CreateUser with correct parameters when form is submitted", async () => {

@@ -1,6 +1,5 @@
 import BigBanner from "@components/BigBanner";
 import { ProductList } from "@components/ProductList";
-import { View } from "react-native";
 import { Container } from "./style";
 import { ScrollView } from "react-native";
 
