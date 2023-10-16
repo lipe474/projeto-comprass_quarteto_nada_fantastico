@@ -18,20 +18,20 @@ import { StackProps } from "@routes/stack.routes";
 import { useCartStore } from "src/contexts/CartStore";
 import { ProductDTO } from "@dtos/ProductDTO";
 
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  images: string[];
-  quantity: number;
-}
 
 export function Cart() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [total, setTotal] = useState<number>(0);
   const cartStore = useCartStore();
+  const [total, setTotal] = useState<number>(0);
 
   const navigation = useNavigation<StackProps>();
+
+  useEffect(() => {
+    const calculatedTotal = cartStore.cart.reduce(
+      (acc, product) => acc + product.price * product.count,
+      0
+    );
+    setTotal(calculatedTotal);
+  }, [cartStore.cart]);
 
   function handleNavigateCheckout() {
     navigation.navigate("checkout");
@@ -65,7 +65,7 @@ export function Cart() {
           title="BUY"
           width={343}
           height={48}
-          isDisabled={products.length === 0}
+          isDisabled={total === 0}
           onPress={handleNavigateCheckout}
         />
       </FooterContainer>

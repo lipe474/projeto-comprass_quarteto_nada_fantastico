@@ -7,6 +7,7 @@ type CartStore = {
   removeFromCartOnHomeScreen: (id: number) => void;
   removeFromCart: (id: number) => void;
   deleteFromCart: (id: number) => void;
+  calculateTotalPrice: () => number;
 };
 
 export const useCartStore = create<CartStore>((set) => {
@@ -62,6 +63,6 @@ export const useCartStore = create<CartStore>((set) => {
         updatedCart.splice(existingProductIndex, 1);
 
         return { cart: updatedCart };
-      }) 
+      }),
   };
 });

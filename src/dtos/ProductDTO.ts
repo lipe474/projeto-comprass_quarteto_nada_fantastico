@@ -6,4 +6,5 @@ export type ProductDTO = {
   price: number;
   category: any;
   count: number;
+  totalPriceOnCart: number;
 };
