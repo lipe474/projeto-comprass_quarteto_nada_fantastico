@@ -15,14 +15,14 @@ import {
   ItensSecondContainer,
   InputContainer,
   Money,
-  ActionButton,
+  ActionButton
 } from "./style";
 import {
   View,
   FlatList,
   TouchableWithoutFeedback,
   Text,
-  TouchableOpacity,
+  TouchableOpacity
 } from "react-native";
 import Research from "@assets/icons/lupa.svg";
 
@@ -111,10 +111,6 @@ function ActionModal() {
             </FilterContainer>
           ) : null}
         </View>
-        <ActionButton
-          style={{ flex: 1, backgroundColor: "FFF" }}
-          onPress={() => setModalVisible(false)}
-        />
       </ActionContainer>
     </TouchableWithoutFeedback>
   );

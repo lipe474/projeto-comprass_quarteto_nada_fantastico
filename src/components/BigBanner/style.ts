@@ -15,6 +15,8 @@ export const ImageBG = styled.ImageBackground`
 
 export const ImageLogo = styled(ImageLogoSvg)`
   align-self: center;
+  position: absolute;
+  top: 50%;
 `;
 
 export const SecondContainer = styled.View`
@@ -22,6 +24,8 @@ export const SecondContainer = styled.View`
   flex-direction: row;
   align-items: center;
   gap: 16px;
+  position: absolute;
+  bottom: 16px;
 `;
 
 export const Title = styled.Text`
