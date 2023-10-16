@@ -4,7 +4,7 @@ import {
   OpenSans_400Regular,
   OpenSans_600SemiBold,
   OpenSans_700Bold,
-  OpenSans_800ExtraBold
+  OpenSans_800ExtraBold,
 } from "@expo-google-fonts/open-sans";
 import { ThemeProvider } from "styled-components/native";
 
@@ -12,20 +12,23 @@ import { Routes } from "@routes/index";
 import theme from "./src/theme";
 import { Loading } from "@components/Loading";
 import Checkout from "@screens/Checkout";
-import { SignUp } from "@screens/SignUp";
+import { Home } from "@screens/Home";
+import BigBanner from "@components/BigBanner";
+import ActionModal from "@components/ActionModal";
+import { ProductList } from "@components/ProductList";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
     OpenSans_400Regular,
     OpenSans_600SemiBold,
     OpenSans_700Bold,
-    OpenSans_800ExtraBold
+    OpenSans_800ExtraBold,
   });
 
   return (
     <ThemeProvider theme={theme}>
       <StatusBar backgroundColor="transparent" translucent />
-      {fontsLoaded ? <Routes /> : <Loading />}
+      <BigBanner />
     </ThemeProvider>
   );
 }
