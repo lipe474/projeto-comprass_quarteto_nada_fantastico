@@ -29,12 +29,12 @@ export function ProductResume({ data, ...rest }: Props) {
 
   const decrement = () => {
     if (count > 0) {
-      setCount((prevCount) => prevCount - 1);
-    }
+        cartStore.removeFromCart(product.id);
+      }
   };
 
   const increment = () => {
-    setCount((prevCount) => prevCount + 1);
+    cartStore.addToCart(product);
   };
 
   return (
