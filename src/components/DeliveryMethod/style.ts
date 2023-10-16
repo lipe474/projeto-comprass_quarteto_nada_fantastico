@@ -19,7 +19,7 @@ export const TitleText = styled.Text`
   margin-top: 6px;
   margin-bottom: 16px;
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
-  font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
+  font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};
   color: ${({ theme }) => theme.COLORS.BLACK_900};
 `;
 

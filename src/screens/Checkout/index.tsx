@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Text, StatusBar, View } from "react-native";
+import { Modal, StatusBar } from "react-native";
 
 import DeliveryMethod from "@components/DeliveryMethod";
 import ShippingAddress from "@components/ShippingAddress";
@@ -15,11 +15,6 @@ import {
 
 import Header from "@components/Header";
 import AddressModal from "@components/AddressModal";
-import CardModal from "@components/CardModal";
-
-interface CheckoutProps {
-  showOnCheck: boolean;
-}
 
 function Checkout() {
   const [visibleModal, setVisibleModal] = useState(false);
