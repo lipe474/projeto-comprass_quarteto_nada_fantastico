@@ -9,7 +9,10 @@ export function Loading() {
   const { COLORS } = useTheme();
 
   return (
-    <BackgroundAuth source={require("@assets/images/background.png")}>
+    <BackgroundAuth
+      source={require("@assets/images/background.png")}
+      accessibilityHint="image-background"
+    >
       <LogoContainer>
         <LogoImage width={263} />
       </LogoContainer>

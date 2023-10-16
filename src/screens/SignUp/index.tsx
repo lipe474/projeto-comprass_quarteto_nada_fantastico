@@ -38,6 +38,16 @@ export function SignUp() {
     resolver: yupResolver(signUpSchema)
   });
 
+  if (
+    errors.name?.message ??
+    errors.email?.message ??
+    errors.password?.message ??
+    errors.password_confirm?.message
+  ) {
+    setValue("password", "");
+    setValue("password_confirm", "");
+  }
+
   async function handleSignUp({ name, email, password }: CreateUserDTO) {
     try {
       setIsLoading(true);
@@ -164,19 +174,7 @@ export function SignUp() {
             title="SIGN UP"
             width={343}
             height={48}
-            onPress={() => {
-              if (
-                errors.name?.message ??
-                errors.email?.message ??
-                errors.password?.message ??
-                errors.password_confirm?.message
-              ) {
-                setValue("password", "");
-                setValue("password_confirm", "");
-              } else {
-                handleSubmit(handleSignUp)();
-              }
-            }}
+            onPress={handleSubmit(handleSignUp)}
             isLoading={isLoading}
           />
         </ButtonContainer>

@@ -26,13 +26,17 @@ export function CustomButton({
         style={{
           height: height,
           width: width,
-          backgroundColor: isDisabled ? COLORS.GRAY_900 : COLORS.RED_500,
+          backgroundColor: isDisabled ? COLORS.GRAY_900 : COLORS.RED_500
         }}
         disabled={isLoading || isDisabled}
         {...rest}
       >
         {isLoading ? (
-          <ActivityIndicator size="large" color={COLORS.WHITE} />
+          <ActivityIndicator
+            size="large"
+            color={COLORS.WHITE}
+            accessibilityHint="loading-icon"
+          />
         ) : (
           <Title>{title}</Title>
         )}

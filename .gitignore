@@ -33,3 +33,5 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+/__tests__/coverage

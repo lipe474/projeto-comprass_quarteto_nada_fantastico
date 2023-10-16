@@ -101,7 +101,7 @@ export function CustomInput({
           {...rest}
         />
         {isSearch && showIcon ? (
-          <IconLoading />
+          <IconLoading accessibilityHint="loading-icon" />
         ) : (
           (formSubmitted && !errorMessage && hasValue && showIcon && (
             <SuccessIcon />
@@ -112,7 +112,7 @@ export function CustomInput({
         {isPasswordField && !isDisabled && (
           <HidePasswordButton onPress={togglePasswordVisibility}>
             {isPasswordVisible ? (
-              <EyeOffSVG width={25} />
+              <EyeOffSVG width={25} accessibilityHint="eye-closed-icon" />
             ) : (
               <EyeSVG width={25} />
             )}

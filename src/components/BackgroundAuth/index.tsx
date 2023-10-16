@@ -17,7 +17,7 @@ export function BackgroundAuth({ testID, ...props }: BackgroundAuthProps) {
       <ImageBackground
         source={require("@assets/images/background.png")}
         resizeMode="contain"
-        testID="image-background"
+        accessibilityHint="image-background"
       />
     </KeyboardAvoidingView>
   );

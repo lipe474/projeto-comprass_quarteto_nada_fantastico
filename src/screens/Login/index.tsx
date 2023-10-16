@@ -39,6 +39,7 @@ export function Login() {
     handleSubmit,
     setError,
     setValue,
+    resetField,
     formState: { errors }
   } = useForm<FormLoginDTO>({
     resolver: yupResolver(loginSchema)
@@ -78,10 +79,14 @@ export function Login() {
 
   function handleNavigateToSignUp() {
     navigation.navigate("signUp");
+    resetField("email");
+    resetField("password");
   }
 
   function handleNavigateToForgotPassword() {
     navigation.navigate("forgotPassword");
+    resetField("email");
+    resetField("password");
   }
 
   function handleNavigateToHomePage() {
