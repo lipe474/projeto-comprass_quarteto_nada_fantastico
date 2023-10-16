@@ -1,23 +1,21 @@
 import styled from "styled-components/native";
 
 export const ActionContainer = styled.SafeAreaView`
-  flex: 1;
   margin-top: 60px;
-`;
-
-export const ActionSecoudContainer = styled.View`
-  background-color: ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: 8px;
-  width: 370px;
-  height: 260px;
-  elevation: 5;
-  margin-top: 80px;
-  align-self: center;
 `;
 
 export const ActionButton = styled.TouchableOpacity`
   flex: 1;
   zindex: 9px;
+`;
+
+export const ActionSecoudContainer = styled.Modal`
+  background-color: ${({ theme }) => theme.COLORS.WHITE};
+  border-radius: 8px;
+  width: 370px;
+  height: 260px;
+  margin-top: 80px;
+  align-self: center;
 `;
 
 export const InputResearch = styled.TextInput`
@@ -28,31 +26,35 @@ export const InputResearch = styled.TextInput`
   border-width: 6px;
   border-style: solid;
   border-color: red;
-  align-self: center;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
   margin-top: 20px;
   position: absolute;
 `;
 
-export const InputContainer = styled.View``;
+export const InputContainer = styled.View`
+  align-self: center;
+  justify-content: center;
+  padding-top: 60px;
+`;
 
+// LISTA DE ITEM AQUIIII PORAAA
 export const FilterContainer = styled.View`
-  flex: 1;
+  background-color: ${({ theme }) => theme.COLORS.WHITE};
   justify-content: center;
   align-self: center;
   width: 380px;
-  height: 320px;
+  height: 280px;
+  border-radius: 8px;
 `;
 
 export const FilterTitle = styled.Text`
+  padding-top: 28px;
   justify-content: center;
   align-self: center;
   font-size: ${({ theme }) => theme.FONT_SIZE.XXS}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
   color: ${({ theme }) => theme.COLORS.GRAY_500};
 `;
-
-export const Filter = styled.FlatList``;
 
 export const ItensContainer = styled.View`
   flex: 1;

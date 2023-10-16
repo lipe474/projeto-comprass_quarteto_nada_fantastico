@@ -11,7 +11,7 @@ export function Home() {
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
       >
-        <BigBanner showSearch showModal />
+        <BigBanner />
         <ProductList />
       </ScrollView>
     </Container>
