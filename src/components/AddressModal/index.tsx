@@ -27,7 +27,6 @@ function AddressModal({ handleClose }: AddressModalProps) {
       <Close onPress={handleClose}></Close>
 
       <Content>
-        <Detail></Detail>
         <Method>Choose you payment method</Method>
         <Card onPress={() => setVisibleModal(true)}>
           <TitleCard>Credit or debit card</TitleCard>
@@ -45,7 +44,7 @@ function AddressModal({ handleClose }: AddressModalProps) {
           transparent={true}
           onRequestClose={() => setVisibleModal(false)}
         >
-          <CardModal handleClose={() => setVisibleModal(false)} />
+          <CardModal handleOnClose={() => setVisibleModal(false)} />
         </Modal>
       </Content>
     </Container>
