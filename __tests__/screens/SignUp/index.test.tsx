@@ -1,16 +1,9 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor
-} from "@testing-library/react-native";
+import { act, fireEvent, screen, waitFor } from "@testing-library/react-native";
 import { SignUp } from "@screens/SignUp";
 import { api } from "@services/api";
-import MockTheme from "../../mocks/mockTheme";
-import MockNavigationContainer from "../../mocks/mockNavigationContainer";
 import { mockCreateUserAPIResponse } from "../../mocks/api/mockCreateUserAPIResponse";
 import * as Navigation from "@react-navigation/native";
+import { render } from "../../utils/customRender";
 
 const createTestProps = (props: Object) => ({
   navigation: {
@@ -22,94 +15,53 @@ const createTestProps = (props: Object) => ({
 describe("SignUp screen", () => {
   let props: any;
   beforeEach(() => {
-    props = createTestProps({});
+    jest.mock("./api", () => ({
+      CreateUser: jest.fn(() => Promise.resolve())
+    }));
+
+    jest.mock("@react-navigation/native", () => ({
+      useNavigation: jest.fn(() => ({
+        navigate: jest.fn()
+      }))
+    }));
   });
   it("should submit the form when all fields are filled correctly", async () => {
-    // const CreateUser = jest.fn();
-    // const Toast = {
-    //   show: jest.fn()
-    // };
-    // const mockedNavigate = jest.fn();
+    const { getByText } = render(<SignUp />);
 
-    // jest.mock("@react-navigation/native", () => ({
-    //   useNavigation: () => ({ navigate: mockedNavigate })
-    // }));
-    const navigation = {
-      navigate: jest.fn()
-    };
-    // const useForm = jest.fn().mockReturnValue({
-    //   control: {},
-    //   handleSubmit: jest.fn().mockImplementation((callback) => callback()),
-    //   setError: jest.fn(),
-    //   setValue: jest.fn(),
-    //   formState: { errors: {} }
-    // });
-    // const useTheme = jest.fn().mockReturnValue({
-    //   COLORS: {
-    //     GREEN: "green",
-    //     WHITE: "white"
-    //   }
-    // });
+    act(() => {
+      fireEvent.changeText(getByText("Name"), "John Doe");
+      fireEvent.changeText(getByText("Email"), "john.doe@example.com");
+      fireEvent.changeText(getByText("Password"), "password123");
+      fireEvent.changeText(getByText("Confirm Password"), "password123");
 
-    const { getByText } = render(
-      <MockTheme>
-        <MockNavigationContainer>
-          <SignUp />
-        </MockNavigationContainer>
-      </MockTheme>
-    );
+      const response = jest
+        .spyOn(api, "post")
+        .mockResolvedValue({ data: mockCreateUserAPIResponse });
 
-    const nameInput = getByText("Name");
-    const emailInput = getByText("Email");
-    const passwordInput = getByText("Password");
-    const confirmPasswordInput = getByText("Confirm Password");
+      fireEvent.press(getByText("SIGN UP"));
 
-    fireEvent.changeText(nameInput, { target: { value: "John Doe" } });
-    fireEvent.changeText(emailInput, {
-      target: { value: "john.doe@example.com" }
+      console.log(response, "response");
+      waitFor(() => {
+        expect(screen.findByText(/user created/i)).toBeTruthy();
+      });
     });
-    fireEvent.changeText(passwordInput, { target: { value: "password123" } });
-    fireEvent.changeText(confirmPasswordInput, {
-      target: { value: "password123" }
-    });
-
-    const response = jest
-      .spyOn(api, "post")
-      .mockResolvedValue({ data: mockCreateUserAPIResponse });
-
-    const signUpButton = getByText("SIGN UP");
-    fireEvent.press(signUpButton);
-
-    console.log(response, "response");
-
-    // const userCreated = screen.findByText(/user created successfully/i);
-
-    // expect(userCreated).toBeTruthy();
-
-    // expect(navigation.navigate("login")).toHaveBeenCalledWith("login");
   });
 
-  it("should display an error message when the name contains special characters", async () => {
-    const { getByText } = render(
-      <MockTheme>
-        <MockNavigationContainer>
-          <SignUp />
-        </MockNavigationContainer>
-      </MockTheme>
-    );
+  it("should display an error message when the password is too short", () => {
+    const { getByText } = render(<SignUp />);
 
-    fireEvent.changeText(getByText("Name"), "John@Doe");
-    fireEvent.changeText(getByText("Email"), "john.doe@example.com");
-    fireEvent.changeText(getByText("Password"), "password");
-    fireEvent.changeText(getByText("Confirm Password"), "");
-
-    fireEvent.press(getByText("SIGN UP"));
-
-    const errorMessage = await waitFor(() =>
-      screen.findByText(/please complete/i)
-    );
-
-    expect(errorMessage).toBeTruthy();
+    act(() => {
+      fireEvent.changeText(getByText("Name"), "John Doe");
+      fireEvent.changeText(getByText("Email"), "john.doe@example.com");
+      fireEvent.changeText(getByText("Password"), "pass");
+      fireEvent.changeText(getByText("Confirm Password"), "pass");
+      fireEvent.press(getByText("SIGN UP"));
+      waitFor(() => {
+        expect(getByText(/password must have/i)).toBeTruthy();
+        expect(getByText("Password")).toHaveTextContent("");
+        expect(getByText("Confirm Password")).toHaveTextContent("");
+      });
+    });
   });
 
   // it("should call CreateUser with correct parameters when form is submitted", async () => {
