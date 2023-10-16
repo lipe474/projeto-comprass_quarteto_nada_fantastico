@@ -25,6 +25,8 @@ import {
   TouchableOpacity
 } from "react-native";
 import Research from "@assets/icons/lupa.svg";
+import { useNavigation } from "@react-navigation/native";
+import { AppNavigatorRoutesProps } from "@routes/tab.routes";
 
 interface ActionModalProps {
   onCloseModal: () => void;
@@ -37,6 +39,8 @@ function ActionModal({ onCloseModal }: ActionModalProps) {
   const [inputFocused, setInputFocused] = useState(false);
   const [searching, setSearching] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
+
+  const navigation = useNavigation<AppNavigatorRoutesProps>();
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -68,6 +72,24 @@ function ActionModal({ onCloseModal }: ActionModalProps) {
     }
   }, [searchTerm]);
 
+  function handleOpenDetails(
+    id: number,
+    title: string,
+    price: number,
+    description: string,
+    images: Array<string>,
+    category: any
+  ) {
+    navigation.navigate("details", {
+      id,
+      title,
+      price,
+      description,
+      images,
+      category
+    });
+  }
+
   return (
     <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
       <ActionContainer>
@@ -96,7 +118,14 @@ function ActionModal({ onCloseModal }: ActionModalProps) {
                 data={searchResult}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => handleOpenDetails(
+                    item.id,
+                    item.title,
+                    item.price,
+                    item.description,
+                    item.images,
+                    item.category
+                  )}>
                     <ItensContainer>
                       <ImageProduct source={{ uri: item.images[0] }} />
                       <ItensSecondContainer>
