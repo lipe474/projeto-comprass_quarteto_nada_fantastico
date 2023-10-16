@@ -16,7 +16,7 @@ import TrashSVG from "@assets/icons/trash.svg";
 
 import { useState } from "react";
 import { ImageSourcePropType, StyleSheet } from "react-native";
-import { useCartStore } from "src/contexts/CartStore";
+import { useCartStore } from "../../contexts/CartStore";
 import { ProductDTO } from "@dtos/ProductDTO";
 
 type CartItemProps = {

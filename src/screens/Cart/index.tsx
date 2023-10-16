@@ -10,14 +10,10 @@ import {
 import { FlatList } from "react-native";
 import { useState, useEffect } from "react";
 import { CustomButton } from "@components/Button";
-import axios from "axios";
-import { AppError } from "@utils/AppError";
 import { CartEmpty } from "@components/CartEmpty";
 import { useNavigation } from "@react-navigation/native";
 import { StackProps } from "@routes/stack.routes";
-import { useCartStore } from "src/contexts/CartStore";
-import { ProductDTO } from "@dtos/ProductDTO";
-
+import { useCartStore } from "../../contexts/CartStore";
 
 export function Cart() {
   const cartStore = useCartStore();
