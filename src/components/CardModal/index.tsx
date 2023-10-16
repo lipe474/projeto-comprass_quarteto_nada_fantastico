@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ReactNode } from "react";
 import { TextInput, View } from "react-native";
 
 import {
@@ -22,9 +22,10 @@ import { CustomInput } from "@components/Input";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { cardSchema } from "@utils/validation/shcemaCard";
+import { type } from "@testing-library/react-native/build/user-event/type";
 
 interface CardModalProps {
-  handleClose?: () => void;
+  handleOnClose?: () => void;
   showCard?: boolean;
 }
 
@@ -35,7 +36,7 @@ type FormData = {
   cvv?: string;
 };
 
-function CardModal({ handleClose, showCard }: CardModalProps) {
+function CardModal({ handleOnClose }: CardModalProps) {
   const [isLoading, setIsLoading] = useState(false);
   const formCard = useForm<FormData>({
     resolver: yupResolver(cardSchema),
@@ -62,7 +63,7 @@ function CardModal({ handleClose, showCard }: CardModalProps) {
 
     return (
       <Container>
-        <Close onPress={handleClose}></Close>
+        <Close onPress={handleOnClose}></Close>
 
         <Content>
           <Method>Add new card</Method>
@@ -91,6 +92,8 @@ function CardModal({ handleClose, showCard }: CardModalProps) {
               )}
             </View>
           )}
+
+          <TextInput onChangeText={handleCardChange} />
 
           <ContentInput>
             <Controller

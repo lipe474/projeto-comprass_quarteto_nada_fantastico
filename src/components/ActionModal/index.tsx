@@ -26,7 +26,11 @@ import {
 } from "react-native";
 import Research from "@assets/icons/lupa.svg";
 
-function ActionModal() {
+interface ActionModalProps {
+  onCloseModal: () => void;
+}
+
+function ActionModal({ onCloseModal }: ActionModalProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -35,7 +39,7 @@ function ActionModal() {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
-    if (searchTerm.trim() !== "") setModalVisible(!isModalVisible);
+    setModalVisible(!isModalVisible);
   };
 
   const handleInputFocus = () => {
@@ -45,7 +49,7 @@ function ActionModal() {
   useEffect(() => {
     const searchAPI = async () => {
       setLoading(true);
-      setSearching(true);
+      setSearching(false);
       try {
         const response = await axios.get(
           `https://api.escuelajs.co/api/v1/products/?title=${searchTerm}`
@@ -115,5 +119,12 @@ function ActionModal() {
     </TouchableWithoutFeedback>
   );
 }
+
+/*
+<ActionButton
+          style={{ flex: 1, backgroundColor: "FFF" }}
+          onPress={() => setModalVisible(false)}
+        />
+        */
 
 export default ActionModal;

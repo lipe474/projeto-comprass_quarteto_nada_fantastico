@@ -16,7 +16,6 @@ interface ShippingAddressProps {
   change?: string;
   onModal?: () => void;
   customStyle?: StyleProp<ViewStyle>;
-  data?: string;
 }
 
 function ShippingAddress({
@@ -25,12 +24,15 @@ function ShippingAddress({
   change,
   onModal,
   customStyle,
-  data,
 }: ShippingAddressProps) {
   return (
     <Container>
       <Title>{children}</Title>
-      <ButtonAddress style={customStyle} onPress={onModal}>
+      <ButtonAddress
+        testID="shippingAddess"
+        style={customStyle}
+        onPress={onModal}
+      >
         <TitleChange>{change}</TitleChange>
         <TitleButton>{title}</TitleButton>
       </ButtonAddress>
