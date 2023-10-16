@@ -4,7 +4,9 @@ import { ProductDTO } from "@dtos/ProductDTO";
 type CartStore = {
   cart: ProductDTO[];
   addToCart: (product: ProductDTO) => void;
+  removeFromCartOnHomeScreen: (id: number) => void;
   removeFromCart: (id: number) => void;
+  deleteFromCart: (id: number) => void;
 };
 
 export const useCartStore = create<CartStore>((set) => {
@@ -23,7 +25,7 @@ export const useCartStore = create<CartStore>((set) => {
 
         return { cart: updatedCart };
       }),
-    removeFromCart: (id) =>
+    removeFromCartOnHomeScreen: (id) =>
       set((state) => {
         const updatedCart = [...state.cart];
         const existingProductIndex = updatedCart.findIndex((p) => p.id === id);
@@ -39,5 +41,27 @@ export const useCartStore = create<CartStore>((set) => {
 
         return { cart: updatedCart };
       }),
-    };
-  });
+    removeFromCart: (id) =>
+      set((state) =>{
+        const updatedCart = [...state.cart];
+        const existingProductIndex = updatedCart.findIndex((p) => p.id === id);
+
+        if (existingProductIndex !== -1) {
+          const existingProduct = updatedCart[existingProductIndex];
+          if (existingProduct.count >= 1) {
+            existingProduct.count -= 1;
+          }
+        }
+
+        return { cart: updatedCart };
+      }),
+    deleteFromCart: (id) =>
+      set((state) =>{
+        const updatedCart = [...state.cart];
+        const existingProductIndex = updatedCart.findIndex((p) => p.id === id);
+        updatedCart.splice(existingProductIndex, 1);
+
+        return { cart: updatedCart };
+      }),
+  };
+});

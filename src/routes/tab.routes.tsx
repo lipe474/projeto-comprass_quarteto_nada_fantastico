@@ -12,6 +12,9 @@ import { Cart } from "@screens/Cart";
 import { Home } from "@screens/Home";
 import { StackRoutes } from "./stack.routes";
 import { Details } from "@screens/Details";
+import { useCartStore } from "../contexts/CartStore";
+import { useState, useEffect } from "react";
+
 
 type BottomTabRoutes = {
   home: undefined;
@@ -33,6 +36,17 @@ const Tab = createBottomTabNavigator<BottomTabRoutes>();
 
 export function TabRoutes() {
   const { COLORS, FONT_FAMILY, FONT_SIZE } = useTheme();
+  const cartStore = useCartStore();
+  const [totalNumberOfItems, setTotalNumberOfItems] = useState<string>("0");
+
+  useEffect(() => {
+    const calculatedTotal = cartStore.cart.reduce(
+      (acc, product) => acc + product.count,
+      0
+    );
+    const itemsNumber = calculatedTotal.toString();
+    setTotalNumberOfItems(itemsNumber);
+  }, [cartStore.cart]);
 
   const iconSize = 30;
   const showBadge = true;
@@ -80,7 +94,7 @@ export function TabRoutes() {
         component={Cart}
         options={{
           tabBarLabel: "Cart",
-          tabBarBadge: "10",
+          tabBarBadge: totalNumberOfItems,
           tabBarBadgeStyle: {
             start: 5,
             top: -20,
