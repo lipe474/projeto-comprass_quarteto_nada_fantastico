@@ -12,7 +12,8 @@ import theme from "./src/theme";
 import { Routes } from "@routes/index";
 import { Loading } from "@components/Loading";
 import { ThemeProvider } from "styled-components/native";
-import './src/utils/translation/i18n'
+import "./src/utils/translation/i18n";
+import { AuthContextProvider } from "@contexts/AuthContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,8 +25,10 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar barStyle="default" translucent />
-      {fontsLoaded ? <Routes /> : <Loading />}
+      <AuthContextProvider>
+        <StatusBar barStyle="default" translucent />
+        {fontsLoaded ? <Routes /> : <Loading />}
+      </AuthContextProvider>
     </ThemeProvider>
   );
 }

@@ -88,7 +88,7 @@ export function Details() {
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
       >
-        {actualProduct ? <ProductOverview data={actualProduct} /> : <Loading />}
+        {actualProduct ? <ProductOverview data={actualProduct} /> : null}
       </ScrollView>
     </Container>
   );

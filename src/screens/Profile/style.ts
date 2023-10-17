@@ -30,6 +30,8 @@ export const Image = styled.Image`
   justify-content: center;
   border-radius: 71px;
   align-self: center;
+  width: 142px;
+  height: 142px;
 `;
 
 export const Name = styled.Text`

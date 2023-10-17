@@ -30,21 +30,16 @@ import { useEffect, useState } from "react";
 import { CustomButton } from "@components/Button";
 import { useTheme } from "styled-components/native";
 import { useUserStore } from "@contexts/UserStore";
-import { GetUserBySession } from "@requests/index";
-import {
-  storageAuthTokenGet,
-  storageAuthTokenRemove
-} from "../../storage/storageAuthToken";
-import { storageUserSave } from "../../storage/storageUser";
+
+import { useAuth } from "@hooks/useAuth";
 
 export function Profile() {
   const [switchOn, setSwitchOn] = useState(false);
-  const [logged, setLogged] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   const [selectedLanguage, setSelectedLanguage] = useState("pt");
 
-  const user = useUserStore();
+  const { logout, user } = useAuth();
 
   const { COLORS } = useTheme();
 
@@ -55,34 +50,6 @@ export function Profile() {
   const handlePressModal = () => {
     setModalVisible(!modalVisible);
   };
-
-  const removeUser = () => {
-    storageAuthTokenRemove();
-    user.removeUser();
-    setLogged(false);
-  };
-
-  async function getUser() {
-    try {
-      const token = await storageAuthTokenGet();
-      if (user.user.access_token) {
-        const response = await GetUserBySession(user.user.access_token!);
-        if (response) {
-          setLogged(true);
-          storageUserSave(response);
-          user.setUser(response);
-        }
-      } else {
-        setLogged(false);
-      }
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    }
-  }
-
-  useEffect(() => {
-    getUser();
-  }, [user.user.access_token]);
 
   const navigation = useNavigation<TabProps>();
   const { t, i18n } = useTranslation();
@@ -96,12 +63,17 @@ export function Profile() {
   return (
     <Container>
       <Title>{t("My profile")}</Title>
-      {logged ? (
+      {user.id ? (
         <ContentContainer>
-          <Image source={require("@assets/images/avatar.png")} />
+          <Image
+            source={{
+              uri: user.avatar
+            }}
+            resizeMode="contain"
+          />
           <ContainerNameEmail>
-            <Name>{user.getUser().name}</Name>
-            <Email>{user.getUser().email}</Email>
+            <Name>{user.name}</Name>
+            <Email>{user.email}</Email>
           </ContainerNameEmail>
         </ContentContainer>
       ) : (
@@ -118,7 +90,7 @@ export function Profile() {
 
       <Informations
         onPress={handlePressSwitch}
-        style={{ display: logged ? "flex" : "none" }}
+        style={{ display: user.id ? "flex" : "none" }}
       >
         <TextEdit>{t("Edit Informations")}</TextEdit>
         {switchOn ? (
@@ -148,9 +120,9 @@ export function Profile() {
       </Informations>
       <Informations
         onPress={() => {
-          removeUser();
+          logout();
         }}
-        style={{ display: logged ? "flex" : "none" }}
+        style={{ display: user.id ? "flex" : "none" }}
       >
         <TextEdit>{t("Log out")}</TextEdit>
         <LogoutSVG

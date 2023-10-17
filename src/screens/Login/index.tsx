@@ -32,9 +32,12 @@ import { useTranslation } from "react-i18next";
 import { useUserStore } from "@contexts/UserStore";
 import { storageUserSave } from "../../storage/storageUser";
 import { storageAuthTokenSave } from "../../storage/storageAuthToken";
+import { useAuth } from "@hooks/useAuth";
 
 export function Login() {
   const [isLoading, setIsLoading] = useState(false);
+
+  const { login } = useAuth();
 
   const user = useUserStore();
 
@@ -60,14 +63,7 @@ export function Login() {
     try {
       setIsLoading(true);
 
-      const response = await LoginUser({ email, password });
-      const userData = await GetUserBySession(response.access_token);
-
-      user.setUser(userData);
-      user.setToken(response.access_token);
-
-      await storageUserSave(userData);
-      await storageAuthTokenSave(response.access_token);
+      await login(email, password);
 
       Toast.show(sucessMessage, {
         duration: 3000,
@@ -82,13 +78,8 @@ export function Login() {
 
       setIsLoading(false);
     } catch (error: any) {
-      let message: string;
-
-      if (error.message) {
-        message = error.message;
-      } else {
-        message = t("Something happened, try again later");
-      }
+      let { message } =
+        error.message ?? t("Something happened, try again later");
 
       if (message === "Unauthorized") {
         message = t("Your email or password is incorrect");
