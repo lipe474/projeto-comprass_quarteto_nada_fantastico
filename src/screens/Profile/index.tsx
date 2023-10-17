@@ -29,7 +29,6 @@ import SwitchOnSVG from "@assets/icons/switch-on.svg";
 import { useEffect, useState } from "react";
 import { CustomButton } from "@components/Button";
 import { useTheme } from "styled-components/native";
-import { useUserStore } from "@contexts/UserStore";
 
 import { useAuth } from "@hooks/useAuth";
 
