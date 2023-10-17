@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, StatusBar, Text, View } from "react-native";
 
 import DeliveryMethod from "@components/DeliveryMethod";
@@ -11,6 +11,7 @@ import {
   ContentPrice,
   Title,
   Summary,
+  ButtonContainer,
 } from "./style";
 
 import Header from "@components/Header";
@@ -20,9 +21,26 @@ import { useUserStore } from "@contexts/UserFormStore";
 import { useCardStore } from "@contexts/UserCardStorege";
 import { useNavigation } from "@react-navigation/native";
 import { TabProps } from "@routes/tab.routes";
+import { useCartStore } from "@contexts/CartStore";
+import { CustomButton } from "@components/Button";
 
 function Checkout() {
   const [visibleModal, setVisibleModal] = useState(false);
+
+  const [total, setTotal] = useState<number>(0);
+  const cartStore = useCartStore();
+
+  useEffect(() => {
+    const calculatedTotal = cartStore.cart.reduce(
+      (acc, product) => acc + product.price * product.count,
+      0
+    );
+    setTotal(calculatedTotal);
+  }, [cartStore.cart]);
+  
+  const deliveryPrice = 20;
+
+  const totalCheckout = deliveryPrice + total
 
   const navigation = useNavigation<TabProps>();
 
@@ -34,6 +52,12 @@ function Checkout() {
 
   StatusBar.setBackgroundColor("white");
   StatusBar.setBarStyle("dark-content");
+
+  const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
+
+  const handlePaymentChange = (paymentType: string) => {
+    setSelectedPayment(paymentType);
+  };
 
   return (
     <Container>
@@ -76,11 +100,20 @@ function Checkout() {
         </ContentTitle>
 
         <ContentPrice>
-          <Title>R$</Title>
-          <Title>0R$</Title>
-          <Summary>R$</Summary>
+          <Title>{deliveryPrice.toFixed(2)} R$</Title>
+          <Title>{total.toFixed(2)} R$</Title>
+          <Summary>{totalCheckout.toFixed(2)} R$</Summary>
         </ContentPrice>
       </Content>
+
+      <ButtonContainer>
+        <CustomButton
+            title={t("SUBMIT ORDER")}
+            width={343}
+            height={48}
+            isDisabled={total === 0}
+        />
+      </ButtonContainer>
 
       <Modal
         animationType="fade"
@@ -88,35 +121,10 @@ function Checkout() {
         transparent={true}
         onRequestClose={() => setVisibleModal(false)}
       >
-        <AddressModal handleClose={() => setVisibleModal(false)} />
+        <AddressModal handleClose={() => setVisibleModal(false)} selectedPayment={selectedPayment} onPaymentChange={handlePaymentChange} />
       </Modal>
     </Container>
   );
 }
 
 export default Checkout;
-
-/*
-title={t("Click to add an address")}
-        titleName={address.getUser().name}
-        titleAddress={address.getUser().logradouro}
-        titleCity={address.getUser().localidade + ", " + address.getUser().uf}
-         title={!address ? t("Click to add an address") : null}
-
-
-
-
-               <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <Text>{address.getUser().name}</Text>
-        <Text>{address.getUser().logradouro}</Text>
-        <Text>
-          {address.getUser().localidade + ", " + address.getUser().uf}
-        </Text>
-      </View>
-
-
-
-         titleName={address.getUser().name}
-        titleAddress={address.getUser().logradouro}
-        titleCity={address.getUser().localidade + ", " + address.getUser().uf}
-        */
