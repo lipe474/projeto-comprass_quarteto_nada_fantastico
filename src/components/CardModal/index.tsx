@@ -24,6 +24,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { cardSchema } from "@utils/validation/shcemaCard";
 import { type } from "@testing-library/react-native/build/user-event/type";
 import { useTranslation } from "react-i18next";
+import { useCardStore } from "@contexts/UserCardStorege";
+import { TabProps } from "@routes/tab.routes";
+import { useNavigation } from "@react-navigation/native";
 
 type FormData = {
   nameOnCard?: string;
@@ -46,6 +49,27 @@ function CardModal({ handleOnClose }: CardModalProps) {
 
   const [selectedCard, setSelectedCard] = useState("");
 
+  const card = useCardStore();
+
+  const navigation = useNavigation<TabProps>();
+
+  const handleFormSubmit = (formData: FormData) => {
+    if (
+      formData.nameOnCard !== undefined &&
+      formData.cardNumber !== undefined &&
+      formData.expireDate !== undefined &&
+      formData.cvv !== undefined
+    ) {
+      card.setUser({
+        nameOnCard: formData.nameOnCard,
+        cardNumber: formData.cardNumber,
+        expireDate: formData.expireDate,
+        cvv: formData.cvv,
+      });
+      formCard.reset();
+      navigation.navigate("checkout");
+    }
+  };
   const handleCardChange = (cardNumber: string) => {
     const firstDigit = cardNumber[0];
 
@@ -103,7 +127,7 @@ function CardModal({ handleOnClose }: CardModalProps) {
                       const formattedNumber = formattedText
                         .replace(regex, "$1 ")
                         .trim();
-                      onChange(formattedText);
+                      onChange(formattedNumber);
 
                       handleCardChange(formattedText);
                     }}
@@ -200,7 +224,7 @@ function CardModal({ handleOnClose }: CardModalProps) {
             width={343}
             title={t("ADD CARD")}
             isDisabled={isLoading}
-            onPress={formCard.handleSubmit(() => {})}
+            onPress={formCard.handleSubmit(handleFormSubmit)}
           />
         </ContentAdd>
       </Content>

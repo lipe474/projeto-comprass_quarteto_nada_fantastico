@@ -7,22 +7,30 @@ import {
   ButtonAddress,
   TitleButton,
   TitleChange,
+  TextTitle,
+  TextAddres,
   PagMethod,
 } from "./style";
 
 interface ShippingAddressProps {
   children?: ReactNode;
+  titleName?: string;
+  titleAddress?: string;
+  titleCity?: string;
   title?: string;
   change?: string;
-  onModal?: () => void;
+  onAddress?: () => void;
   customStyle?: StyleProp<ViewStyle>;
 }
 
 function ShippingAddress({
   children,
   title,
+  titleName,
+  titleAddress,
+  titleCity,
   change,
-  onModal,
+  onAddress,
   customStyle,
 }: ShippingAddressProps) {
   return (
@@ -31,10 +39,15 @@ function ShippingAddress({
       <ButtonAddress
         testID="shippingAddess"
         style={customStyle}
-        onPress={onModal}
+        onPress={onAddress}
       >
         <TitleChange>{change}</TitleChange>
         <TitleButton>{title}</TitleButton>
+        <View style={{ justifyContent: "center", alignSelf: "center" }}>
+          <TextTitle>{titleName}</TextTitle>
+          <TextAddres>{titleAddress}</TextAddres>
+          <TextAddres>{titleCity}</TextAddres>
+        </View>
       </ButtonAddress>
     </Container>
   );

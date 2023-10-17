@@ -7,7 +7,7 @@ import {
   ContentContainer,
   ErrorText,
   HeaderContainer,
-  HeaderTitle
+  HeaderTitle,
 } from "./style";
 import { CustomButton } from "@components/Button";
 import { useState, useEffect, useRef } from "react";
@@ -20,6 +20,8 @@ import { useNavigation } from "@react-navigation/native";
 import { StackProps } from "@routes/stack.routes";
 import { AppError } from "@utils/AppError";
 import { useTranslation } from "react-i18next";
+import { useUserStore } from "@contexts/UserFormStore";
+import { TabProps } from "@routes/tab.routes";
 
 type FormData = {
   cep?: string;
@@ -42,15 +44,19 @@ export function ShippingAddress() {
   const [isCepValid, setIsCepValid] = useState(false);
   const { t, i18n } = useTranslation();
 
+  const form = useUserStore();
+
+  const navigation = useNavigation<TabProps>();
+
   const [addressData, setAddressData] = useState<AddressData>({
     logradouro: "",
     localidade: "",
     uf: "",
-    name: ""
+    name: "",
   });
 
   const formCep = useForm<FormData>({
-    resolver: yupResolver(cepSchema)
+    resolver: yupResolver(cepSchema),
   });
 
   const initialFormState = useRef(formCep.getValues()).current;
@@ -68,14 +74,14 @@ export function ShippingAddress() {
       if (response.erro) {
         formCep.setError("cep", {
           type: "manual",
-          message: t("This zip code was not found")
+          message: t("This zip code was not found"),
         });
         setIsCepValid(false);
         setAddressData({
           logradouro: "",
           localidade: "",
           uf: "",
-          name: ""
+          name: "",
         });
       } else {
         setIsCepValid(true);
@@ -86,7 +92,7 @@ export function ShippingAddress() {
               : response.logradouro || "",
           localidade: response.localidade,
           uf: response.uf,
-          name: ""
+          name: "",
         });
       }
     } catch (error: any) {
@@ -99,7 +105,7 @@ export function ShippingAddress() {
   function handleChange(name: string, value: string) {
     setAddressData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   }
 
@@ -116,7 +122,7 @@ export function ShippingAddress() {
         logradouro: "",
         localidade: "",
         uf: "",
-        name: ""
+        name: "",
       });
     }
   }, [formCep.getValues("cep"), formCep.formState.errors.cep]);
@@ -155,7 +161,7 @@ export function ShippingAddress() {
                     logradouro: "",
                     localidade: "",
                     uf: "",
-                    name: ""
+                    name: "",
                   });
                 }}
                 value={value}
@@ -241,7 +247,13 @@ export function ShippingAddress() {
             title={t("SAVE ADDRESS")}
             width={343}
             height={48}
-            onPress={formCep.handleSubmit(handleCheckCep)}
+            onPress={() => {
+              formCep.handleSubmit(handleCheckCep);
+              if (formCep !== undefined) {
+                form.setUser(addressData);
+              }
+              navigation.navigate("checkout");
+            }}
             isDisabled={!isCepValid || isLoading}
           />
         </ButtonContainer>
