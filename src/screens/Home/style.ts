@@ -7,3 +7,10 @@ export const Container = styled(SafeAreaView)`
   align-items: center;
   justify-content: center;
 `;
+
+export const ButtonContainer = styled.View`
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  right: 16px;
+`;

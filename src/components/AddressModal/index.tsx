@@ -17,9 +17,15 @@ import CardModal from "@components/CardModal";
 
 interface AddressModalProps {
   handleClose?: () => void;
+  handleOpClose?: () => void;
+  onModal?: () => void;
 }
 
-function AddressModal({ handleClose }: AddressModalProps) {
+function AddressModal({
+  handleClose,
+  handleOpClose,
+  onModal,
+}: AddressModalProps) {
   const [visibleModal, setVisibleModal] = useState(false);
 
   return (
