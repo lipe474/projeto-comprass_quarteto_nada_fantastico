@@ -15,6 +15,7 @@ import { useCartStore } from "../contexts/CartStore";
 import { useState, useEffect } from "react";
 import { StackRoutes } from "./stack.routes";
 import { Profile } from "@screens/Profile";
+import Checkout from "@screens/Checkout";
 
 type BottomTabRoutes = {
   home: undefined;
@@ -28,6 +29,7 @@ type BottomTabRoutes = {
     images: any;
     category: any;
   };
+  checkout: undefined;
   stackRoutes: undefined;
 };
 
@@ -132,6 +134,15 @@ export function TabRoutes() {
       <Tab.Screen
         name="details"
         component={Details}
+        options={{
+          tabBarStyle: { display: "none" },
+          tabBarButton: () => null
+        }}
+      />
+
+      <Tab.Screen
+        name="checkout"
+        component={Checkout}
         options={{
           tabBarStyle: { display: "none" },
           tabBarButton: () => null
