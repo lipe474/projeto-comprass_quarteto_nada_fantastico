@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import { Loading } from "@components/Loading";
 import { useCartStore } from "../../contexts/CartStore";
 import { TabProps } from "@routes/tab.routes";
+import { StyleSheet } from "react-native";
 
 type RouteParamsProps = {
   id: number;
@@ -71,7 +72,7 @@ export function Details() {
           <BackIcon />
         </BackButton>
       </HeaderContainer>
-      <ContainerCount>
+      <ContainerCount style={style.shadow}>
         <ButtonMinus onPress={decrement}>
           <MinusIcon />
         </ButtonMinus>
@@ -89,3 +90,16 @@ export function Details() {
     </Container>
   );
 }
+
+const style = StyleSheet.create({
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10
+    },
+    shadowOpacity: 1,
+    shadowRadius: 20,
+    elevation: 10
+  }
+});

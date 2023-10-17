@@ -84,7 +84,7 @@ export const CountIndicator = styled.Text`
   font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
   text-align: center;
   justify-content: center;
-  padding-top: 3px;
+  align-items: center;
 `;
 
 export const PlusIcon = styled(Plus).attrs(({ theme }) => ({

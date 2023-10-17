@@ -69,7 +69,7 @@ export function ProductOverview({ data }: Props) {
       />
       <ProductInformationsContainer>
         <NameAndCategoryContainer>
-          <Name>{data.title}</Name>
+          <Name numberOfLines={1}>{data.title}</Name>
           <Category>{data.category.name}</Category>
         </NameAndCategoryContainer>
         <Price>{data.price.toFixed(2)} R$</Price>

@@ -1,13 +1,11 @@
 import styled from "styled-components/native";
 import { Dimensions } from "react-native";
-import { Plus, Minus } from "phosphor-react-native";
 
 const windowWidth = Dimensions.get("window").width;
 
 export const Container = styled.View`
-  position: relative;
   flex: 1;
-  width: ${windowWidth}px;
+  width: 100%;
   margin-bottom: 62px;
 `;
 
@@ -17,17 +15,17 @@ export const ProductImage = styled.Image`
 `;
 
 export const ProductInformationsContainer = styled.View`
+  width: auto;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: ${windowWidth}px;
-  padding-left: 16px;
-  padding-right: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
   margin-top: 64px;
 `;
 
 export const NameAndCategoryContainer = styled.View`
-  align-items: baseline;
+  width: 65%;
   justify-content: space-between;
 `;
 

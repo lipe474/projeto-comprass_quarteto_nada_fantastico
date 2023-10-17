@@ -1,5 +1,5 @@
 import BigBanner from "@components/BigBanner";
-import { ButtonContainer, Container } from "./style";
+import { ButtonContainer, Container, ContentContainer } from "./style";
 
 import ActionModal from "@components/ActionModal";
 import { useEffect, useState } from "react";
@@ -23,19 +23,21 @@ export function Home() {
 
   return (
     <Container>
-      <ButtonContainer>
-        <ActionModal onCloseModal={() => ({})} />
-      </ButtonContainer>
+      <ContentContainer>
+        <ButtonContainer>
+          <ActionModal onCloseModal={() => ({})} />
+        </ButtonContainer>
 
-      <FlatList
-        ListHeaderComponent={<BigBanner />}
-        accessibilityHint="category-list"
-        data={categories}
-        keyExtractor={(item) => item.id.toString()}
-        initialNumToRender={10}
-        maxToRenderPerBatch={10}
-        renderItem={({ item }) => <CategoryComponent category={item} />}
-      />
+        <FlatList
+          ListHeaderComponent={<BigBanner />}
+          accessibilityHint="category-list"
+          data={categories}
+          keyExtractor={(item) => item.id.toString()}
+          initialNumToRender={10}
+          maxToRenderPerBatch={10}
+          renderItem={({ item }) => <CategoryComponent category={item} />}
+        />
+      </ContentContainer>
     </Container>
   );
 }
