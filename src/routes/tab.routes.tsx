@@ -15,6 +15,7 @@ import { useCartStore } from "../contexts/CartStore";
 import { useState, useEffect } from "react";
 import { StackRoutes } from "./stack.routes";
 import { Profile } from "@screens/Profile";
+import { useTranslation } from 'react-i18next'
 import Checkout from "@screens/Checkout";
 
 type BottomTabRoutes = {
@@ -38,6 +39,7 @@ export type TabProps = BottomTabNavigationProp<BottomTabRoutes>;
 const Tab = createBottomTabNavigator<BottomTabRoutes>();
 
 export function TabRoutes() {
+  const { t, i18n } = useTranslation();
   const { COLORS, FONT_FAMILY, FONT_SIZE } = useTheme();
   const cartStore = useCartStore();
   const [totalNumberOfItems, setTotalNumberOfItems] = useState<string>("0");
@@ -80,7 +82,7 @@ export function TabRoutes() {
         name="home"
         component={Home}
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: t("Home"),
           tabBarIcon: ({ color, focused }) => (
             <HomeSvg
               color={color}
@@ -95,7 +97,7 @@ export function TabRoutes() {
         name="cart"
         component={Cart}
         options={{
-          tabBarLabel: "Cart",
+          tabBarLabel: t("Cart"),
           tabBarBadge:
             totalNumberOfItems === "0" ? undefined : totalNumberOfItems,
           tabBarBadgeStyle: {
@@ -119,7 +121,7 @@ export function TabRoutes() {
         name="profile"
         component={Profile}
         options={{
-          tabBarLabel: "Profile",
+          tabBarLabel: t("Profile"),
           tabBarIcon: ({ color, focused }) => (
             <ProfileSvg
               color={color}

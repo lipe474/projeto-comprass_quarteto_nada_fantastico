@@ -13,11 +13,14 @@ import { CustomButton } from "@components/Button";
 import { CartEmpty } from "@components/CartEmpty";
 import { useNavigation } from "@react-navigation/native";
 import { useCartStore } from "../../contexts/CartStore";
+import { useTranslation } from "react-i18next";
+
 import { TabProps } from "@routes/tab.routes";
 
 export function Cart() {
   const cartStore = useCartStore();
   const [total, setTotal] = useState<number>(0);
+  const { t, i18n } = useTranslation();
 
   const navigation = useNavigation<TabProps>();
 
@@ -35,7 +38,7 @@ export function Cart() {
 
   return (
     <ContentContainer>
-      <Title>Cart</Title>
+      <Title>{t("Cart")}</Title>
       <FlatList
         data={cartStore.cart}
         keyExtractor={(item) => String(item.id)}
@@ -49,11 +52,11 @@ export function Cart() {
       />
       <FooterContainer>
         <FooterTextContainer>
-          <FooterText>Total amount:</FooterText>
+          <FooterText>{t("Total amount")}:</FooterText>
           <FooterTextPrice>{total.toFixed(2)} R$</FooterTextPrice>
         </FooterTextContainer>
         <CustomButton
-          title="BUY"
+          title={t("BUY")}
           width={343}
           height={48}
           isDisabled={total === 0}

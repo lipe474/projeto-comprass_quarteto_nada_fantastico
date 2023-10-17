@@ -26,12 +26,14 @@ import { useTheme } from "styled-components/native";
 import { StackProps } from "@routes/stack.routes";
 import { GetAllUsers, UpdatePassword } from "@requests/index";
 import { UserDTO } from "@dtos/UserDTO";
+import { useTranslation } from "react-i18next";
 
 export function ForgotPassword() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingEmail, setIsLoadingEmail] = useState(false);
   const [checkEmailValue, setCheckEmailValue] = useState(true);
   const [userFound, setUserFound] = useState<number | undefined>(undefined);
+  const { t, i18n } = useTranslation();
 
   const { COLORS } = useTheme();
   const navigation = useNavigation<StackProps>();
@@ -57,7 +59,7 @@ export function ForgotPassword() {
       if (!user) {
         formEmail.setError("email", {
           type: "manual",
-          message: "This email doesn’t exist"
+          message: t("This email doesn’t exist")
         });
         formPasswords.clearErrors("password");
         formPasswords.clearErrors("password_confirm");
@@ -70,7 +72,13 @@ export function ForgotPassword() {
       setIsLoadingEmail(false);
       setUserFound(user.id);
     } catch (error: any) {
-      let message = error.message ?? "Something happened, try again later";
+      let message: string;
+    
+      if (error.message) {
+        message = error.message;
+      } else {
+        message = t("Something happened, try again later");
+      }
 
       formEmail.setError("root", {
         type: "manual",
@@ -83,13 +91,15 @@ export function ForgotPassword() {
     }
   }
 
+  const successMessage = t("Password was changed successfully.");
+
   async function handleForgotPassword({ password }: FormForgotPasswordDTO) {
     try {
       setIsLoading(true);
 
       await UpdatePassword(userFound!, password);
 
-      Toast.show("Password was changed successfully.", {
+      Toast.show(successMessage, {
         duration: 3000,
         position: 40,
         backgroundColor: COLORS.GREEN,
@@ -100,7 +110,13 @@ export function ForgotPassword() {
 
       setIsLoading(false);
     } catch (error: any) {
-      let message = error.message ?? "Something happened, try again later";
+      let message: string;
+    
+      if (error.message) {
+        message = error.message;
+      } else {
+        message = t("Something happened, try again later");
+      }
 
       formPasswords.setError("root", {
         type: "manual",
@@ -124,11 +140,10 @@ export function ForgotPassword() {
       </ImageBackground>
       <HeaderAuth
         showBackButton
-        title="Forgot Password"
+        title={t("Forgot Password")}
         onPress={handleNavigateToLogin}
       >
-        Enter your email and let us see if it exists for you to change your
-        password :)
+        {t("Enter your email and let us see if it exists for you to change your password")} :)
       </HeaderAuth>
 
       <ContentContainer>
@@ -158,7 +173,7 @@ export function ForgotPassword() {
           name="password"
           render={({ field: { onChange, value } }) => (
             <CustomInput
-              label="New Password"
+              label={t("New Password")}
               isPasswordField
               isDisabled={!formEmail.formState.isSubmitSuccessful}
               onChangeText={onChange}
@@ -173,7 +188,7 @@ export function ForgotPassword() {
           name="password_confirm"
           render={({ field: { onChange, value } }) => (
             <CustomInput
-              label="Confirm New Password"
+              label={t("Confirm New Password")}
               isPasswordField
               isDisabled={!formEmail.formState.isSubmitSuccessful}
               onChangeText={onChange}
@@ -196,7 +211,7 @@ export function ForgotPassword() {
 
       <ButtonContainer>
         <CustomButton
-          title="SEARCH"
+          title={t("SEARCH")}
           width={343}
           height={48}
           onPress={formEmail.handleSubmit(handleCheckEmail)}
@@ -204,7 +219,7 @@ export function ForgotPassword() {
         />
 
         <CustomButton
-          title="CONFIRM"
+          title={t("CONFIRM")}
           width={343}
           height={48}
           onPress={formPasswords.handleSubmit(handleForgotPassword)}

@@ -9,6 +9,7 @@ import FedexSvg from "@assets/icons/fedex.svg";
 import DhllSvg from "@assets/icons/dhl.svg";
 
 import SvgCheck from "@assets/icons/check.svg";
+import { useTranslation } from "react-i18next";
 
 interface SvgData {
   [key: number]: React.FC;
@@ -26,11 +27,13 @@ function DeliveryMethod() {
     6: FedexSvg,
   };
 
+  const { t, i18n } = useTranslation();
+
   const data = [
     {
       id: 1,
       backgroundColor: "#FFF",
-      label: "2-3 days",
+      label: t("2-3 days"),
       svgWidth: 71,
       svgHeight: 16,
       showIcon: selectedButton === 1,
@@ -38,7 +41,7 @@ function DeliveryMethod() {
     {
       id: 2,
       backgroundColor: "#FFF",
-      label: "3-4 days",
+      label: t("3-4 days"),
       svgWidth: 82,
       svgHeight: 11,
       showIcon: selectedButton === 2,
@@ -46,7 +49,7 @@ function DeliveryMethod() {
     {
       id: 3,
       backgroundColor: "#FFF",
-      label: "4-5 days",
+      label: t("4-5 days"),
       svgWidth: 61,
       svgHeight: 17,
       showIcon: selectedButton === 3,
@@ -54,7 +57,7 @@ function DeliveryMethod() {
     {
       id: 4,
       backgroundColor: "#FFF",
-      label: "5-6 days",
+      label: t("5-6 days"),
       svgWidth: 71,
       svgHeight: 16,
       showIcon: selectedButton === 4,
@@ -62,7 +65,7 @@ function DeliveryMethod() {
     {
       id: 5,
       backgroundColor: "#FFF",
-      label: "6-7 days",
+      label: t("6-7 days"),
       svgWidth: 82,
       svgHeight: 11,
       showIcon: selectedButton === 5,
@@ -70,7 +73,7 @@ function DeliveryMethod() {
     {
       id: 6,
       backgroundColor: "#FFF",
-      label: "7-8 days",
+      label: t("7-8 days"),
       svgWidth: 61,
       svgHeight: 17,
       showIcon: selectedButton === 6,
@@ -83,7 +86,7 @@ function DeliveryMethod() {
 
   return (
     <Container>
-      <TitleText>Delivery method</TitleText>
+      <TitleText>{t("Delivery method")}</TitleText>
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}

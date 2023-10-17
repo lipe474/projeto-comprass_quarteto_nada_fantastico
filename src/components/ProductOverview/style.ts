@@ -66,11 +66,12 @@ export const Description = styled.Text`
 export const ContainerCategoryProducts = styled.View`
   margin-top: 40px;
   height: 350px;
+  margin-bottom: 5px;
 `;
 
 export const TitleAndNumberItemsContainer = styled.View`
   flex-direction: row;
-  height: 22px;
+  height: 25px;
   justify-content: space-between;
   margin-left: 16px;
   margin-right: 16px;

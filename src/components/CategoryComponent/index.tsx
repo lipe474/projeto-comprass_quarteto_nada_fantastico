@@ -6,6 +6,7 @@ import ProductResume from "@components/ProductResume";
 import { ProductDTO } from "@dtos/ProductDTO";
 import { useNavigation } from "@react-navigation/native";
 import { TabProps } from "@routes/tab.routes";
+import { useTranslation } from "react-i18next";
 
 interface Category {
   id: number;
@@ -14,6 +15,7 @@ interface Category {
 
 export function CategoryComponent({ category }: { category: Category }) {
   const [products, setProducts] = useState<ProductDTO[]>([]);
+  const { t, i18n } = useTranslation(); 
 
   const navigation = useNavigation<TabProps>();
 
@@ -50,7 +52,7 @@ export function CategoryComponent({ category }: { category: Category }) {
     <Container>
       <ContainerRow>
         <CategoryTitle>{category.name}</CategoryTitle>
-        <ViewAll>View all</ViewAll>
+        <ViewAll>{t("View all")}</ViewAll>
       </ContainerRow>
       <FlatList
         data={memoizedProducts}
