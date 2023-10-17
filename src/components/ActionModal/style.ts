@@ -7,6 +7,7 @@ export const ActionContainer = styled.SafeAreaView`
 export const ActionButton = styled.TouchableOpacity`
   flex: 1;
   zindex: 9px;
+  background-color: rgba(0, 0, 0, 0.2);
 `;
 
 export const ActionSecoudContainer = styled.Modal`
@@ -33,6 +34,7 @@ export const InputResearch = styled.TextInput`
 export const InputContainer = styled.View`
   align-self: center;
   justify-content: center;
+  margin-bottom: 16px;
 `;
 
 export const FilterContainer = styled.View`

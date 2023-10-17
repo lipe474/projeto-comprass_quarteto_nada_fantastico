@@ -64,7 +64,6 @@ function CardModal({ handleOnClose }: CardModalProps) {
     return (
       <Container>
         <Close onPress={handleOnClose}></Close>
-
         <Content>
           <Method>Add new card</Method>
 

@@ -15,14 +15,14 @@ import {
   ItensSecondContainer,
   InputContainer,
   Money,
-  ActionButton
+  ActionButton,
 } from "./style";
 import {
   View,
   FlatList,
   TouchableWithoutFeedback,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import Research from "@assets/icons/lupa.svg";
 import { useNavigation } from "@react-navigation/native";
@@ -86,7 +86,7 @@ function ActionModal({ onCloseModal }: ActionModalProps) {
       price,
       description,
       images,
-      category
+      category,
     });
   }
 
@@ -148,16 +148,13 @@ function ActionModal({ onCloseModal }: ActionModalProps) {
             </FilterContainer>
           ) : null}
         </View>
+        <ActionButton
+          style={{ flex: 1 }}
+          onPress={() => setModalVisible(false)}
+        />
       </ActionContainer>
     </TouchableWithoutFeedback>
   );
 }
-
-/*
-<ActionButton
-          style={{ flex: 1, backgroundColor: "FFF" }}
-          onPress={() => setModalVisible(false)}
-        />
-        */
 
 export default ActionModal;
