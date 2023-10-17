@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, View, Pressable } from "react-native";
 import Svg from "react-native-svg";
 import { Container, Title, TitleText, Content, ScrollBar } from "./style";
@@ -14,11 +14,9 @@ interface SvgData {
   [key: number]: React.FC;
 }
 
-interface DeliveryMethodProps {
-  showOnCheck: boolean;
-}
+function DeliveryMethod() {
+  const [selectedButton, setSelectedButton] = useState<number | null>(null);
 
-function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
   const svgData: SvgData = {
     1: DhlSvg,
     2: Uspsvg,
@@ -35,6 +33,7 @@ function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
       label: "2-3 days",
       svgWidth: 71,
       svgHeight: 16,
+      showIcon: selectedButton === 1,
     },
     {
       id: 2,
@@ -42,6 +41,7 @@ function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
       label: "3-4 days",
       svgWidth: 82,
       svgHeight: 11,
+      showIcon: selectedButton === 2,
     },
     {
       id: 3,
@@ -49,6 +49,7 @@ function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
       label: "4-5 days",
       svgWidth: 61,
       svgHeight: 17,
+      showIcon: selectedButton === 3,
     },
     {
       id: 4,
@@ -56,6 +57,7 @@ function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
       label: "5-6 days",
       svgWidth: 71,
       svgHeight: 16,
+      showIcon: selectedButton === 4,
     },
     {
       id: 5,
@@ -63,6 +65,7 @@ function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
       label: "6-7 days",
       svgWidth: 82,
       svgHeight: 11,
+      showIcon: selectedButton === 5,
     },
     {
       id: 6,
@@ -70,8 +73,13 @@ function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
       label: "7-8 days",
       svgWidth: 61,
       svgHeight: 17,
+      showIcon: selectedButton === 6,
     },
   ];
+
+  const handleButtonPress = (id: number) => {
+    setSelectedButton(id);
+  };
 
   return (
     <Container>
@@ -83,6 +91,7 @@ function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
           const SvgComponent = svgData[item.id];
           return (
             <Pressable
+              onPress={() => handleButtonPress(item.id)}
               style={{
                 padding: 12,
                 alignItems: "center",
@@ -90,6 +99,7 @@ function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
             >
               <Content
                 style={{
+                  position: "relative",
                   shadowColor: "rgba(0,0,0,0.5)",
                   shadowOffset: {
                     width: 0,
@@ -100,16 +110,17 @@ function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
                   shadowRadius: 4,
                 }}
               >
-                {showOnCheck ? (
+                {item.showIcon && (
                   <View
                     style={{
-                      alignSelf: "flex-end",
-                      justifyContent: "flex-start",
+                      position: "absolute",
+                      top: -5,
+                      right: -5,
                     }}
                   >
                     <SvgCheck />
                   </View>
-                ) : null}
+                )}
 
                 <Svg width={item.svgWidth} height={item.svgHeight}>
                   <SvgComponent />

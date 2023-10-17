@@ -11,10 +11,10 @@ import theme from "./src/theme";
 
 import { Routes } from "@routes/index";
 import { Loading } from "@components/Loading";
-import { Home } from "@screens/Home";
-import CardModal from "@components/CardModal";
+import { ThemeProvider } from "styled-components/native";
 import Checkout from "@screens/Checkout";
 import { ThemeProvider } from "styled-components/native";
+import ShippingAddress from "@components/ShippingAddress";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
