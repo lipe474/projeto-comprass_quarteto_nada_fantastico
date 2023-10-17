@@ -16,6 +16,7 @@ export const useCartStore = create<CartStore>((set) => {
       set((state) => {
 
         const updatedCart = state.cart.map((p) => {
+          console.log(p)
           if (p.id === product.id) {
             return { ...p, count: p.count + 1 };
           }

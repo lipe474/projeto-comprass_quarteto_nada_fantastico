@@ -75,10 +75,10 @@ function Checkout() {
           shadowRadius: 4,
         }}
         children={t("Shipping address")}
-        title={!address ? t("Click to add an address") : null}
-        titleName={address.getUser().name}
-        titleAddress={address.getUser().logradouro}
-        titleCity={address.getUser().localidade + ", " + address.getUser().uf}
+        title={address.getUser().logradouro ? "" : t("Click to add an address")}
+        titleName={address.getUser().name ? address.getUser().name : ""}
+        titleAddress={address.getUser().logradouro ? address.getUser().logradouro : ""}
+        titleCity={address.getUser().localidade ? address.getUser().localidade : "" + ", " + address.getUser().uf ? address.getUser().uf : ""}
         change={t("Change")}
       />
 
