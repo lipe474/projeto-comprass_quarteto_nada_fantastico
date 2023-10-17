@@ -176,7 +176,7 @@ export function Login() {
           />
         </ButtonContainer>
 
-        <ButtonTextContainer>
+        <ButtonTextContainer style={{ display: isLoading ? "none" : "flex" }}>
           <TouchableText onPress={handleNavigateToSignUp}>
             {t("Not have an account yet?")} {t("Sign up")}
           </TouchableText>

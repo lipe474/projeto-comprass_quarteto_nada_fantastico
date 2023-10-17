@@ -20,7 +20,7 @@ import {
 } from "@utils/validation/schemaForgotPassword";
 import { CustomInput } from "@components/Input";
 import { CustomButton } from "@components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Toast from "react-native-root-toast";
 import { useTheme } from "styled-components/native";
 import { StackProps } from "@routes/stack.routes";
@@ -45,6 +45,16 @@ export function ForgotPassword() {
   const formEmail = useForm<FormCheckEmailDTO>({
     resolver: yupResolver(checkEmailSchema)
   });
+
+  useEffect(() => {
+    if (
+      formPasswords.formState.errors.password?.message ??
+      formPasswords.formState.errors.password_confirm?.message
+    ) {
+      formPasswords.setValue("password", "");
+      formPasswords.setValue("password_confirm", "");
+    }
+  }, [formPasswords.formState.errors]);
 
   async function handleCheckEmail({ email }: FormCheckEmailDTO) {
     try {
@@ -73,7 +83,7 @@ export function ForgotPassword() {
       setUserFound(user.id);
     } catch (error: any) {
       let message: string;
-    
+
       if (error.message) {
         message = error.message;
       } else {
@@ -111,7 +121,7 @@ export function ForgotPassword() {
       setIsLoading(false);
     } catch (error: any) {
       let message: string;
-    
+
       if (error.message) {
         message = error.message;
       } else {
@@ -143,7 +153,10 @@ export function ForgotPassword() {
         title={t("Forgot Password")}
         onPress={handleNavigateToLogin}
       >
-        {t("Enter your email and let us see if it exists for you to change your password")} :)
+        {t(
+          "Enter your email and let us see if it exists for you to change your password"
+        )}{" "}
+        :)
       </HeaderAuth>
 
       <ContentContainer>

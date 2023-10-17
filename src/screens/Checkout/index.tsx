@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, StatusBar } from "react-native";
+import { Modal, StatusBar, Text, View } from "react-native";
 
 import DeliveryMethod from "@components/DeliveryMethod";
 import ShippingAddress from "@components/ShippingAddress";
@@ -16,11 +16,21 @@ import {
 import Header from "@components/Header";
 import AddressModal from "@components/AddressModal";
 import { useTranslation } from "react-i18next";
+import { useUserStore } from "@contexts/UserFormStore";
+import { useCardStore } from "@contexts/UserCardStorege";
+import { useNavigation } from "@react-navigation/native";
+import { TabProps } from "@routes/tab.routes";
 
 function Checkout() {
   const [visibleModal, setVisibleModal] = useState(false);
-  
-  const { t, i18n } = useTranslation(); 
+
+  const navigation = useNavigation<TabProps>();
+
+  const { t, i18n } = useTranslation();
+
+  const address = useUserStore();
+
+  const cardAddress = useCardStore();
 
   StatusBar.setBackgroundColor("white");
   StatusBar.setBarStyle("dark-content");
@@ -29,6 +39,7 @@ function Checkout() {
     <Container>
       <Header title={t("Checkout")} onCheck={() => {}} />
       <ShippingAddress
+        onAddress={() => navigation.navigate("address")}
         customStyle={{
           shadowColor: "rgba(0,0,0,0.5)",
           shadowOffset: {
@@ -40,14 +51,19 @@ function Checkout() {
           shadowRadius: 4,
         }}
         children={t("Shipping address")}
-        title={t("Click to add an address")}
+        title={!address ? t("Click to add an address") : null}
+        titleName={address.getUser().name}
+        titleAddress={address.getUser().logradouro}
+        titleCity={address.getUser().localidade + ", " + address.getUser().uf}
         change={t("Change")}
       />
+
       <ShippingAddress
         children={t("Payment Method")}
-        title={t("None added")}
+        title={!cardAddress ? t("None added") : null}
+        titleAddress={cardAddress.getUser().cardNumber}
         change={t("Change")}
-        onModal={() => setVisibleModal(true)}
+        onAddress={() => setVisibleModal(true)}
       />
 
       <DeliveryMethod />
@@ -79,3 +95,28 @@ function Checkout() {
 }
 
 export default Checkout;
+
+/*
+title={t("Click to add an address")}
+        titleName={address.getUser().name}
+        titleAddress={address.getUser().logradouro}
+        titleCity={address.getUser().localidade + ", " + address.getUser().uf}
+         title={!address ? t("Click to add an address") : null}
+
+
+
+
+               <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <Text>{address.getUser().name}</Text>
+        <Text>{address.getUser().logradouro}</Text>
+        <Text>
+          {address.getUser().localidade + ", " + address.getUser().uf}
+        </Text>
+      </View>
+
+
+
+         titleName={address.getUser().name}
+        titleAddress={address.getUser().logradouro}
+        titleCity={address.getUser().localidade + ", " + address.getUser().uf}
+        */
