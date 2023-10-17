@@ -40,15 +40,17 @@ export function SignUp() {
     resolver: yupResolver(signUpSchema)
   });
 
-  if (
-    errors.name?.message ??
-    errors.email?.message ??
-    errors.password?.message ??
-    errors.password_confirm?.message
-  ) {
-    setValue("password", "");
-    setValue("password_confirm", "");
-  }
+  useEffect(() => {
+    if (
+      errors.name?.message ??
+      errors.email?.message ??
+      errors.password?.message ??
+      errors.password_confirm?.message
+    ) {
+      setValue("password", "");
+      setValue("password_confirm", "");
+    }
+  }, [errors]);
 
   const sucessMessage = t("User created successfully");
 
@@ -70,7 +72,7 @@ export function SignUp() {
       setIsLoading(false);
     } catch (error: any) {
       let message: string;
-    
+
       if (error.message) {
         message = error.message;
       } else {
@@ -106,7 +108,9 @@ export function SignUp() {
           title="Sign Up"
           onPress={() => handleNavigateToLogin()}
         >
-          {t("Choose a really cool name that only contains spaces as special characters. Oh, and your password must have more than 6 digits! :)")}
+          {t(
+            "Choose a really cool name that only contains spaces as special characters. Oh, and your password must have more than 6 digits! :)"
+          )}
         </HeaderAuth>
 
         <ContentContainer>

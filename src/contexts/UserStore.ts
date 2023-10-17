@@ -1,26 +1,61 @@
-// import { UserContext, UserDTO } from "@dtos/UserDTO";
-// import { create } from "zustand";
-// import { persist, createJSONStorage } from "zustand/middleware";
+import { UserDTO } from "@dtos/UserDTO";
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
-// type UserStore = {
-//   user: UserDTO;
-//   setUser: (user: UserContext) => void;
-//   setToken: (token: string) => void;
-//   getUser: () => UserContext;
-// };
+interface UserStoreState {
+  user: UserDTO;
+  setUser: (user: UserDTO) => void;
+  setToken: (token: string) => void;
+  getUser: () => UserDTO;
+  removeUser: () => void;
+}
 
-// export const useUserStore = create(
+// export const useUserStore = create<UserStoreState>()(
 //   persist(
-//     (set, get) => ({
-//       user: {} as UserContext,
-//       setUser: (user: UserContext) => set({ user: user }),
+//     (set) => ({
+//       user: {} as UserDTO,
+//       setUser: (user: UserDTO) => set({ user }),
 //       setToken: (token: string) =>
-//         set((state) => ({ user: { ...state.user, access_token: token } })),
-//       getUser: () => ({ user: get().user })
+//         set((state: any) => ({
+//           user: {
+//             ...state.user,
+//             access_token: token
+//           }
+//         })),
+//       getUser: () => {
+//         const state: any = useUserStore.getState();
+//         return state.user;
+//       },
+//       removeUser: () => set({ user: {} as UserDTO })
 //     }),
 //     {
 //       name: "user-storage",
-//       storage: createJSONStorage(() => localStorage)
+//       storage: {
+//         getItem: (name) =>
+//           localStorage.getItem(name)
+//             ? JSON.parse(localStorage.getItem(name) as string)
+//             : null,
+//         setItem: (name, value) =>
+//           localStorage.setItem(name, JSON.stringify(value)),
+//         removeItem: (name) => localStorage.removeItem(name)
+//       }
 //     }
 //   )
 // );
+
+export const useUserStore = create<UserStoreState>((set) => ({
+  user: {} as UserDTO,
+  setUser: (user: UserDTO) => set({ user }),
+  setToken: (token: string) =>
+    set((state: any) => ({
+      user: {
+        ...state.user,
+        access_token: token
+      }
+    })),
+  getUser: () => {
+    const state: any = useUserStore.getState();
+    return state.user;
+  },
+  removeUser: () => set({ user: {} as UserDTO })
+}));

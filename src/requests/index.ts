@@ -1,16 +1,17 @@
-import { FormCreateUserDTO } from "@dtos/FormCreateUserDTO";
 import { CreateUserDTO, LoginUserDTO } from "@dtos/UserDTO";
 import { api } from "@services/api";
 import { AppError } from "@utils/AppError";
 
 export async function CreateUser({ name, email, password }: CreateUserDTO) {
   try {
-    await api.post("/users", {
+    const response = await api.post("/users", {
       name,
       email,
       password,
       avatar: "https://api.lorem.space/image/face?w=640&h=480&r=867"
     });
+
+    return response.data;
   } catch (error: any) {
     throw new AppError(error.message);
   }
@@ -43,6 +44,20 @@ export async function UpdatePassword(id: number, password: string) {
   try {
     const response = await api.put(`/users/${id}`, {
       password
+    });
+
+    return response.data;
+  } catch (error: any) {
+    throw new AppError(error.message);
+  }
+}
+
+export async function GetUserBySession(access_token: string) {
+  try {
+    const response = await api.get("/auth/profile", {
+      headers: {
+        Authorization: `Bearer ${access_token}`
+      }
     });
 
     return response.data;

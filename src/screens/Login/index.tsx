@@ -23,15 +23,20 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@utils/validation/schemaLogin";
 import { LoginUserDTO } from "@dtos/UserDTO";
-import { LoginUser } from "@requests/index";
+import { GetUserBySession, LoginUser } from "@requests/index";
 import { useTheme } from "styled-components/native";
 import Toast from "react-native-root-toast";
 import { SetErrorInputs } from "@utils/ErrorInAllInputs";
 import { TabProps } from "@routes/tab.routes";
 import { useTranslation } from "react-i18next";
+import { useUserStore } from "@contexts/UserStore";
+import { storageUserSave } from "../../storage/storageUser";
+import { storageAuthTokenSave } from "../../storage/storageAuthToken";
 
 export function Login() {
   const [isLoading, setIsLoading] = useState(false);
+
+  const user = useUserStore();
 
   const { COLORS } = useTheme();
   const stackNavigation = useNavigation<StackProps>();
@@ -49,12 +54,20 @@ export function Login() {
     resolver: yupResolver(loginSchema)
   });
 
-  const sucessMessage = t("User successfully logged in.")
+  const sucessMessage = t("User successfully logged in.");
 
   async function handleLogin({ email, password }: LoginUserDTO) {
     try {
       setIsLoading(true);
-      await LoginUser({ email, password });
+
+      const response = await LoginUser({ email, password });
+      const userData = await GetUserBySession(response.access_token);
+
+      user.setUser(userData);
+      user.setToken(response.access_token);
+
+      await storageUserSave(userData);
+      await storageAuthTokenSave(response.access_token);
 
       Toast.show(sucessMessage, {
         duration: 3000,
@@ -64,11 +77,13 @@ export function Login() {
       });
 
       tabNavigation.navigate("home");
+      resetField("email");
+      resetField("password");
 
       setIsLoading(false);
     } catch (error: any) {
       let message: string;
-    
+
       if (error.message) {
         message = error.message;
       } else {
@@ -103,6 +118,8 @@ export function Login() {
 
   function handleNavigateToHomePage() {
     tabNavigation.navigate("home");
+    resetField("email");
+    resetField("password");
   }
 
   return (

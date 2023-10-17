@@ -29,15 +29,22 @@ import SwitchOnSVG from "@assets/icons/switch-on.svg";
 import { useEffect, useState } from "react";
 import { CustomButton } from "@components/Button";
 import { useTheme } from "styled-components/native";
+import { useUserStore } from "@contexts/UserStore";
+import { GetUserBySession } from "@requests/index";
+import {
+  storageAuthTokenGet,
+  storageAuthTokenRemove
+} from "../../storage/storageAuthToken";
+import { storageUserSave } from "../../storage/storageUser";
 
 export function Profile() {
   const [switchOn, setSwitchOn] = useState(false);
   const [logged, setLogged] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedLanguage, setSelectedLanguage] = useState("pt");
 
-
+  const user = useUserStore();
 
   const { COLORS } = useTheme();
 
@@ -48,6 +55,34 @@ export function Profile() {
   const handlePressModal = () => {
     setModalVisible(!modalVisible);
   };
+
+  const removeUser = () => {
+    storageAuthTokenRemove();
+    user.removeUser();
+    setLogged(false);
+  };
+
+  async function getUser() {
+    try {
+      const token = await storageAuthTokenGet();
+      if (user.user.access_token) {
+        const response = await GetUserBySession(user.user.access_token!);
+        if (response) {
+          setLogged(true);
+          storageUserSave(response);
+          user.setUser(response);
+        }
+      } else {
+        setLogged(false);
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  }
+
+  useEffect(() => {
+    getUser();
+  }, [user.user.access_token]);
 
   const navigation = useNavigation<TabProps>();
   const { t, i18n } = useTranslation();
@@ -65,8 +100,8 @@ export function Profile() {
         <ContentContainer>
           <Image source={require("@assets/images/avatar.png")} />
           <ContainerNameEmail>
-            <Name>Juliane Gonçalves Freitas</Name>
-            <Email>matildabrown@mail.com</Email>
+            <Name>{user.getUser().name}</Name>
+            <Email>{user.getUser().email}</Email>
           </ContainerNameEmail>
         </ContentContainer>
       ) : (
@@ -111,7 +146,12 @@ export function Profile() {
           }}
         />
       </Informations>
-      <Informations style={{ display: logged ? "flex" : "none" }}>
+      <Informations
+        onPress={() => {
+          removeUser();
+        }}
+        style={{ display: logged ? "flex" : "none" }}
+      >
         <TextEdit>{t("Log out")}</TextEdit>
         <LogoutSVG
           style={{
@@ -138,9 +178,7 @@ export function Profile() {
                   }}
                   style={{
                     backgroundColor:
-                      selectedLanguage === "en"
-                        ? COLORS.RED_500
-                        : COLORS.WHITE
+                      selectedLanguage === "en" ? COLORS.RED_500 : COLORS.WHITE
                   }}
                 >
                   <ModalMessage
@@ -161,9 +199,7 @@ export function Profile() {
                   }}
                   style={{
                     backgroundColor:
-                      selectedLanguage === "pt"
-                        ? COLORS.RED_500
-                        : COLORS.WHITE
+                      selectedLanguage === "pt" ? COLORS.RED_500 : COLORS.WHITE
                   }}
                 >
                   <ModalMessage
