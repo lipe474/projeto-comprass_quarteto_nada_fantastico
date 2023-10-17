@@ -4,7 +4,7 @@ import {
   OpenSans_400Regular,
   OpenSans_600SemiBold,
   OpenSans_700Bold,
-  OpenSans_800ExtraBold,
+  OpenSans_800ExtraBold
 } from "@expo-google-fonts/open-sans";
 
 import theme from "./src/theme";
@@ -12,16 +12,13 @@ import theme from "./src/theme";
 import { Routes } from "@routes/index";
 import { Loading } from "@components/Loading";
 import { ThemeProvider } from "styled-components/native";
-import Checkout from "@screens/Checkout";
-import { ThemeProvider } from "styled-components/native";
-import ShippingAddress from "@components/ShippingAddress";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
     OpenSans_400Regular,
     OpenSans_600SemiBold,
     OpenSans_700Bold,
-    OpenSans_800ExtraBold,
+    OpenSans_800ExtraBold
   });
 
   return (
