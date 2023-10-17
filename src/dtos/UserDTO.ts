@@ -4,6 +4,15 @@ export type UserDTO = {
   email: string;
   password: string;
   avatar?: string;
+  access_token?: string;
+};
+
+export type UserContext = {
+  id?: number;
+  name?: string;
+  email?: string;
+  avatar?: string;
+  access_token?: string;
 };
 
 export type CreateUserDTO = Omit<UserDTO, "id" | "avatar">;

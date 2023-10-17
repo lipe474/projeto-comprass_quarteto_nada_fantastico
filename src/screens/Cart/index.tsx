@@ -12,17 +12,17 @@ import { useState, useEffect } from "react";
 import { CustomButton } from "@components/Button";
 import { CartEmpty } from "@components/CartEmpty";
 import { useNavigation } from "@react-navigation/native";
-import { StackProps } from "@routes/stack.routes";
 import { useCartStore } from "../../contexts/CartStore";
 import { useTranslation } from "react-i18next";
 
+import { TabProps } from "@routes/tab.routes";
 
 export function Cart() {
   const cartStore = useCartStore();
   const [total, setTotal] = useState<number>(0);
   const { t, i18n } = useTranslation();
 
-  const navigation = useNavigation<StackProps>();
+  const navigation = useNavigation<TabProps>();
 
   useEffect(() => {
     const calculatedTotal = cartStore.cart.reduce(
@@ -42,12 +42,7 @@ export function Cart() {
       <FlatList
         data={cartStore.cart}
         keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
-          <CartItem
-            key={item.id}
-            product={item}
-          />
-        )}
+        renderItem={({ item }) => <CartItem key={item.id} product={item} />}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           flexGrow: 1
