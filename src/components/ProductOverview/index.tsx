@@ -20,8 +20,9 @@ import { ProductDTO } from "@dtos/ProductDTO";
 import { ImagesList } from "@components/ImagesList";
 import { ProductResume } from "@components/ProductResume";
 import { useNavigation } from "@react-navigation/native";
-import { AppNavigatorRoutesProps } from "@routes/tab.routes";
+import { TabProps } from "@routes/tab.routes";
 import { useCartStore } from "../../contexts/CartStore";
+import { useTranslation } from "react-i18next";
 
 type Props = TouchableOpacityProps & {
   data: ProductDTO;
@@ -30,7 +31,7 @@ type Props = TouchableOpacityProps & {
 export function ProductOverview({ data }: Props) {
   const keyExtractor = (item: string, index: number) => index.toString();
   const [products, setProducts] = useState<ProductDTO[]>([]);
-  const navigation = useNavigation<AppNavigatorRoutesProps>();
+  const navigation = useNavigation<TabProps>();
   const cartStore = useCartStore();
   const count = cartStore.cart.find((p) => p.id === data.id)?.count || 0;
 
@@ -39,6 +40,9 @@ export function ProductOverview({ data }: Props) {
       cartStore.removeFromCartOnHomeScreen(data.id);
     }
   };
+
+    const { t, i18n } = useTranslation(); 
+
 
   const increment = () => {
     cartStore.addToCart(data);
@@ -90,12 +94,12 @@ export function ProductOverview({ data }: Props) {
         <DescriptionContainer>
           <Description>{data.description}</Description>
         </DescriptionContainer>
-        <DetailsMenu title="Shipping Info" />
-        <DetailsMenu title="Support" />
+        <DetailsMenu title={t("Shipping Info")} />
+        <DetailsMenu title={t("Support")} />
         <ContainerCategoryProducts>
           <TitleAndNumberItemsContainer>
-            <Title>You can also like this</Title>
-            <ItemsNumber>12 items</ItemsNumber>
+            <Title>{t("You can also like this")}</Title>
+            <ItemsNumber>12 {t("items")}</ItemsNumber>
           </TitleAndNumberItemsContainer>
           <FlatList
             data={products}

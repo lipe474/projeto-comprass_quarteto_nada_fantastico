@@ -5,7 +5,6 @@ import pt from './pt.json'
 
 i18n.use(initReactI18next).init({
     compatibilityJSON: 'v3',
-    lng: 'en',
     resources:{
         en: {
             ...en
@@ -14,12 +13,7 @@ i18n.use(initReactI18next).init({
             ...pt
         }
     },
-    react:{
-        useSuspense: false,
-    },
-    interpolation:{
-        escapeValue: false,
-    }
+    lng: 'pt'
 })
 
 export default i18n;

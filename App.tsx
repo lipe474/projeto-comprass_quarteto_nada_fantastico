@@ -15,6 +15,7 @@ import { Home } from "@screens/Home";
 import CardModal from "@components/CardModal";
 import Checkout from "@screens/Checkout";
 import { ThemeProvider } from "styled-components/native";
+import './src/utils/translation/i18n';
 
 export default function App() {
   const [fontsLoaded] = useFonts({

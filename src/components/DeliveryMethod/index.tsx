@@ -9,6 +9,7 @@ import FedexSvg from "@assets/icons/fedex.svg";
 import DhllSvg from "@assets/icons/dhl.svg";
 
 import SvgCheck from "@assets/icons/check.svg";
+import { useTranslation } from "react-i18next";
 
 interface SvgData {
   [key: number]: React.FC;
@@ -28,46 +29,48 @@ function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
     6: FedexSvg,
   };
 
+  const { t, i18n } = useTranslation();
+
   const data = [
     {
       id: 1,
       backgroundColor: "#FFF",
-      label: "2-3 days",
+      label: t("2-3 days"),
       svgWidth: 71,
       svgHeight: 16,
     },
     {
       id: 2,
       backgroundColor: "#FFF",
-      label: "3-4 days",
+      label: t("3-4 days"),
       svgWidth: 82,
       svgHeight: 11,
     },
     {
       id: 3,
       backgroundColor: "#FFF",
-      label: "4-5 days",
+      label: t("4-5 days"),
       svgWidth: 61,
       svgHeight: 17,
     },
     {
       id: 4,
       backgroundColor: "#FFF",
-      label: "5-6 days",
+      label: t("5-6 days"),
       svgWidth: 71,
       svgHeight: 16,
     },
     {
       id: 5,
       backgroundColor: "#FFF",
-      label: "6-7 days",
+      label: t("6-7 days"),
       svgWidth: 82,
       svgHeight: 11,
     },
     {
       id: 6,
       backgroundColor: "#FFF",
-      label: "7-8 days",
+      label: t("7-8 days"),
       svgWidth: 61,
       svgHeight: 17,
     },
@@ -75,7 +78,7 @@ function DeliveryMethod({ showOnCheck }: DeliveryMethodProps) {
 
   return (
     <Container>
-      <TitleText>Delivery method</TitleText>
+      <TitleText>{t("Delivery method")}</TitleText>
       <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}

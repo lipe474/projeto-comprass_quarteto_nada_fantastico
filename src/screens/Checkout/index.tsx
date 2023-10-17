@@ -15,16 +15,19 @@ import {
 
 import Header from "@components/Header";
 import AddressModal from "@components/AddressModal";
+import { useTranslation } from "react-i18next";
 
 function Checkout() {
   const [visibleModal, setVisibleModal] = useState(false);
+  
+  const { t, i18n } = useTranslation(); 
 
   StatusBar.setBackgroundColor("white");
   StatusBar.setBarStyle("dark-content");
 
   return (
     <Container>
-      <Header title="Checkout" onCheck={() => {}} />
+      <Header title={t("Checkout")} onCheck={() => {}} />
       <ShippingAddress
         customStyle={{
           shadowColor: "rgba(0,0,0,0.5)",
@@ -36,14 +39,14 @@ function Checkout() {
           shadowOpacity: 0.28,
           shadowRadius: 4,
         }}
-        children="Shipping address"
-        title="Click to add an address"
-        change="Change"
+        children={t("Shipping address")}
+        title={t("Click to add an address")}
+        change={t("Change")}
       />
       <ShippingAddress
-        children="Payment Method"
-        title="None added"
-        change="Change"
+        children={t("Payment Method")}
+        title={t("None added")}
+        change={t("Change")}
         onModal={() => setVisibleModal(true)}
       />
 
@@ -51,9 +54,9 @@ function Checkout() {
 
       <Content>
         <ContentTitle>
-          <Title>Order:</Title>
-          <Title>Delivery:</Title>
-          <Summary>Summary:</Summary>
+          <Title>{t("Order")}:</Title>
+          <Title>{t("Delivery")}:</Title>
+          <Summary>{t("Summary")}:</Summary>
         </ContentTitle>
 
         <ContentPrice>

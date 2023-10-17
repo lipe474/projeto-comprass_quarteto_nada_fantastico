@@ -23,6 +23,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { cardSchema } from "@utils/validation/shcemaCard";
 import { type } from "@testing-library/react-native/build/user-event/type";
+import { useTranslation } from "react-i18next";
 
 interface CardModalProps {
   handleOnClose?: () => void;
@@ -41,6 +42,7 @@ function CardModal({ handleOnClose }: CardModalProps) {
   const formCard = useForm<FormData>({
     resolver: yupResolver(cardSchema),
   });
+  const { t, i18n } = useTranslation(); 
 
   const [selectedCard, setSelectedCard] = useState("");
 
@@ -66,7 +68,7 @@ function CardModal({ handleOnClose }: CardModalProps) {
         <Close onPress={handleOnClose}></Close>
 
         <Content>
-          <Method>Add new card</Method>
+          <Method>{t("Add new card")}</Method>
 
           {selectedCard && (
             <View>
@@ -101,7 +103,7 @@ function CardModal({ handleOnClose }: CardModalProps) {
               name="nameOnCard"
               render={({ field: { onChange, value } }) => (
                 <CustomInput
-                  label="Name on card"
+                  label={t("Name on card")}
                   border
                   value={value}
                   onChangeText={onChange}
@@ -115,7 +117,7 @@ function CardModal({ handleOnClose }: CardModalProps) {
               name="cardNumber"
               render={({ field: { onChange, value } }) => (
                 <CustomInput
-                  label="Card number"
+                  label={t("Card number")}
                   keyboardType="numeric"
                   border
                   value={value}
@@ -139,7 +141,7 @@ function CardModal({ handleOnClose }: CardModalProps) {
               name="expireDate"
               render={({ field: { onChange, value } }) => (
                 <CustomInput
-                  label="Expire Date"
+                  label={t("Expire Date")}
                   keyboardType="numeric"
                   border
                   value={value}
@@ -193,7 +195,7 @@ function CardModal({ handleOnClose }: CardModalProps) {
             <CustomButton
               height={48}
               width={343}
-              title="ADD CARD"
+              title={t("ADD CARD")}
               isDisabled={isLoading}
               onPress={formCard.handleSubmit(() => {})}
             />

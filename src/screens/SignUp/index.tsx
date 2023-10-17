@@ -21,12 +21,14 @@ import { useState, useEffect } from "react";
 import { CreateUser } from "@requests/index";
 import { CreateUserDTO } from "@dtos/UserDTO";
 import { useTheme } from "styled-components/native";
+import { useTranslation } from "react-i18next";
 
 export function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
 
   const { COLORS } = useTheme();
   const navigation = useNavigation<StackProps>();
+  const { t, i18n } = useTranslation();
 
   const {
     control,
@@ -48,13 +50,15 @@ export function SignUp() {
     setValue("password_confirm", "");
   }
 
+  const sucessMessage = t("User created successfully");
+
   async function handleSignUp({ name, email, password }: CreateUserDTO) {
     try {
       setIsLoading(true);
 
       await CreateUser({ name, email, password });
 
-      Toast.show("User created successfully.", {
+      Toast.show(sucessMessage, {
         duration: 3000,
         position: 40,
         backgroundColor: COLORS.GREEN,
@@ -65,7 +69,13 @@ export function SignUp() {
 
       setIsLoading(false);
     } catch (error: any) {
-      let message = error.message ?? "Unable to create account, try later";
+      let message: string;
+    
+      if (error.message) {
+        message = error.message;
+      } else {
+        message = t("Unable to create account, try later");
+      }
 
       setError("root", {
         type: "manual",
@@ -96,8 +106,7 @@ export function SignUp() {
           title="Sign Up"
           onPress={() => handleNavigateToLogin()}
         >
-          Choose a really cool name that only contains spaces as special
-          characters. Oh, and your password must have more than 6 digits! :)
+          {t("Choose a really cool name that only contains spaces as special characters. Oh, and your password must have more than 6 digits! :)")}
         </HeaderAuth>
 
         <ContentContainer>
@@ -136,7 +145,7 @@ export function SignUp() {
             name="password"
             render={({ field: { onChange, value } }) => (
               <CustomInput
-                label="Password"
+                label={t("Password")}
                 isPasswordField
                 onChangeText={onChange}
                 value={value}
@@ -150,7 +159,7 @@ export function SignUp() {
             name="password_confirm"
             render={({ field: { onChange, value } }) => (
               <CustomInput
-                label="Confirm Password"
+                label={t("Confirm Password")}
                 isPasswordField
                 onChangeText={onChange}
                 value={value}
@@ -171,7 +180,7 @@ export function SignUp() {
 
         <ButtonContainer>
           <CustomButton
-            title="SIGN UP"
+            title={t("SIGN UP")}
             width={343}
             height={48}
             onPress={handleSubmit(handleSignUp)}

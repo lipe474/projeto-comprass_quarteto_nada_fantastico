@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import { Loading } from "@components/Loading";
 import { useCartStore } from "../../contexts/CartStore";
 import { TabProps } from "@routes/tab.routes";
+import { useTranslation } from "react-i18next";
 
 type RouteParamsProps = {
   id: number;
@@ -51,6 +52,8 @@ export function Details() {
   const increment = () => {
     cartStore.addToCart(actualProduct!);
   };
+  
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     if (id) {
@@ -68,7 +71,7 @@ export function Details() {
   return (
     <Container>
       <HeaderContainer>
-        <HeaderTitle>Details</HeaderTitle>
+        <HeaderTitle>{t("Details")}</HeaderTitle>
         <BackButton onPress={() => navigation.navigate("home")}>
           <BackIcon />
         </BackButton>

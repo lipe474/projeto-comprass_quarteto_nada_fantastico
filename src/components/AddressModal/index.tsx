@@ -14,6 +14,7 @@ import {
 
 import { Modal } from "react-native";
 import CardModal from "@components/CardModal";
+import { useTranslation } from "react-i18next";
 
 interface AddressModalProps {
   handleClose?: () => void;
@@ -21,21 +22,22 @@ interface AddressModalProps {
 
 function AddressModal({ handleClose }: AddressModalProps) {
   const [visibleModal, setVisibleModal] = useState(false);
+  const { t, i18n } = useTranslation(); 
 
   return (
     <Container>
       <Close onPress={handleClose}></Close>
 
       <Content>
-        <Method>Choose you payment method</Method>
+        <Method>{t("Choose you payment method")}</Method>
         <Card onPress={() => setVisibleModal(true)}>
-          <TitleCard>Credit or debit card</TitleCard>
+          <TitleCard>{t("Credit or debit card")}</TitleCard>
         </Card>
         <Payment>
           <Title>Pix</Title>
         </Payment>
         <Payment>
-          <Title>Bank slip</Title>
+          <Title>{t("Bank slip")}</Title>
         </Payment>
 
         <Modal
