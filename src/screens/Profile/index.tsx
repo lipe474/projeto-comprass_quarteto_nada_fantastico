@@ -26,7 +26,7 @@ import LogoutSVG from "@assets/icons/logout.svg";
 import CaretTopSVG from "@assets/icons/caret-top.svg";
 import SwitchOffSVG from "@assets/icons/switch-off.svg";
 import SwitchOnSVG from "@assets/icons/switch-on.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CustomButton } from "@components/Button";
 import { useTheme } from "styled-components/native";
 
@@ -34,7 +34,10 @@ export function Profile() {
   const [switchOn, setSwitchOn] = useState(false);
   const [logged, setLogged] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("");
+
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
+
+
 
   const { COLORS } = useTheme();
 
@@ -47,11 +50,17 @@ export function Profile() {
   };
 
   const navigation = useNavigation<TabProps>();
-  const { t, i18n } = useTranslation(); 
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    if (selectedLanguage) {
+      i18n.changeLanguage(selectedLanguage);
+    }
+  }, [selectedLanguage]);
 
   return (
     <Container>
-      <Title>My profile</Title>
+      <Title>{t("My profile")}</Title>
       {logged ? (
         <ContentContainer>
           <Image source={require("@assets/images/avatar.png")} />
@@ -62,7 +71,7 @@ export function Profile() {
         </ContentContainer>
       ) : (
         <ContentContainerLogin>
-          <Message>You need to log in to see your details</Message>
+          <Message>{t("You need to log in to see your details")}</Message>
           <CustomButton
             title="LOGIN"
             width={136}
@@ -76,7 +85,7 @@ export function Profile() {
         onPress={handlePressSwitch}
         style={{ display: logged ? "flex" : "none" }}
       >
-        <TextEdit>Edit Informations</TextEdit>
+        <TextEdit>{t("Edit Informations")}</TextEdit>
         {switchOn ? (
           <SwitchOnSVG
             style={{
@@ -94,7 +103,7 @@ export function Profile() {
         )}
       </Informations>
       <Informations onPress={handlePressModal}>
-        <TextEdit>Language</TextEdit>
+        <TextEdit>{t("Language")}</TextEdit>
         <CaretTopSVG
           style={{
             position: "absolute",
@@ -103,7 +112,7 @@ export function Profile() {
         />
       </Informations>
       <Informations style={{ display: logged ? "flex" : "none" }}>
-        <TextEdit>Log out</TextEdit>
+        <TextEdit>{t("Log out")}</TextEdit>
         <LogoutSVG
           style={{
             position: "absolute",
@@ -121,15 +130,15 @@ export function Profile() {
           <ViewModal onPress={handlePressModal}>
             <TouchableWithoutFeedback>
               <ContentModal>
-                <TitleModal>Languages</TitleModal>
+                <TitleModal>{t("Languages")}</TitleModal>
                 <Option
                   onPress={() => {
-                    setSelectedLanguage("English");
+                    setSelectedLanguage("en");
                     handlePressModal();
                   }}
                   style={{
                     backgroundColor:
-                      selectedLanguage === "English"
+                      selectedLanguage === "en"
                         ? COLORS.RED_500
                         : COLORS.WHITE
                   }}
@@ -137,7 +146,7 @@ export function Profile() {
                   <ModalMessage
                     style={{
                       color:
-                        selectedLanguage === "English"
+                        selectedLanguage === "en"
                           ? COLORS.WHITE
                           : COLORS.BLACK_900
                     }}
@@ -147,12 +156,12 @@ export function Profile() {
                 </Option>
                 <Option
                   onPress={() => {
-                    setSelectedLanguage("Portuguese");
+                    setSelectedLanguage("pt");
                     handlePressModal();
                   }}
                   style={{
                     backgroundColor:
-                      selectedLanguage === "Portuguese"
+                      selectedLanguage === "pt"
                         ? COLORS.RED_500
                         : COLORS.WHITE
                   }}
@@ -160,7 +169,7 @@ export function Profile() {
                   <ModalMessage
                     style={{
                       color:
-                        selectedLanguage === "Portuguese"
+                        selectedLanguage === "pt"
                           ? COLORS.WHITE
                           : COLORS.BLACK_900
                     }}

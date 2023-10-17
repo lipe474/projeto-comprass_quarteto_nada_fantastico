@@ -18,12 +18,10 @@ import axios from "axios";
 import { FlatList, TouchableOpacityProps } from "react-native";
 import { ProductDTO } from "@dtos/ProductDTO";
 import { ImagesList } from "@components/ImagesList";
-import { ProductResume } from "@components/ProductResume";
 import { useNavigation } from "@react-navigation/native";
 import { TabProps } from "@routes/tab.routes";
 import { useCartStore } from "../../contexts/CartStore";
 import { useTranslation } from "react-i18next";
-import { useLanguage } from "../../contexts/Language";
 
 type Props = TouchableOpacityProps & {
   data: ProductDTO;
@@ -43,8 +41,6 @@ export function ProductOverview({ data }: Props) {
   };
 
     const { t, i18n } = useTranslation();
-    const { language, toggleLanguage } = useLanguage(); 
-
 
   const increment = () => {
     cartStore.addToCart(data);

@@ -59,6 +59,7 @@
         "My profile": "Meu perfil",
         "Edit Informations": "Editar informações",
         "Language": "Idioma",
+        "Languages": "Idiomas",
         "Log Out": "Sair",
         "This zip code was not found": "Este CEP não foi encontrado",
         "Adding Shipping Address": "Adicionando endereço de entrega",
@@ -88,6 +89,8 @@
         "Shipping Info": "Informações de Envio",
         "Support": "Suporte",
         "Home": "Início",
-        "Profile": "Perfil"
+        "Profile": "Perfil",
+        "You need to log in to see your details": "Você precisar fazer login para ver seus dados",
+        "actualLanguage": "pt"
     }
 }

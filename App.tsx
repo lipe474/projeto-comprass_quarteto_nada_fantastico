@@ -12,6 +12,7 @@ import theme from "./src/theme";
 import { Routes } from "@routes/index";
 import { Loading } from "@components/Loading";
 import { ThemeProvider } from "styled-components/native";
+import './src/utils/translation/i18n'
 
 export default function App() {
   const [fontsLoaded] = useFonts({

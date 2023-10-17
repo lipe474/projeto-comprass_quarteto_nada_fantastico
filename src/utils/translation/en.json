@@ -56,6 +56,7 @@
         "My profile": "My profile",
         "Edit Informations": "Edit Informations",
         "Language": "Language",
+        "Languages": "Languages",
         "Log Out": "Log Out",
         "This zip code was not found": "This zip code was not found",
         "Adding Shipping Address": "Adding Shipping Address",
@@ -86,6 +87,8 @@
         "Shipping Info": "Shipping Info",
         "Support": "Support",
         "Home": "Home",
-        "Profile": "Profile"
+        "Profile": "Profile",
+        "You need to log in to see your details": "You need to log in to see your details",
+        "actualLanguage": "en"
         }
 }
