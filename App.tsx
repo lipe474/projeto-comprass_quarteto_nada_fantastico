@@ -13,8 +13,8 @@ import { Routes } from "@routes/index";
 import { Loading } from "@components/Loading";
 import { ThemeProvider } from "styled-components/native";
 import Checkout from "@screens/Checkout";
-import { ThemeProvider } from "styled-components/native";
 import ShippingAddress from "@components/ShippingAddress";
+import './src/utils/translation/i18n';
 
 export default function App() {
   const [fontsLoaded] = useFonts({

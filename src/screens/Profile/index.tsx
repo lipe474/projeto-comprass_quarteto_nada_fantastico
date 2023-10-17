@@ -16,30 +16,32 @@ import {
 import { CustomButton } from "@components/Button";
 import { ToggleButton } from "@components/Toggle";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 export function Profile() {
   const navigation = useNavigation<TabProps>();
+  const { t, i18n } = useTranslation(); 
 
   return (
     <>
       <ContainerTop>
         <SafeAreaView>
-          <Title>My profile</Title>
+          <Title>{t("My profile")}</Title>
           {/* <ImageBackground source={profileImage} /> */}
           <Name> Juliane Gonçalves Freitas</Name>
           <Email>matildabrown@mail.com</Email>
         </SafeAreaView>
 
         <ContainerMiddle>
-          <Informations> Edit Informations </Informations>
-          <Text> Language</Text>
-          <Text> Log out</Text>
+          <Informations> {t("Edit Informations")} </Informations>
+          <Text> {t("Language")}</Text>
+          <Text> {t("Log out")}</Text>
         </ContainerMiddle>
         <ToggleButton isOn />
       </ContainerTop>
 
       <CustomButton
-        title="LOGIN"
+        title={t("LOGIN")}
         width={343}
         height={48}
         onPress={() => navigation.navigate("stackRoutes")}

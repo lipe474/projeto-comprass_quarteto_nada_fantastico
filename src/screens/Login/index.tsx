@@ -28,6 +28,7 @@ import { useTheme } from "styled-components/native";
 import Toast from "react-native-root-toast";
 import { SetErrorInputs } from "@utils/ErrorInAllInputs";
 import { TabProps } from "@routes/tab.routes";
+import { useTranslation } from "react-i18next";
 
 export function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,6 +36,7 @@ export function Login() {
   const { COLORS } = useTheme();
   const stackNavigation = useNavigation<StackProps>();
   const tabNavigation = useNavigation<TabProps>();
+  const { t, i18n } = useTranslation();
 
   const {
     control,
@@ -47,12 +49,14 @@ export function Login() {
     resolver: yupResolver(loginSchema)
   });
 
+  const sucessMessage = t("User successfully logged in.")
+
   async function handleLogin({ email, password }: LoginUserDTO) {
     try {
       setIsLoading(true);
       await LoginUser({ email, password });
 
-      Toast.show("User successfully logged in.", {
+      Toast.show(sucessMessage, {
         duration: 3000,
         position: 40,
         backgroundColor: COLORS.GREEN,
@@ -63,10 +67,16 @@ export function Login() {
 
       setIsLoading(false);
     } catch (error: any) {
-      let { message } = error.message ?? "Something happened, try again later";
+      let message: string;
+    
+      if (error.message) {
+        message = error.message;
+      } else {
+        message = t("Something happened, try again later");
+      }
 
       if (message === "Unauthorized") {
-        message = "Your email or password is incorrect";
+        message = t("Your email or password is incorrect");
 
         SetErrorInputs("manual", message, setError, ["email", "password"]);
         setValue("email", "");
@@ -126,7 +136,7 @@ export function Login() {
             name="password"
             render={({ field: { onChange, value } }) => (
               <CustomInput
-                label="Password"
+                label={t("Password")}
                 isPasswordField
                 onChangeText={onChange}
                 value={value}
@@ -143,7 +153,7 @@ export function Login() {
 
         <ButtonContainer>
           <CustomButton
-            title="LOGIN"
+            title={t("LOGIN")}
             width={343}
             height={48}
             onPress={() => {
@@ -160,13 +170,13 @@ export function Login() {
 
         <ButtonTextContainer>
           <TouchableText onPress={handleNavigateToSignUp}>
-            Not have an account yet? Sign up
+            {t("Not have an account yet?")} {t("Sign up")}
           </TouchableText>
           <TouchableText onPress={handleNavigateToForgotPassword}>
-            I forgot my password
+            {t("I forgot my password")}
           </TouchableText>
           <TouchableText onPress={handleNavigateToHomePage}>
-            I don't want to log in
+            {t("I don't want to log in")}
           </TouchableText>
         </ButtonTextContainer>
       </ContentContainer>

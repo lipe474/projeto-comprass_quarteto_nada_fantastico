@@ -16,6 +16,8 @@ import {
   ContainerAll
 } from "./style";
 import { TouchableOpacityProps, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { TabProps } from "@routes/tab.routes";
 import { ProductDTO } from "@dtos/ProductDTO";
 import { useCartStore } from "../../contexts/CartStore";
 

@@ -26,7 +26,8 @@ import {
 } from "react-native";
 import Research from "@assets/icons/lupa.svg";
 import { useNavigation } from "@react-navigation/native";
-import { TabProps } from "@routes/tab.routes";
+import {TabProps } from "@routes/tab.routes";
+import { useTranslation } from "react-i18next";
 
 interface ActionModalProps {
   onCloseModal: () => void;
@@ -39,6 +40,7 @@ function ActionModal({ onCloseModal }: ActionModalProps) {
   const [inputFocused, setInputFocused] = useState(false);
   const [searching, setSearching] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
+  const { t, i18n } = useTranslation();
 
   const navigation = useNavigation<TabProps>();
 
@@ -106,14 +108,14 @@ function ActionModal({ onCloseModal }: ActionModalProps) {
                 onFocus={handleInputFocus}
                 value={searchTerm}
                 onChangeText={(text) => setSearchTerm(text)}
-                placeholder="Enter the product name"
+                placeholder={t("Enter the product name")}
               />
             ) : null}
           </InputContainer>
 
           {isModalVisible ? (
             <FilterContainer>
-              {loading ? <FilterTitle>Loading...</FilterTitle> : null}
+              {loading ? <FilterTitle>{t("Loading...")}</FilterTitle> : null}
               <FlatList
                 data={searchResult}
                 keyExtractor={(item) => item.id.toString()}

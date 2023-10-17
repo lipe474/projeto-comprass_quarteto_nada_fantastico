@@ -19,6 +19,7 @@ import { KeyboardAvoidingView, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackProps } from "@routes/stack.routes";
 import { AppError } from "@utils/AppError";
+import { useTranslation } from "react-i18next";
 
 type FormData = {
   cep?: string;
@@ -39,6 +40,8 @@ export function ShippingAddress() {
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstRender, setIsFirstRender] = useState(true);
   const [isCepValid, setIsCepValid] = useState(false);
+  const { t, i18n } = useTranslation();
+
   const [addressData, setAddressData] = useState<AddressData>({
     logradouro: "",
     localidade: "",
@@ -65,7 +68,7 @@ export function ShippingAddress() {
       if (response.erro) {
         formCep.setError("cep", {
           type: "manual",
-          message: "This zip code was not found"
+          message: t("This zip code was not found")
         });
         setIsCepValid(false);
         setAddressData({
@@ -126,7 +129,7 @@ export function ShippingAddress() {
     >
       <Container>
         <HeaderContainer>
-          <HeaderTitle>Adding Shipping Address</HeaderTitle>
+          <HeaderTitle>{t("Adding Shipping Address")}</HeaderTitle>
           <BackButton>
             <BackIcon />
           </BackButton>
@@ -138,7 +141,7 @@ export function ShippingAddress() {
             name="cep"
             render={({ field: { onChange, value } }) => (
               <CustomInput
-                label="Zip Code (Postal Code)"
+                label={t("Zip Code (Postal Code)")}
                 border
                 showIcon
                 keyboardType="numeric"
@@ -167,7 +170,7 @@ export function ShippingAddress() {
             name="logradouro"
             render={({ field: { onChange, value } }) => (
               <CustomInput
-                label="Address"
+                label={t("Address")}
                 border
                 isDisabled={!isCepValid || isLoading}
                 value={addressData.logradouro}
@@ -184,7 +187,7 @@ export function ShippingAddress() {
             name="localidade"
             render={({ field: { onChange, value } }) => (
               <CustomInput
-                label="City"
+                label={t("City")}
                 border
                 isDisabled={!isCepValid || isLoading}
                 value={addressData.localidade}
@@ -201,7 +204,7 @@ export function ShippingAddress() {
             name="uf"
             render={({ field: { onChange, value } }) => (
               <CustomInput
-                label="State/Province/Region"
+                label={t("State/Province/Region")}
                 border
                 isDisabled={!isCepValid || isLoading}
                 value={addressData.uf}
@@ -218,7 +221,7 @@ export function ShippingAddress() {
             name="name"
             render={({ field: { onChange, value } }) => (
               <CustomInput
-                label="Full name"
+                label={t("Full name")}
                 border
                 isDisabled={!isCepValid || isLoading}
                 value={addressData.name}
@@ -235,7 +238,7 @@ export function ShippingAddress() {
 
         <ButtonContainer>
           <CustomButton
-            title="SAVE ADDRESS"
+            title={t("SAVE ADDRESS")}
             width={343}
             height={48}
             onPress={formCep.handleSubmit(handleCheckCep)}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Spacer, SubTitle, Title, Image } from "./style";
+import { useTranslation } from "react-i18next";
 
 type SuccessMessageProps = {
   hasImage?: boolean;
@@ -12,6 +13,8 @@ export function SuccessMessage({
   source,
   children
 }: SuccessMessageProps) {
+  const { t, i18n } = useTranslation(); 
+
   return (
     <Container>
       {hasImage ? (
@@ -23,7 +26,7 @@ export function SuccessMessage({
       ) : (
         <Spacer />
       )}
-      <Title>Success!</Title>
+      <Title>{t("Success")}!</Title>
       <SubTitle>{children}</SubTitle>
     </Container>
   );
