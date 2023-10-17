@@ -1,6 +1,6 @@
 import {
   BottomTabNavigationProp,
-  createBottomTabNavigator
+  createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
 
 import HomeSvg from "@assets/icons/home.svg";
@@ -15,8 +15,9 @@ import { useCartStore } from "../contexts/CartStore";
 import { useState, useEffect } from "react";
 import { StackRoutes } from "./stack.routes";
 import { Profile } from "@screens/Profile";
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from "react-i18next";
 import Checkout from "@screens/Checkout";
+import { ShippingAddress } from "@screens/ShippingAddress";
 
 type BottomTabRoutes = {
   home: undefined;
@@ -32,6 +33,7 @@ type BottomTabRoutes = {
   };
   checkout: undefined;
   stackRoutes: undefined;
+  address: undefined;
 };
 
 export type TabProps = BottomTabNavigationProp<BottomTabRoutes>;
@@ -67,15 +69,15 @@ export function TabRoutes() {
           height: 75,
           paddingTop: 24,
           paddingBottom: 5,
-          position: "relative"
+          position: "relative",
         },
         tabBarLabelStyle: {
           fontFamily: FONT_FAMILY.REGULAR,
           fontSize: FONT_SIZE.XXS,
           lineHeight: 30,
           marginTop: 8,
-          textTransform: "capitalize"
-        }
+          textTransform: "capitalize",
+        },
       }}
     >
       <Tab.Screen
@@ -90,7 +92,7 @@ export function TabRoutes() {
               width={iconSize}
               height={iconSize}
             />
-          )
+          ),
         }}
       />
       <Tab.Screen
@@ -105,7 +107,7 @@ export function TabRoutes() {
             top: -20,
             width: 10,
             height: 18,
-            fontSize: 8
+            fontSize: 8,
           },
           tabBarIcon: ({ color, focused }) => (
             <ShopSvg
@@ -114,7 +116,7 @@ export function TabRoutes() {
               width={iconSize}
               height={iconSize}
             />
-          )
+          ),
         }}
       />
       <Tab.Screen
@@ -129,7 +131,7 @@ export function TabRoutes() {
               width={iconSize}
               height={iconSize}
             />
-          )
+          ),
         }}
       />
 
@@ -138,7 +140,7 @@ export function TabRoutes() {
         component={Details}
         options={{
           tabBarStyle: { display: "none" },
-          tabBarButton: () => null
+          tabBarButton: () => null,
         }}
       />
 
@@ -147,7 +149,16 @@ export function TabRoutes() {
         component={Checkout}
         options={{
           tabBarStyle: { display: "none" },
-          tabBarButton: () => null
+          tabBarButton: () => null,
+        }}
+      />
+
+      <Tab.Screen
+        name="address"
+        component={ShippingAddress}
+        options={{
+          tabBarStyle: { display: "none" },
+          tabBarButton: () => null,
         }}
       />
 
@@ -156,7 +167,7 @@ export function TabRoutes() {
         component={StackRoutes}
         options={{
           tabBarStyle: { display: "none" },
-          tabBarButton: () => null
+          tabBarButton: () => null,
         }}
       />
     </Tab.Navigator>

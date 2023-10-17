@@ -6,6 +6,18 @@ export const Container = styled.SafeAreaView`
   align-self: center;
 `;
 
+export const TextTitle = styled.Text`
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
+  color: ${({ theme }) => theme.COLORS.BLACK_900};
+`;
+
+export const TextAddres = styled.Text`
+  font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  color: ${({ theme }) => theme.COLORS.BLACK_900};
+`;
+
 export const PagMethod = styled.View`
   background-color: ${({ theme }) => theme.COLORS.WHITE};
 `;
