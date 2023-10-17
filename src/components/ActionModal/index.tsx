@@ -26,7 +26,7 @@ import {
 } from "react-native";
 import Research from "@assets/icons/lupa.svg";
 import { useNavigation } from "@react-navigation/native";
-import { AppNavigatorRoutesProps } from "@routes/tab.routes";
+import { TabProps } from "@routes/tab.routes";
 
 interface ActionModalProps {
   onCloseModal: () => void;
@@ -40,7 +40,7 @@ function ActionModal({ onCloseModal }: ActionModalProps) {
   const [searching, setSearching] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const navigation = useNavigation<AppNavigatorRoutesProps>();
+  const navigation = useNavigation<TabProps>();
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);

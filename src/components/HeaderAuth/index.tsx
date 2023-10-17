@@ -24,7 +24,7 @@ export function HeaderAuth({
   return (
     <Container>
       {showBackButton ? (
-        <BackButton onPress={onPress}>
+        <BackButton accessibilityHint="back-button" onPress={onPress}>
           <BackIcon />
         </BackButton>
       ) : (

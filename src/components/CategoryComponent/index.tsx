@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { FlatList } from "react-native";
 import { CategoryTitle, Container, ContainerRow, ViewAll } from "./style";
-import { ProductResume } from "@components/ProductResume";
+import ProductResume from "@components/ProductResume";
 import { ProductDTO } from "@dtos/ProductDTO";
 import { useNavigation } from "@react-navigation/native";
-import { AppNavigatorRoutesProps } from "@routes/tab.routes";
+import { TabProps } from "@routes/tab.routes";
 
 interface Category {
   id: number;
@@ -15,7 +15,7 @@ interface Category {
 export function CategoryComponent({ category }: { category: Category }) {
   const [products, setProducts] = useState<ProductDTO[]>([]);
 
-  const navigation = useNavigation<AppNavigatorRoutesProps>();
+  const navigation = useNavigation<TabProps>();
 
   function handleOpenDetails(
     id: number,
@@ -43,6 +43,9 @@ export function CategoryComponent({ category }: { category: Category }) {
       setProducts(productsInCategory);
     });
   }, [category.id]);
+
+  const memoizedProducts = useMemo(() => products, [products]);
+
   return (
     <Container>
       <ContainerRow>
@@ -50,10 +53,11 @@ export function CategoryComponent({ category }: { category: Category }) {
         <ViewAll>View all</ViewAll>
       </ContainerRow>
       <FlatList
-        data={products}
+        data={memoizedProducts}
         keyExtractor={(item) => item.id.toString()}
         horizontal
-        initialNumToRender={10}
+        initialNumToRender={3}
+        maxToRenderPerBatch={3}
         renderItem={({ item }) => (
           <ProductResume
             data={item}

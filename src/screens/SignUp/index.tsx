@@ -65,9 +65,9 @@ export function SignUp() {
 
       setIsLoading(false);
     } catch (error: any) {
-      let message = error.message ?? "Unable to create account, try later";
+      let message = "Unable to create account, try later";
 
-      setError("root", {
+      setError("name", {
         type: "manual",
         message
       });

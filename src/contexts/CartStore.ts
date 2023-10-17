@@ -42,7 +42,7 @@ export const useCartStore = create<CartStore>((set) => {
         return { cart: updatedCart };
       }),
     removeFromCart: (id) =>
-      set((state) =>{
+      set((state) => {
         const updatedCart = [...state.cart];
         const existingProductIndex = updatedCart.findIndex((p) => p.id === id);
 
@@ -56,12 +56,12 @@ export const useCartStore = create<CartStore>((set) => {
         return { cart: updatedCart };
       }),
     deleteFromCart: (id) =>
-      set((state) =>{
+      set((state) => {
         const updatedCart = [...state.cart];
         const existingProductIndex = updatedCart.findIndex((p) => p.id === id);
         updatedCart.splice(existingProductIndex, 1);
 
         return { cart: updatedCart };
-      }),
+      })
   };
 });

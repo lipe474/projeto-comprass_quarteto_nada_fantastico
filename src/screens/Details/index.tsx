@@ -1,7 +1,5 @@
-import { DetailsMenu } from "@components/DetailsMenu";
 import { ProductOverview } from "@components/ProductOverview";
-import { ProductResume } from "@components/ProductResume";
-import { View, FlatList, Text, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import {
   ButtonMinus,
   Container,

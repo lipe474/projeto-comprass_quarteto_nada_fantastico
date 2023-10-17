@@ -1,11 +1,14 @@
 import { Container, ProductImage } from "./style";
 
-export function ImagesList({image}: {image: string}) {
-    const productImage = image;
+export function ImagesList({ image }: { image: string }) {
+  const productImage = image;
 
-    return(
+  return (
     <Container>
-        <ProductImage source={{ uri: productImage}}/>
+      <ProductImage
+        accessibilityHint="product-image"
+        source={{ uri: productImage }}
+      />
     </Container>
-    )
+  );
 }

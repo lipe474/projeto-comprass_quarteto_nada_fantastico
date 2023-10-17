@@ -41,9 +41,11 @@ export async function GetAllUsers() {
 
 export async function UpdatePassword(id: number, password: string) {
   try {
-    await api.put(`/users/${id}`, {
+    const response = await api.put(`/users/${id}`, {
       password
     });
+
+    return response.data;
   } catch (error: any) {
     throw new AppError(error.message);
   }

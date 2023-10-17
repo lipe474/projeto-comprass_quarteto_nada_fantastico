@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react-native";
 import { BackgroundAuth } from "@components/BackgroundAuth";
 
-describe("BackgroundAuth", () => {
+describe("Component: BackgroundAuth", () => {
   it("should render ImageBackground with source prop", () => {
     render(
       <BackgroundAuth source={require("@assets/images/background.png")} />

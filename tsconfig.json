@@ -16,8 +16,8 @@
       "@hooks/*": [
         "./src/hooks/*"
       ],
-      "@context/*": [
-        "./src/context/*"
+      "@contexts/*": [
+        "./src/contexts/*"
       ],
       "@requests/*": [
         "./src/requests/*"

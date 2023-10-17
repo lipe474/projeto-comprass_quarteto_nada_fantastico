@@ -13,7 +13,7 @@ function Header({ title, onCheck }: HeaderProps) {
   return (
     <Container>
       <ButtonMenu onPress={onCheck}>
-        <SvgHeader />
+        <SvgHeader accessibilityHint="svg-header" />
       </ButtonMenu>
 
       {title && <Title>{title}</Title>}

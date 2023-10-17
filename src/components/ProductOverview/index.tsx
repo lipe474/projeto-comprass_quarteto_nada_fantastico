@@ -14,14 +14,13 @@ import {
 } from "./style";
 import { DetailsMenu } from "@components/DetailsMenu";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { FlatList, TouchableOpacityProps } from "react-native";
 import { ProductDTO } from "@dtos/ProductDTO";
 import { ImagesList } from "@components/ImagesList";
-import { ProductResume } from "@components/ProductResume";
+import ProductResume from "@components/ProductResume";
 import { useNavigation } from "@react-navigation/native";
-import { AppNavigatorRoutesProps } from "@routes/tab.routes";
-import { useCartStore } from "../../contexts/CartStore";
+import { TabProps } from "@routes/tab.routes";
+import { api } from "@services/api";
 
 type Props = TouchableOpacityProps & {
   data: ProductDTO;
@@ -30,22 +29,10 @@ type Props = TouchableOpacityProps & {
 export function ProductOverview({ data }: Props) {
   const keyExtractor = (item: string, index: number) => index.toString();
   const [products, setProducts] = useState<ProductDTO[]>([]);
-  const navigation = useNavigation<AppNavigatorRoutesProps>();
-  const cartStore = useCartStore();
-  const count = cartStore.cart.find((p) => p.id === data.id)?.count || 0;
-
-  const decrement = () => {
-    if (count > 0) {
-      cartStore.removeFromCartOnHomeScreen(data.id);
-    }
-  };
-
-  const increment = () => {
-    cartStore.addToCart(data);
-  };
+  const navigation = useNavigation<TabProps>();
 
   useEffect(() => {
-    axios.get(`https://api.escuelajs.co/api/v1/products`).then((response) => {
+    api.get("/products").then((response) => {
       const productsInCategory = response.data.filter(
         (product: ProductDTO) =>
           product.category.id === data.category.id && product.id !== data.id
@@ -72,54 +59,53 @@ export function ProductOverview({ data }: Props) {
     });
   }
   return (
-    <>
-      <Container>
+    <Container>
+      <FlatList
+        data={data.images}
+        renderItem={({ item }) => <ImagesList image={item} />}
+        keyExtractor={keyExtractor}
+        horizontal
+        accessibilityHint="product-image"
+      />
+      <ProductInformationsContainer>
+        <NameAndCategoryContainer>
+          <Name>{data.title}</Name>
+          <Category>{data.category.name}</Category>
+        </NameAndCategoryContainer>
+        <Price>{data.price.toFixed(2)} R$</Price>
+      </ProductInformationsContainer>
+      <DescriptionContainer>
+        <Description>{data.description}</Description>
+      </DescriptionContainer>
+      <DetailsMenu title="Shipping Info" />
+      <DetailsMenu title="Support" />
+      <ContainerCategoryProducts>
+        <TitleAndNumberItemsContainer>
+          <Title>You can also like this</Title>
+          <ItemsNumber>12 items</ItemsNumber>
+        </TitleAndNumberItemsContainer>
         <FlatList
-          data={data.images}
-          renderItem={({ item }) => <ImagesList image={item} />}
-          keyExtractor={keyExtractor}
+          data={products}
+          keyExtractor={(item) => item.id.toString()}
           horizontal
+          initialNumToRender={10}
+          renderItem={({ item }) => (
+            <ProductResume
+              data={item}
+              onPress={() =>
+                handleOpenDetails(
+                  item.id,
+                  item.title,
+                  item.price,
+                  item.description,
+                  item.images,
+                  item.category
+                )
+              }
+            />
+          )}
         />
-        <ProductInformationsContainer>
-          <NameAndCategoryContainer>
-            <Name>{data.title}</Name>
-            <Category>{data.category.name}</Category>
-          </NameAndCategoryContainer>
-          <Price>{data.price.toFixed(2)} R$</Price>
-        </ProductInformationsContainer>
-        <DescriptionContainer>
-          <Description>{data.description}</Description>
-        </DescriptionContainer>
-        <DetailsMenu title="Shipping Info" />
-        <DetailsMenu title="Support" />
-        <ContainerCategoryProducts>
-          <TitleAndNumberItemsContainer>
-            <Title>You can also like this</Title>
-            <ItemsNumber>12 items</ItemsNumber>
-          </TitleAndNumberItemsContainer>
-          <FlatList
-            data={products}
-            keyExtractor={(item) => item.id.toString()}
-            horizontal
-            initialNumToRender={10}
-            renderItem={({ item }) => (
-              <ProductResume
-                data={item}
-                onPress={() =>
-                  handleOpenDetails(
-                    item.id,
-                    item.title,
-                    item.price,
-                    item.description,
-                    item.images,
-                    item.category
-                  )
-                }
-              />
-            )}
-          />
-        </ContainerCategoryProducts>
-      </Container>
-    </>
+      </ContainerCategoryProducts>
+    </Container>
   );
 }
