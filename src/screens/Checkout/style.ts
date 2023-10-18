@@ -1,4 +1,7 @@
 import styled from "styled-components/native";
+import { Dimensions } from "react-native"
+
+const windowWidth = Dimensions.get("window").width;
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -6,20 +9,24 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const Content = styled.View`
+  width: ${windowWidth}px;
+  padding-left: 17px;
+  padding-right: 17px;
+  justify-content: space-between;
   flex-direction: row;
   margin-top: 32px;
 `;
 
 export const ContentTitle = styled.View`
-  left: 16px;
+
 `;
 
 export const ContentPrice = styled.View`
-  justify-content: flex-end;
-  align-self: flex-end;
+  margin-bottom: 38px;
 `;
 
 export const Title = styled.Text`
+  text-align: right;
   margin-bottom: 12px;
   font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
@@ -27,7 +34,13 @@ export const Title = styled.Text`
 `;
 
 export const Summary = styled.Text`
+  text-align: right;
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
   color: ${({ theme }) => theme.COLORS.GRAY_500};
 `;
+
+export const ButtonContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+`

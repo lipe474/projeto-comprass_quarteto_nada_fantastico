@@ -37,23 +37,18 @@ export const Method = styled.Text`
   color: ${({ theme }) => theme.COLORS.BLACK_900};
 `;
 
-export const Card = styled.TouchableOpacity`
+export const Payment = styled.TouchableOpacity`
   width: 100%;
-  heigth: 48px;
+  height: 48px;
   margin-top: 8px;
   padding: 8px;
-  background-color: ${({ theme }) => theme.COLORS.RED_500};
+  background-color: ${({ theme }) => theme.COLORS.WHITE};
 `;
 
-export const TitleCard = styled.Text`
+export const TitleSelected = styled.Text`
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
   color: ${({ theme }) => theme.COLORS.WHITE};
-`;
-
-export const Payment = styled.TouchableOpacity`
-  margin-top: 8px;
-  padding: 8px;
 `;
 
 export const Title = styled.Text`

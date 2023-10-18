@@ -1,4 +1,5 @@
 import { UserDTO } from "@dtos/UserDTO";
+import { type } from "@testing-library/react-native/build/user-event/type";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
@@ -50,12 +51,12 @@ export const useUserStore = create<UserStoreState>((set) => ({
     set((state: any) => ({
       user: {
         ...state.user,
-        access_token: token
-      }
+        access_token: token,
+      },
     })),
   getUser: () => {
     const state: any = useUserStore.getState();
     return state.user;
   },
-  removeUser: () => set({ user: {} as UserDTO })
+  removeUser: () => set({ user: {} as UserDTO }),
 }));

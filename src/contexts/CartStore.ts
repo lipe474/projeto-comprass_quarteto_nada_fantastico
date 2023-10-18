@@ -14,53 +14,48 @@ export const useCartStore = create<CartStore>((set) => {
     cart: [],
     addToCart: (product) =>
       set((state) => {
-        const updatedCart = [...state.cart];
-        const existingProduct = updatedCart.find((p) => p.id === product.id);
 
-        if (existingProduct) {
-          existingProduct.count += 1;
-        } else {
+        const updatedCart = state.cart.map((p) => {
+          console.log(p)
+          if (p.id === product.id) {
+            return { ...p, count: p.count + 1 };
+          }
+          return p;
+        });
+    
+        if (!updatedCart.some((p) => p.id === product.id)) {
           updatedCart.push({ ...product, count: 1 });
         }
-
+    
         return { cart: updatedCart };
       }),
     removeFromCartOnHomeScreen: (id) =>
       set((state) => {
-        const updatedCart = [...state.cart];
-        const existingProductIndex = updatedCart.findIndex((p) => p.id === id);
-
-        if (existingProductIndex !== -1) {
-          const existingProduct = updatedCart[existingProductIndex];
-          if (existingProduct.count > 1) {
-            existingProduct.count -= 1;
-          } else {
-            updatedCart.splice(existingProductIndex, 1);
+        const updatedCart = state.cart.map((p) => {
+          if (p.id === id) {
+            p.count = Math.max(1, p.count - 1);
           }
-        }
-
-        return { cart: updatedCart };
+          return p;
+        });
+    
+        const filteredCart = updatedCart.filter((p) => p.count > 0);
+    
+        return { cart: filteredCart };
       }),
     removeFromCart: (id) =>
       set((state) => {
-        const updatedCart = [...state.cart];
-        const existingProductIndex = updatedCart.findIndex((p) => p.id === id);
-
-        if (existingProductIndex !== -1) {
-          const existingProduct = updatedCart[existingProductIndex];
-          if (existingProduct.count >= 1) {
-            existingProduct.count -= 1;
+        const updatedCart = state.cart.map((p) => {
+          if (p.id === id) {
+            p.count = Math.max(0, p.count - 1);
           }
-        }
-
+          return p;
+        });
+    
         return { cart: updatedCart };
       }),
     deleteFromCart: (id) =>
       set((state) => {
-        const updatedCart = [...state.cart];
-        const existingProductIndex = updatedCart.findIndex((p) => p.id === id);
-        updatedCart.splice(existingProductIndex, 1);
-
+        const updatedCart = state.cart.filter((p) => p.id !== id);
         return { cart: updatedCart };
       })
   };
