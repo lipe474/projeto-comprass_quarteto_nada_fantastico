@@ -21,9 +21,7 @@ export const Content = styled.View`
 
 export const ContentTitle = styled.View``;
 
-export const ContentPrice = styled.View`
-  margin-bottom: 38px;
-`;
+export const ContentPrice = styled.View``;
 
 export const Title = styled.Text`
   text-align: left;
