@@ -15,6 +15,8 @@ export const Content = styled.View`
   justify-content: space-between;
   flex-direction: row;
   margin-top: 32px;
+  flex: 1;
+  align-items: center;
 `;
 
 export const ContentTitle = styled.View``;
@@ -55,5 +57,7 @@ export const SummaryValue = styled.Text`
 
 export const ButtonContainer = styled.View`
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  flex: 1;
+  margin-bottom: 12px;
 `;

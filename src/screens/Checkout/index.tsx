@@ -97,10 +97,11 @@ function Checkout() {
 
       <ShippingAddress
         children={t("Payment Method")}
-        title={!cardAddress ? t("None added") : null}
+        title={!cardAddress ? t("None added") : undefined}
         titleAddress={cardAddress.getUser().cardNumber}
         change={t("Change")}
         onAddress={() => setVisibleModal(true)}
+        customStyle={{ backgroundColor: "transparent" }}
       />
 
       <DeliveryMethod />

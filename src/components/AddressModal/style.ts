@@ -40,8 +40,8 @@ export const Method = styled.Text`
 export const Payment = styled.TouchableOpacity`
   width: 100%;
   height: 48px;
-  margin-top: 8px;
-  padding: 8px;
+  justify-content: center;
+  padding-left: 16px;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
 `;
 

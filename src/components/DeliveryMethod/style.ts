@@ -1,7 +1,6 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-  align-itens: center;
   justify-content: center;
 `;
 
@@ -15,7 +14,7 @@ export const Content = styled.View`
 `;
 
 export const TitleText = styled.Text`
-  left: 32px;
+  left: 24px;
   margin-top: 6px;
   margin-bottom: 16px;
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
