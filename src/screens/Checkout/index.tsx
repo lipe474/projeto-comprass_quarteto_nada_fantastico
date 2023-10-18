@@ -69,7 +69,7 @@ function Checkout() {
         title={t("Checkout")}
         onCheck={() => navigation.navigate("cart")}
       />
-      {!user ? (
+      {!user.id ? (
         <ContainerAll>
           <TitleNoUser>
             You need to connect to complete your purchase, come on?

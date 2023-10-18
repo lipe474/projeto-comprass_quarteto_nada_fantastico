@@ -14,6 +14,7 @@ export const ContainerAll = styled(SafeAreaView)`
   gap: 16px;
   align-items: center;
   justify-content: center;
+  align-self: center;
 `;
 
 export const TitleNoUser = styled.Text`
