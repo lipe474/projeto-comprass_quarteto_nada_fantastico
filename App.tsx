@@ -4,7 +4,7 @@ import {
   OpenSans_400Regular,
   OpenSans_600SemiBold,
   OpenSans_700Bold,
-  OpenSans_800ExtraBold,
+  OpenSans_800ExtraBold
 } from "@expo-google-fonts/open-sans";
 
 import theme from "./src/theme";
@@ -20,13 +20,17 @@ export default function App() {
     OpenSans_400Regular,
     OpenSans_600SemiBold,
     OpenSans_700Bold,
-    OpenSans_800ExtraBold,
+    OpenSans_800ExtraBold
   });
 
   return (
     <ThemeProvider theme={theme}>
       <AuthContextProvider>
-        <StatusBar barStyle="default" translucent />
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="#000"
+          translucent
+        />
         {fontsLoaded ? <Routes /> : <Loading />}
       </AuthContextProvider>
     </ThemeProvider>

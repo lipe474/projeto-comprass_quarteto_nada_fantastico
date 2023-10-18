@@ -13,7 +13,9 @@ import {
   Summary,
   ButtonContainer,
   TitleValue,
-  SummaryValue
+  SummaryValue,
+  TitleNoUser,
+  ContainerAll
 } from "./style";
 
 import Header from "@components/Header";
@@ -25,6 +27,7 @@ import { useNavigation } from "@react-navigation/native";
 import { TabProps } from "@routes/tab.routes";
 import { useCartStore } from "@contexts/CartStore";
 import { CustomButton } from "@components/Button";
+import { useAuth } from "@hooks/useAuth";
 
 function Checkout() {
   const [visibleModal, setVisibleModal] = useState(false);
@@ -52,14 +55,13 @@ function Checkout() {
 
   const cardAddress = useCardStore();
 
-  StatusBar.setBackgroundColor("white");
-  StatusBar.setBarStyle("dark-content");
-
   const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
 
   const handlePaymentChange = (paymentType: string) => {
     setSelectedPayment(paymentType);
   };
+
+  const { user } = useAuth();
 
   return (
     <Container>
@@ -67,83 +69,101 @@ function Checkout() {
         title={t("Checkout")}
         onCheck={() => navigation.navigate("cart")}
       />
-      <ShippingAddress
-        onAddress={() => navigation.navigate("address")}
-        customStyle={{
-          shadowColor: "rgba(0,0,0,0.5)",
-          shadowOffset: {
-            width: 0,
-            height: 2
-          },
-          elevation: 5,
-          shadowOpacity: 0.28,
-          shadowRadius: 4
-        }}
-        children={t("Shipping address")}
-        title={address.getUser().logradouro ? "" : t("Click to add an address")}
-        titleName={address.getUser().name ? address.getUser().name : ""}
-        titleAddress={
-          address.getUser().logradouro ? address.getUser().logradouro : ""
-        }
-        titleCity={
-          address.getUser().localidade
-            ? address.getUser().localidade
-            : "" + ", " + address.getUser().uf
-            ? address.getUser().uf
-            : ""
-        }
-        change={t("Change")}
-      />
+      {!user ? (
+        <ContainerAll>
+          <TitleNoUser>
+            You need to connect to complete your purchase, come on?
+          </TitleNoUser>
+          <CustomButton
+            title={t("LOGIN")}
+            width={136}
+            height={48}
+            onPress={() => navigation.navigate("stackRoutes")}
+          />
+        </ContainerAll>
+      ) : (
+        <>
+          <ShippingAddress
+            onAddress={() => navigation.navigate("address")}
+            customStyle={{
+              shadowColor: "rgba(0,0,0,0.5)",
+              shadowOffset: {
+                width: 0,
+                height: 2
+              },
+              elevation: 5,
+              shadowOpacity: 0.28,
+              shadowRadius: 4
+            }}
+            children={t("Shipping address")}
+            title={
+              address.getUser().logradouro ? "" : t("Click to add an address")
+            }
+            titleName={address.getUser().name ? address.getUser().name : ""}
+            titleAddress={
+              address.getUser().logradouro ? address.getUser().logradouro : ""
+            }
+            titleCity={
+              address.getUser().localidade
+                ? address.getUser().localidade
+                : "" + ", " + address.getUser().uf
+                ? address.getUser().uf
+                : ""
+            }
+            change={t("Change")}
+          />
 
-      <ShippingAddress
-        children={t("Payment Method")}
-        title={!cardAddress ? t("None added") : undefined}
-        titleAddress={cardAddress
-          .getUser()
-          .cardNumber.replace(/\D/g, "")
-          .replace(/^(\d{4})(\d{4})(\d{4})(\d{4})$/, "**** **** **** $4")}
-        change={t("Change")}
-        onAddress={() => setVisibleModal(true)}
-        customStyle={{ backgroundColor: "transparent" }}
-      />
+          <ShippingAddress
+            children={t("Payment Method")}
+            title={!cardAddress ? t("None added") : undefined}
+            titleAddress={
+              cardAddress ? cardAddress.getUser().cardNumber : undefined
+            }
+            change={t("Change")}
+            onAddress={() => setVisibleModal(true)}
+            customStyle={{ backgroundColor: "transparent" }}
+          />
 
-      <DeliveryMethod />
+          <DeliveryMethod />
 
-      <Content>
-        <ContentTitle>
-          <Title>{t("Order")}:</Title>
-          <Title>{t("Delivery")}:</Title>
-          <Summary>{t("Summary")}:</Summary>
-        </ContentTitle>
+          <Content>
+            <ContentTitle>
+              <Title>{t("Order")}:</Title>
+              <Title>{t("Delivery")}:</Title>
+              <Summary>{t("Summary")}:</Summary>
+            </ContentTitle>
 
-        <ContentPrice>
-          <TitleValue>{deliveryPrice.toFixed(2)} R$</TitleValue>
-          <TitleValue>{total.toFixed(2)} R$</TitleValue>
-          <SummaryValue>{totalCheckout.toFixed(2)} R$</SummaryValue>
-        </ContentPrice>
-      </Content>
+            <ContentPrice>
+              <TitleValue>{deliveryPrice.toFixed(2)} R$</TitleValue>
+              <TitleValue>{total.toFixed(2)} R$</TitleValue>
+              <SummaryValue>{totalCheckout.toFixed(2)} R$</SummaryValue>
+            </ContentPrice>
+          </Content>
 
-      <ButtonContainer>
-        <CustomButton
-          title={t("SUBMIT ORDER")}
-          width={343}
-          height={48}
-          isDisabled={total === 0}
-        />
-      </ButtonContainer>
+          <ButtonContainer>
+            <CustomButton
+              title={t("SUBMIT ORDER")}
+              width={343}
+              height={48}
+              isDisabled={total === 0}
+              onPress={() => navigation.navigate("success")}
+            />
+          </ButtonContainer>
 
-      <Modal
-        animationType="fade"
-        visible={visibleModal}
-        transparent={true}
-        onRequestClose={() => setVisibleModal(false)}
-      >
-        <AddressModal
-          handleClose={() => setVisibleModal(false)}
-          selectedPayment={selectedPayment}
-          onPaymentChange={handlePaymentChange}
-        />
-      </Modal>
+          <Modal
+            animationType="fade"
+            visible={visibleModal}
+            transparent={true}
+            onRequestClose={() => setVisibleModal(false)}
+          >
+            <AddressModal
+              handleClose={() => setVisibleModal(false)}
+              selectedPayment={selectedPayment}
+              onPaymentChange={handlePaymentChange}
+            />
+          </Modal>
+        </>
+      )}
     </Container>
   );
 }

@@ -8,6 +8,22 @@ export const Container = styled(SafeAreaView)`
   flex: 1;
 `;
 
+export const ContainerAll = styled(SafeAreaView)`
+  flex: 1;
+  width: 271px;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const TitleNoUser = styled.Text`
+  text-align: center;
+  font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
+  color: ${({ theme }) => theme.COLORS.BLACK_900};
+  margin-top: 32px;
+`;
+
 export const Content = styled.View`
   width: ${windowWidth}px;
   padding-left: 17px;

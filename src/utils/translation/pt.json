@@ -101,6 +101,8 @@
     "Yes": "Sim",
     "No": "Não",
     "SUBMIT ORDER": "ENVIAR PEDIDO",
-    "actualLanguage": "pt"
+    "actualLanguage": "pt",
+    "Pay your pix using the QR code above and then follow the steps sent by email.": "Pague seu pix usando o QR code acima e depois siga os passos enviados por e-mail.",
+    "Pay the invoice by 02/10/2023 and then follow the steps sent by email.": "Pague o boleto até 02/10/2023 e depois siga os passos enviados por e-mail."
   }
 }

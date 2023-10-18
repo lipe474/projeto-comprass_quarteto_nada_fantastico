@@ -26,7 +26,7 @@ import Header from "@components/Header";
 
 type FormData = {
   cep?: string;
-  logradouro: string;
+  logradouro?: string;
   localidade?: string;
   uf?: string;
   name?: string;

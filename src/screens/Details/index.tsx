@@ -22,6 +22,7 @@ import { useCartStore } from "../../contexts/CartStore";
 import { TabProps } from "@routes/tab.routes";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
+import Header from "@components/Header";
 
 type RouteParamsProps = {
   id: number;
@@ -69,12 +70,10 @@ export function Details() {
 
   return (
     <Container>
-      <HeaderContainer>
-        <HeaderTitle>{t("Details")}</HeaderTitle>
-        <BackButton onPress={() => navigation.navigate("home")}>
-          <BackIcon />
-        </BackButton>
-      </HeaderContainer>
+      <Header
+        title={t("Details")}
+        onCheck={() => navigation.navigate("home")}
+      />
       <ContainerCount style={style.shadow}>
         <ButtonMinus onPress={decrement}>
           <MinusIcon />
