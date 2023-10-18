@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, StatusBar, Text, View } from "react-native";
+import { Modal } from "react-native";
 
 import DeliveryMethod from "@components/DeliveryMethod";
 import ShippingAddress from "@components/ShippingAddress";
