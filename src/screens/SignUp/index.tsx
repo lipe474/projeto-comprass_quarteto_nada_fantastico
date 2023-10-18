@@ -105,7 +105,7 @@ export function SignUp() {
       >
         <HeaderAuth
           showBackButton
-          title="Sign Up"
+          title={t("Sign Up")}
           onPress={() => handleNavigateToLogin()}
         >
           {t(
@@ -119,7 +119,7 @@ export function SignUp() {
             name="name"
             render={({ field: { onChange, value } }) => (
               <CustomInput
-                label="Name"
+                label={t("Name")}
                 keyboardType="default"
                 autoCapitalize="words"
                 onChangeText={onChange}

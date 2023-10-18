@@ -93,12 +93,12 @@ export function ProductOverview({ data }: Props) {
         <DescriptionContainer>
           <Description>{data.description}</Description>
         </DescriptionContainer>
-        <DetailsMenu title="Shipping Info" />
-        <DetailsMenu title="Support" />
+        <DetailsMenu title={t("Shipping Info")} />
+        <DetailsMenu title={t("Support")} />
         <ContainerCategoryProducts>
           <TitleAndNumberItemsContainer>
             <Title>{t("You can also like this")}</Title>
-            <ItemsNumber>12 items</ItemsNumber>
+            <ItemsNumber>12 {t("items")}</ItemsNumber>
           </TitleAndNumberItemsContainer>
           <FlatList
             data={products}
