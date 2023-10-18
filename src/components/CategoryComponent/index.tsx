@@ -63,6 +63,7 @@ export function CategoryComponent({ category }: { category: Category }) {
         renderItem={({ item }) => (
           <ProductResume
             data={item}
+            showContainerCount={true}
             onPress={() =>
               handleOpenDetails(
                 item.id,
