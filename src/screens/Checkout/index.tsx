@@ -98,7 +98,10 @@ function Checkout() {
       <ShippingAddress
         children={t("Payment Method")}
         title={!cardAddress ? t("None added") : undefined}
-        titleAddress={cardAddress.getUser().cardNumber}
+        titleAddress={cardAddress
+          .getUser()
+          .cardNumber.replace(/\D/g, "")
+          .replace(/^(\d{4})(\d{4})(\d{4})(\d{4})$/, "**** **** **** $4")}
         change={t("Change")}
         onAddress={() => setVisibleModal(true)}
         customStyle={{ backgroundColor: "transparent" }}
