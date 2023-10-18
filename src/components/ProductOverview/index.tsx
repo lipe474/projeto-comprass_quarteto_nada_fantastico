@@ -108,6 +108,7 @@ export function ProductOverview({ data }: Props) {
             renderItem={({ item }) => (
               <ProductResume
                 data={item}
+                showContainerCount={false}
                 onPress={() =>
                   handleOpenDetails(
                     item.id,

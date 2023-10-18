@@ -23,9 +23,10 @@ import { useCartStore } from "../../contexts/CartStore";
 
 type Props = TouchableOpacityProps & {
   data: ProductDTO;
+  showContainerCount: boolean;
 };
 
-function ProductResume({ data, ...rest }: Props) {
+function ProductResume({ data, showContainerCount, ...rest }: Props) {
   const cartStore = useCartStore();
   const count = cartStore.cart.find((p) => p.id === data.id)?.count || 0;
 
@@ -55,6 +56,7 @@ function ProductResume({ data, ...rest }: Props) {
 
   return (
     <ContainerAll>
+      {showContainerCount && (
       <ContainerCount>
         <ButtonMinus onPress={handleDecrement}>
           <MinusIcon />
@@ -64,6 +66,7 @@ function ProductResume({ data, ...rest }: Props) {
           <PlusIcon />
         </ButtonPlus>
       </ContainerCount>
+    )}
 
       <Container {...rest}>
         <ProductImage source={{ uri: data.images[0] }} />
