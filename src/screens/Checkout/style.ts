@@ -1,11 +1,11 @@
 import styled from "styled-components/native";
-import { Dimensions } from "react-native"
+import { Dimensions } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const windowWidth = Dimensions.get("window").width;
 
-export const Container = styled.SafeAreaView`
+export const Container = styled(SafeAreaView)`
   flex: 1;
-  justify-content: center;
 `;
 
 export const Content = styled.View`
@@ -17,25 +17,38 @@ export const Content = styled.View`
   margin-top: 32px;
 `;
 
-export const ContentTitle = styled.View`
-
-`;
+export const ContentTitle = styled.View``;
 
 export const ContentPrice = styled.View`
   margin-bottom: 38px;
 `;
 
 export const Title = styled.Text`
-  text-align: right;
+  text-align: left;
   margin-bottom: 12px;
   font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
   color: ${({ theme }) => theme.COLORS.GRAY_500};
 `;
 
-export const Summary = styled.Text`
+export const TitleValue = styled.Text`
   text-align: right;
+  margin-bottom: 12px;
   font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  color: ${({ theme }) => theme.COLORS.GRAY_500};
+`;
+
+export const Summary = styled.Text`
+  text-align: left;
+  font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
+  font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
+  color: ${({ theme }) => theme.COLORS.GRAY_500};
+`;
+
+export const SummaryValue = styled.Text`
+  text-align: right;
+  font-size: ${({ theme }) => theme.FONT_SIZE.XMD}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
   color: ${({ theme }) => theme.COLORS.GRAY_500};
 `;
@@ -43,4 +56,4 @@ export const Summary = styled.Text`
 export const ButtonContainer = styled.View`
   align-items: center;
   justify-content: center;
-`
+`;

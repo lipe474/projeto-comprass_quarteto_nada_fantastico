@@ -14,19 +14,17 @@ export const useCartStore = create<CartStore>((set) => {
     cart: [],
     addToCart: (product) =>
       set((state) => {
-
         const updatedCart = state.cart.map((p) => {
-          console.log(p)
           if (p.id === product.id) {
             return { ...p, count: p.count + 1 };
           }
           return p;
         });
-    
+
         if (!updatedCart.some((p) => p.id === product.id)) {
           updatedCart.push({ ...product, count: 1 });
         }
-    
+
         return { cart: updatedCart };
       }),
     removeFromCartOnHomeScreen: (id) =>
@@ -37,9 +35,9 @@ export const useCartStore = create<CartStore>((set) => {
           }
           return p;
         });
-    
+
         const filteredCart = updatedCart.filter((p) => p.count > 0);
-    
+
         return { cart: filteredCart };
       }),
     removeFromCart: (id) =>
@@ -50,7 +48,7 @@ export const useCartStore = create<CartStore>((set) => {
           }
           return p;
         });
-    
+
         return { cart: updatedCart };
       }),
     deleteFromCart: (id) =>

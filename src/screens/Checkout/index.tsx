@@ -12,6 +12,8 @@ import {
   Title,
   Summary,
   ButtonContainer,
+  TitleValue,
+  SummaryValue
 } from "./style";
 
 import Header from "@components/Header";
@@ -37,10 +39,10 @@ function Checkout() {
     );
     setTotal(calculatedTotal);
   }, [cartStore.cart]);
-  
+
   const deliveryPrice = 20;
 
-  const totalCheckout = deliveryPrice + total
+  const totalCheckout = deliveryPrice + total;
 
   const navigation = useNavigation<TabProps>();
 
@@ -61,24 +63,35 @@ function Checkout() {
 
   return (
     <Container>
-      <Header title={t("Checkout")} onCheck={() => {}} />
+      <Header
+        title={t("Checkout")}
+        onCheck={() => navigation.navigate("cart")}
+      />
       <ShippingAddress
         onAddress={() => navigation.navigate("address")}
         customStyle={{
           shadowColor: "rgba(0,0,0,0.5)",
           shadowOffset: {
             width: 0,
-            height: 2,
+            height: 2
           },
           elevation: 5,
           shadowOpacity: 0.28,
-          shadowRadius: 4,
+          shadowRadius: 4
         }}
         children={t("Shipping address")}
         title={address.getUser().logradouro ? "" : t("Click to add an address")}
         titleName={address.getUser().name ? address.getUser().name : ""}
-        titleAddress={address.getUser().logradouro ? address.getUser().logradouro : ""}
-        titleCity={address.getUser().localidade ? address.getUser().localidade : "" + ", " + address.getUser().uf ? address.getUser().uf : ""}
+        titleAddress={
+          address.getUser().logradouro ? address.getUser().logradouro : ""
+        }
+        titleCity={
+          address.getUser().localidade
+            ? address.getUser().localidade
+            : "" + ", " + address.getUser().uf
+            ? address.getUser().uf
+            : ""
+        }
         change={t("Change")}
       />
 
@@ -100,18 +113,18 @@ function Checkout() {
         </ContentTitle>
 
         <ContentPrice>
-          <Title>{deliveryPrice.toFixed(2)} R$</Title>
-          <Title>{total.toFixed(2)} R$</Title>
-          <Summary>{totalCheckout.toFixed(2)} R$</Summary>
+          <TitleValue>{deliveryPrice.toFixed(2)} R$</TitleValue>
+          <TitleValue>{total.toFixed(2)} R$</TitleValue>
+          <SummaryValue>{totalCheckout.toFixed(2)} R$</SummaryValue>
         </ContentPrice>
       </Content>
 
       <ButtonContainer>
         <CustomButton
-            title={t("SUBMIT ORDER")}
-            width={343}
-            height={48}
-            isDisabled={total === 0}
+          title={t("SUBMIT ORDER")}
+          width={343}
+          height={48}
+          isDisabled={total === 0}
         />
       </ButtonContainer>
 
@@ -121,7 +134,11 @@ function Checkout() {
         transparent={true}
         onRequestClose={() => setVisibleModal(false)}
       >
-        <AddressModal handleClose={() => setVisibleModal(false)} selectedPayment={selectedPayment} onPaymentChange={handlePaymentChange} />
+        <AddressModal
+          handleClose={() => setVisibleModal(false)}
+          selectedPayment={selectedPayment}
+          onPaymentChange={handlePaymentChange}
+        />
       </Modal>
     </Container>
   );

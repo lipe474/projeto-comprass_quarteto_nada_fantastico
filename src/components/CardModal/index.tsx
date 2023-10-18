@@ -9,7 +9,7 @@ import {
   ContentAdd,
   Detail,
   ContentInput,
-  ErrorText,
+  ErrorText
 } from "./style";
 
 import SvgVisa from "@assets/icons/visa-logo.svg";
@@ -43,7 +43,7 @@ function CardModal({ handleOnClose }: CardModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const formCard = useForm<FormData>({
-    resolver: yupResolver(cardSchema),
+    resolver: yupResolver(cardSchema)
   });
   const { t, i18n } = useTranslation();
 
@@ -64,7 +64,7 @@ function CardModal({ handleOnClose }: CardModalProps) {
         nameOnCard: formData.nameOnCard,
         cardNumber: formData.cardNumber,
         expireDate: formData.expireDate,
-        cvv: formData.cvv,
+        cvv: formData.cvv
       });
       formCard.reset();
       navigation.navigate("checkout");
@@ -75,7 +75,6 @@ function CardModal({ handleOnClose }: CardModalProps) {
 
     if (firstDigit === "4") {
       setSelectedCard("visa");
-      console.log(cardNumber);
     } else if (firstDigit === "5") {
       setSelectedCard("mastercard");
     } else if (firstDigit === "6") {
@@ -139,7 +138,7 @@ function CardModal({ handleOnClose }: CardModalProps) {
                     position: "absolute",
                     right: 0,
                     marginRight: 12,
-                    marginBottom: 8,
+                    marginBottom: 8
                   }}
                 >
                   <Text>

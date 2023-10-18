@@ -7,7 +7,7 @@ import {
   ContentContainer,
   ErrorText,
   HeaderContainer,
-  HeaderTitle,
+  HeaderTitle
 } from "./style";
 import { CustomButton } from "@components/Button";
 import { useState, useEffect, useRef } from "react";
@@ -22,10 +22,11 @@ import { AppError } from "@utils/AppError";
 import { useTranslation } from "react-i18next";
 import { useUserStore } from "@contexts/UserFormStore";
 import { TabProps } from "@routes/tab.routes";
+import Header from "@components/Header";
 
 type FormData = {
   cep?: string;
-  logradouro?: string;
+  logradouro: string;
   localidade?: string;
   uf?: string;
   name?: string;
@@ -52,11 +53,11 @@ export function ShippingAddress() {
     logradouro: "",
     localidade: "",
     uf: "",
-    name: "",
+    name: ""
   });
 
   const formCep = useForm<FormData>({
-    resolver: yupResolver(cepSchema),
+    resolver: yupResolver(cepSchema)
   });
 
   const initialFormState = useRef(formCep.getValues()).current;
@@ -74,14 +75,14 @@ export function ShippingAddress() {
       if (response.erro) {
         formCep.setError("cep", {
           type: "manual",
-          message: t("This zip code was not found"),
+          message: t("This zip code was not found")
         });
         setIsCepValid(false);
         setAddressData({
           logradouro: "",
           localidade: "",
           uf: "",
-          name: "",
+          name: ""
         });
       } else {
         setIsCepValid(true);
@@ -92,7 +93,7 @@ export function ShippingAddress() {
               : response.logradouro || "",
           localidade: response.localidade,
           uf: response.uf,
-          name: "",
+          name: ""
         });
       }
     } catch (error: any) {
@@ -105,7 +106,7 @@ export function ShippingAddress() {
   function handleChange(name: string, value: string) {
     setAddressData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: value
     }));
   }
 
@@ -122,7 +123,7 @@ export function ShippingAddress() {
         logradouro: "",
         localidade: "",
         uf: "",
-        name: "",
+        name: ""
       });
     }
   }, [formCep.getValues("cep"), formCep.formState.errors.cep]);
@@ -134,12 +135,10 @@ export function ShippingAddress() {
       style={{ flex: 1 }}
     >
       <Container>
-        <HeaderContainer>
-          <HeaderTitle>{t("Adding Shipping Address")}</HeaderTitle>
-          <BackButton>
-            <BackIcon />
-          </BackButton>
-        </HeaderContainer>
+        <Header
+          title={t("Adding Shipping Address")}
+          onCheck={() => navigation.navigate("checkout")}
+        />
 
         <ContentContainer>
           <Controller
@@ -161,7 +160,7 @@ export function ShippingAddress() {
                     logradouro: "",
                     localidade: "",
                     uf: "",
-                    name: "",
+                    name: ""
                   });
                 }}
                 value={value}
@@ -184,6 +183,7 @@ export function ShippingAddress() {
                   onChange(text);
                   handleChange("logradouro", text);
                 }}
+                errorMessage={formCep.formState.errors.logradouro?.message}
               />
             )}
           />
@@ -239,7 +239,12 @@ export function ShippingAddress() {
             )}
           />
 
-          {<ErrorText>{formCep.formState.errors.cep?.message}</ErrorText>}
+          {
+            <ErrorText>
+              {formCep.formState.errors.cep?.message &&
+                formCep.formState.errors.logradouro?.message}
+            </ErrorText>
+          }
         </ContentContainer>
 
         <ButtonContainer>
@@ -248,13 +253,15 @@ export function ShippingAddress() {
             width={343}
             height={48}
             onPress={() => {
-              formCep.handleSubmit(handleCheckCep);
               if (formCep !== undefined) {
                 form.setUser(addressData);
               }
-              navigation.navigate("checkout");
+              if (!formCep.formState.errors.logradouro?.message) {
+                formCep.handleSubmit(handleCheckCep);
+                navigation.navigate("checkout");
+              }
             }}
-            isDisabled={!isCepValid || isLoading}
+            isDisabled={!isCepValid || isLoading || !addressData.logradouro}
           />
         </ButtonContainer>
       </Container>

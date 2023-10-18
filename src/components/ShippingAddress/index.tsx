@@ -10,6 +10,7 @@ import {
   TextTitle,
   TextAddres,
   PagMethod,
+  Content
 } from "./style";
 
 interface ShippingAddressProps {
@@ -31,7 +32,7 @@ function ShippingAddress({
   titleCity,
   change,
   onAddress,
-  customStyle,
+  customStyle
 }: ShippingAddressProps) {
   return (
     <Container>
@@ -43,11 +44,11 @@ function ShippingAddress({
       >
         <TitleChange>{change}</TitleChange>
         <TitleButton>{title}</TitleButton>
-        <View style={{ justifyContent: "center", alignSelf: "center" }}>
+        <Content>
           <TextTitle>{titleName}</TextTitle>
           <TextAddres>{titleAddress}</TextAddres>
           <TextAddres>{titleCity}</TextAddres>
-        </View>
+        </Content>
       </ButtonAddress>
     </Container>
   );

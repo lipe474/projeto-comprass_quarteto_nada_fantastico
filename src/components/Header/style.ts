@@ -1,13 +1,11 @@
 import styled from "styled-components/native";
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  margin-left: 15px;
-  margin-bottom: 15px;
+  justify-content: center;
   width: 100%;
-  max-heigth: 60px;
+  height: 44px;
 `;
 
 export const Title = styled.Text`
@@ -23,6 +21,6 @@ export const Title = styled.Text`
 `;
 
 export const ButtonMenu = styled.TouchableOpacity`
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  left: 16px;
 `;

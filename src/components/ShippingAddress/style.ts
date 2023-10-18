@@ -2,14 +2,22 @@ import styled from "styled-components/native";
 
 export const Container = styled.SafeAreaView`
   justify-content: center;
-  align-itens: center;
+  align-items: flex-start;
   align-self: center;
+`;
+
+export const Content = styled.View`
+  margin-top: 25px;
+  margin-bottom: 20px;
+  margin-left: 24px;
+  position: absolute;
 `;
 
 export const TextTitle = styled.Text`
   font-size: ${({ theme }) => theme.FONT_SIZE.SM}px;
   font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};
   color: ${({ theme }) => theme.COLORS.BLACK_900};
+  margin-bottom: 7px;
 `;
 
 export const TextAddres = styled.Text`
@@ -31,10 +39,11 @@ export const Title = styled.Text`
   color: ${({ theme }) => theme.COLORS.BLACK_900};
 `;
 
-export const ButtonAddress = styled.Pressable`
+export const ButtonAddress = styled.TouchableOpacity`
   width: 348px;
-  height: 128px;
+  height: 108px;
   border-radius: 18px;
+  justify-content: flex-start;
   background-color: ${({ theme }) => theme.COLORS.WHITE};
 `;
 
