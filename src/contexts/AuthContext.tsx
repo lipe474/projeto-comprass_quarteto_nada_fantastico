@@ -21,6 +21,7 @@ export type AuthContextDataProps = {
   logout: () => Promise<void>;
   isLoadingUserStorageData: boolean;
   loadUserData: () => Promise<void>;
+  updateUser: (id: number, name: string, avatar: string) => Promise<void>;
 };
 
 type AuthContextProviderProps = {
@@ -85,6 +86,25 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
   }
 
+  async function updateUser(id: number, name: string, avatar: string) {
+    try {
+      setIsLoadingUserStorageData(true);
+
+      storageUserSave({ ...user, name, avatar });
+      setUser({ ...user, name, avatar });
+
+      await api.put(`/users/${id}`, {
+        name
+      });
+
+      setIsLoadingUserStorageData(false);
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoadingUserStorageData(false);
+    }
+  }
+
   async function loadUserData() {
     try {
       setIsLoadingUserStorageData(true);
@@ -110,6 +130,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         login,
         logout,
         loadUserData,
+        updateUser,
         isLoadingUserStorageData
       }}
     >

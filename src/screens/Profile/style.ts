@@ -34,7 +34,7 @@ export const Image = styled.Image`
   height: 142px;
 `;
 
-export const Name = styled.Text`
+export const Name = styled.TextInput`
   font-size: ${({ theme }) => theme.FONT_SIZE.LG}px;
   color: ${({ theme }) => theme.COLORS.BLACK_900};
   font-family: ${({ theme }) => theme.FONT_FAMILY.SEMI_BOLD};

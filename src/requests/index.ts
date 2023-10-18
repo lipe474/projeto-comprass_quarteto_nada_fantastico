@@ -40,10 +40,11 @@ export async function GetAllUsers() {
   }
 }
 
-export async function UpdatePassword(id: number, password: string) {
+export async function UpdateUser(id: number, name?: string, avatar?: string) {
   try {
     const response = await api.put(`/users/${id}`, {
-      password
+      name,
+      avatar
     });
 
     return response.data;

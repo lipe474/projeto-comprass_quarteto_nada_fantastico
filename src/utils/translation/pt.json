@@ -60,7 +60,7 @@
     "Edit Informations": "Editar informações",
     "Language": "Idioma",
     "Languages": "Idiomas",
-    "Log Out": "Sair",
+    "Log out": "Sair",
     "This zip code was not found": "Este CEP não foi encontrado",
     "Adding Shipping Address": "Adicionando endereço de entrega",
     "Zip Code (Postal Code)": "CEP (Código Postal)",
@@ -92,6 +92,14 @@
     "Profile": "Perfil",
     "You need to log in to see your details": "Você precisar fazer login para ver seus dados",
     "Hello": "Olá",
+    "Do you want to abandon your changes?": "Você quer abandonar suas alterações?",
+    "Profile updated successfully": "Perfil atualizado com sucesso",
+    "Do you really want to leave?": "Você realmente quer sair?",
+    "Portuguese - Brazil": "Português - Brasil",
+    "English": "Inglês",
+    "Warning": "Aviso",
+    "Yes": "Sim",
+    "No": "Não",
     "actualLanguage": "pt"
   }
 }
